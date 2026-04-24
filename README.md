@@ -1,16 +1,39 @@
-# React + Vite
+# Myke Towers - Young King Experience
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a premium React frontend built to showcase the career and music of **Myke Towers**. It consumes a custom Node.js API to provide real-time data about his biography, statistics, and YouTube content.
 
-Currently, two official plugins are available:
+## 🚀 Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 18** + **Vite**
+- **Tailwind CSS** (Premium UI Design)
+- **Framer Motion** (Smooth Animations)
+- **Axios** (API Consumption)
+- **Backend**: Custom Node.js/Express API
 
-## React Compiler
+## 🛠️ Installation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sebastianvasquezechavarria1234/myke-towers.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Expanding the ESLint configuration
+*Note: Make sure the [backend API](https://github.com/sebastianvasquezechavarria1234/myke-towers-api) is running on port 3000.*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+- **Dynamic Music Search**: Real-time YouTube search integration.
+- **Biographical Data**: Comprehensive history of the artist.
+- **Career Stats**: Key metrics and achievements.
+- **Premium Design**: Dark mode pantera aesthetics with gold accents.
+- **Fully Responsive**: Optimized for mobile and desktop.
+
+---
+Developed by **Antigravity** for the Young King.
