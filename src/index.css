@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -42,4 +40,11 @@ body {
 
 .border-young-king {
   border-color: #B8860B;
+}
+
+@theme {
+  --color-young-king: #B8860B;
+  --color-young-king-light: #DAA520;
+  --color-young-king-dark: #8B6508;
+  --color-pantera: #121212;
 }
