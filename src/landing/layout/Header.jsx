@@ -22,14 +22,12 @@ export const Header = () => {
         const handleScroll = () => {
             const current = window.scrollY;
             
-            // Detectar dirección del scroll
             if (current < lastScrollY.current && current > 50) {
                 setScrollingUp(true);
             } else {
                 setScrollingUp(false);
             }
 
-            // Detectar si estamos arriba del todo
             if (current > 50) {
                 setScrolled(true);
             } else {
@@ -42,8 +40,16 @@ export const Header = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Expandido si: Estamos arriba O hay Hover O estamos haciendo scroll hacia arriba
     const isExpanded = !scrolled || isHovered || scrollingUp;
+
+    // Función para formatear vistas (ej: 1.2M, 13k)
+    const formatViews = (num) => {
+        if (!num) return "Myke Towers";
+        const n = Number(num);
+        if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M vistas";
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k vistas";
+        return n + " vistas";
+    };
 
     return (
         <div 
@@ -57,43 +63,70 @@ export const Header = () => {
                 animate={{
                     opacity: 1,
                     y: 0,
-                    width: isExpanded ? "auto" : "240px", // Un poco más ancho para el disco + controles
-                    borderRadius: "40px",
+                    width: "auto",
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="pointer-events-auto bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl overflow-hidden flex items-center px-4 py-2 gap-2"
+                transition={{ type: "spring", stiffness: 350, damping: 35 }}
+                className="pointer-events-auto bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
             >
-                {/* LADO IZQUIERDO: DISCO GIRANDO */}
-                <motion.div 
-                    className="relative flex-shrink-0"
-                    animate={{ rotate: isPlaying ? 360 : 0 }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                {/* LADO IZQUIERDO: DISCO + TITULO */}
+                <motion.div
+                    layout
+                    className="relative flex-shrink-0 p-0.5 flex items-center gap-3 pr-2"
                 >
-                    <div className="w-10 h-10 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center">
+                    <motion.div
+                        animate={{ rotate: isPlaying ? 360 : 0 }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center shadow-lg"
+                    >
                         {currentVideo?.imagen ? (
                             <img src={currentVideo.imagen} alt="disc" className="w-full h-full object-cover opacity-80" />
                         ) : (
                             <div className="w-full h-full bg-young-king/20" />
                         )}
-                        <div className="absolute w-2 h-2 bg-white/40 rounded-full shadow-inner" />
-                    </div>
+                        <div className="absolute w-3 h-3 bg-white/40 rounded-full shadow-inner" />
+                    </motion.div>
+
+                    {/* TITULO DE LA CANCION Y VISTAS */}
+                    {currentVideo && (
+                        <div className="max-w-[150px] overflow-hidden"> 
+                            <h3 className="text-white font-secundary text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
+                                {currentVideo.titulo.toLowerCase()}
+                            </h3>
+                            <span className="text-white/25 text-[13px] truncate leading-none block mb-0">
+                                {formatViews(currentVideo.vistas)}
+                            </span>
+                        </div>
+                    )}
                 </motion.div>
 
+                {/* DIVISOR 1 (Solo si expandido) */}
+                <AnimatePresence>
+                    {isExpanded && (
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0 }}
+                            className="w-px h-6 bg-white/10 mx-1.5"
+                        />
+                    )}
+                </AnimatePresence>
+
                 {/* CENTRO: NAV ITEMS (Solo en Expanded) */}
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                     {isExpanded && (
                         <motion.nav
-                            initial={{ opacity: 0, width: 0 }}
-                            animate={{ opacity: 1, width: "auto" }}
-                            exit={{ opacity: 0, width: 0 }}
+                            layout
+                            initial={{ opacity: 0, width: 0, x: -10 }}
+                            animate={{ opacity: 1, width: "auto", x: 0 }}
+                            exit={{ opacity: 0, width: 0, x: -10 }}
                             className="flex items-center overflow-hidden"
                         >
-                            <ul className="flex items-center gap-6 px-6 border-l border-white/10 ml-2">
+                            <ul className="flex items-center gap-6 px-4">
                                 {NAV_ITEMS.map((item) => (
                                     <li key={item.label}>
                                         <Link
                                             to={item.to}
-                                            className="text-white/70 hover:text-white transition-colors text-sm font-medium tracking-wide whitespace-nowrap"
+                                            className="text-white/70 hover:text-white transition-colors text-[16px] font-medium tracking-wide whitespace-nowrap"
                                         >
                                             {item.label}
                                         </Link>
@@ -104,18 +137,24 @@ export const Header = () => {
                     )}
                 </AnimatePresence>
 
-                {/* LADO DERECHO: CONTROLES (Siempre visibles) */}
-                <div className="flex items-center gap-3 border-l border-white/10 pl-4 pr-1">
-                    <button onClick={prevVideo} className="text-white/60 hover:text-white transition-colors">
-                        <SkipBack size={18} fill="currentColor" />
+                {/* DIVISOR 2 */}
+                <div className="w-px h-6 bg-white/10 mx-1.5" />
+
+                {/* LADO DERECHO: CONTROLES */}
+                <motion.div 
+                    layout
+                    className="flex items-center gap-1.5 pl-1 pr-2 py-0.5"
+                >
+                    <button onClick={prevVideo} className="text-white/60 hover:text-white transition-colors p-1">
+                        <SkipBack size={14} fill="currentColor" />
                     </button>
-                    <button onClick={togglePlay} className="w-8 h-8 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                        {isPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" className="ml-0.5" />}
+                    <button onClick={togglePlay} className="w-11 h-11 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                        {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" className="ml-0.5" />}
                     </button>
-                    <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors">
-                        <SkipForward size={18} fill="currentColor" />
+                    <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors p-1">
+                        <SkipForward size={14} fill="currentColor" />
                     </button>
-                </div>
+                </motion.div>
             </motion.header>
         </div>
     );
