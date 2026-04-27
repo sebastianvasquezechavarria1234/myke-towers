@@ -145,6 +145,18 @@ export const Header = () => {
                     layout
                     className="flex items-center gap-1.5 pl-1 pr-2 py-0.5"
                 >
+                    {/* VISUALIZER */}
+                    <div className="flex items-end gap-0.5 h-3 px-2 opacity-40">
+                        {[1, 2, 3, 4].map((i) => (
+                            <motion.div
+                                key={i}
+                                animate={{ height: isPlaying ? [4, 12, 6, 10, 4] : 4 }}
+                                transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.1 }}
+                                className="w-[2px] bg-[var(--blue)] rounded-full"
+                            />
+                        ))}
+                    </div>
+
                     <button onClick={prevVideo} className="text-white/60 hover:text-white transition-colors p-1">
                         <SkipBack size={14} fill="currentColor" />
                     </button>
