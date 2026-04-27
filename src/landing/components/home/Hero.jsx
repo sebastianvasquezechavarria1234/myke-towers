@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import MalDeAmores from '/mal-de-amores.avif'
 import Sport from '/sport.avif'
 import { useVideo } from "../../../context/VideoContext";
@@ -77,7 +77,11 @@ export const Hero = () => {
                     <img
                         className="w-full h-full object-cover opacity-40 md:opacity-100"
                         src={MalDeAmores}
-                        alt="Mal de amores" />
+                        alt="Álbum Mal de Amores - Myke Towers" 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                    />
                 </motion.div>
 
                 <motion.div 
@@ -87,7 +91,11 @@ export const Hero = () => {
                     <img
                         className="w-full h-full object-cover opacity-40 md:opacity-100"
                         src={Sport}
-                        alt="Sport" />
+                        alt="Álbum Sport - Myke Towers" 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                    />
                 </motion.div>
 
                 {/* MAIN VIDEO PLAYER CONTAINER */}
@@ -114,16 +122,20 @@ export const Hero = () => {
                     </div>
 
                     {/* TITULO FUERA DE LA CARD CON ANIMACIÓN */}
-                    <motion.div 
-                        initial={{ opacity: 0, x: -50, filter: "blur(10px)" }}
-                        whileInView={{ opacity: 1, x: -80, filter: "blur(0px)" }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="absolute top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[350px]"
-                    >
-                        <h2 className="font-secundary text-white text-[70px] leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] line-clamp-2">
-                            {currentVideo?.titulo.toLowerCase()}
-                        </h2>
-                    </motion.div>
+                    <AnimatePresence mode="wait">
+                        <motion.div 
+                            key={currentVideo?.titulo}
+                            initial={{ opacity: 0, x: -100, filter: "blur(20px)" }}
+                            animate={{ opacity: 1, x: -80, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                            className="absolute top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[350px]"
+                        >
+                            <h2 className="font-secundary text-white text-[70px] leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] line-clamp-2">
+                                {currentVideo?.titulo.toLowerCase()}
+                            </h2>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
         </section>

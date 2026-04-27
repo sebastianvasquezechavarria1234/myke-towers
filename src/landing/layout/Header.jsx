@@ -6,9 +6,10 @@ import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
 
 const NAV_ITEMS = [
     { label: "Inicio", to: "/" },
-    { label: "Música", to: "/musica" },
-    { label: "Álbumes", to: "/albumes" },
-    { label: "Api", to: "/api" },
+    { label: "Biografía", to: "/biografia" },
+    { label: "Sitio Oficial", to: "https://www.myketowerspr.com/", external: true },
+    { label: "Tour", to: "https://www.myketowerspr.com/tour", external: true },
+    { label: "Tienda", to: "https://store.myketowerspr.com/", external: true },
 ];
 
 export const Header = () => {
@@ -79,7 +80,14 @@ export const Header = () => {
                         className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center shadow-lg"
                     >
                         {currentVideo?.imagen ? (
-                            <img src={currentVideo.imagen} alt="disc" className="w-full h-full object-cover opacity-80" />
+                            <img 
+                                src={currentVideo.imagen} 
+                                alt="Current Song Disc" 
+                                className="w-full h-full object-cover opacity-80" 
+                                loading="lazy"
+                                width="44"
+                                height="44"
+                            />
                         ) : (
                             <div className="w-full h-full bg-young-king/20" />
                         )}
@@ -124,12 +132,23 @@ export const Header = () => {
                             <ul className="flex items-center gap-6 px-4">
                                 {NAV_ITEMS.map((item) => (
                                     <li key={item.label}>
-                                        <Link
-                                            to={item.to}
-                                            className="text-white/70 hover:text-white transition-colors text-[16px] font-medium tracking-wide whitespace-nowrap"
-                                        >
-                                            {item.label}
-                                        </Link>
+                                        {item.external ? (
+                                            <a
+                                                href={item.to}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-white/70 hover:text-white transition-colors text-[16px] font-medium tracking-wide whitespace-nowrap"
+                                            >
+                                                {item.label}
+                                            </a>
+                                        ) : (
+                                            <Link
+                                                to={item.to}
+                                                className="text-white/70 hover:text-white transition-colors text-[16px] font-medium tracking-wide whitespace-nowrap"
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        )}
                                     </li>
                                 ))}
                             </ul>

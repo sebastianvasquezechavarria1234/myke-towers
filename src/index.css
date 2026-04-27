@@ -73,10 +73,12 @@ h1 .font-secundary {
 @font-face {
   font-family: 'Popping';
   src: url(./assets/font/Poppins-Light.ttf);
+  font-display: swap;
 }
 
 /* FONT SECUNDARY */
 @font-face {
   font-family: 'Great-vibes';
   src: url(./assets/font/Great_Vibes/GreatVibes-Regular.ttf);
+  font-display: swap;
 }
