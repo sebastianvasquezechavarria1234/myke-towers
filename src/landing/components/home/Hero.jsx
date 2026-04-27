@@ -1,37 +1,10 @@
-import React, { useState, useEffect } from "react";
-import ReactPlayer from "react-player";
+import React, { useEffect } from "react";
 import MalDeAmores from '/mal-de-amores.avif'
 import Sport from '/sport.avif'
+import { useVideo } from "../../../context/VideoContext";
 
 export const Hero = () => {
-    const [videos, setVideos] = useState([]);
-    const [currentVideo, setCurrentVideo] = useState(null);
-
-    useEffect(() => {
-        const fetchVideos = async () => {
-            try {
-                const res = await fetch("http://localhost:3000/videos");
-                const data = await res.json();
-                if (data.videos && data.videos.length > 0) {
-                    setVideos(data.videos);
-                    // Seleccionar un video aleatorio al inicio
-                    const randomIndex = Math.floor(Math.random() * data.videos.length);
-                    setCurrentVideo(data.videos[randomIndex]);
-                }
-            } catch (error) {
-                console.error("Error fetching videos for hero:", error);
-            }
-        };
-
-        fetchVideos();
-    }, []);
-
-    const handleVideoEnd = () => {
-        if (videos.length > 0) {
-            const randomIndex = Math.floor(Math.random() * videos.length);
-            setCurrentVideo(videos[randomIndex]);
-        }
-    };
+    const { currentVideo, isPlaying, nextVideo } = useVideo();
 
     return (
         <section className="relative max-w-[800px] mx-auto px-[10px] text-center pt-[120px]">
@@ -53,49 +26,44 @@ export const Hero = () => {
             </div>
 
 
-            {/* PICTURE */}
-            <picture className="mt-[60px] relative flex justify-center item-center">
-                {/* video */}
-                <div className="z-30 w-[400px] h-[400px] block relative overflow-hidden bg-black">
+            {/* PICTURE CONTAINER */}
+            <div className="mt-[60px] relative flex justify-center items-center h-[400px]">
+                
+                {/* DECORATIVE IMAGES */}
+                <div className="absolute top-[35px] left-[-5%] md:left-[-10%] z-10 w-[400px] h-[400px] block rotate-[-10deg]">
+                    <img
+                        className="w-full h-full object-cover opacity-40 md:opacity-100"
+                        src={MalDeAmores}
+                        alt="Mal de amores" />
+                </div>
+
+                <div className="absolute top-[35px] right-[-5%] md:right-[-10%] z-10 w-[400px] h-[400px] block rotate-[10deg]">
+                    <img
+                        className="w-full h-full object-cover opacity-40 md:opacity-100"
+                        src={Sport}
+                        alt="Sport" />
+                </div>
+
+                {/* MAIN VIDEO PLAYER */}
+                <div className="z-30 w-[400px] h-[400px] relative overflow-hidden bg-black border border-white/10 shadow-2xl">
                     {currentVideo ? (
-                        <div className="w-full h-full scale-150"> 
-                            <ReactPlayer
-                                url={currentVideo.url}
-                                playing={true}
-                                muted={true}
-                                width="100%"
-                                height="100%"
-                                onEnded={handleVideoEnd}
-                                config={{
-                                    youtube: {
-                                        playerVars: { showinfo: 0, controls: 0, modestbranding: 1 }
-                                    }
-                                }}
-                            />
+                        <div className="absolute inset-0 pointer-events-none">
+                            <iframe
+                                src={`https://www.youtube.com/embed/${currentVideo.id}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&enablejsapi=1&origin=${window.location.origin}${!isPlaying ? '&pause=1' : ''}`}
+                                className="w-[150%] h-[150%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-0"
+                                allow="autoplay; encrypted-media"
+                                title="Hero Video"
+                                key={currentVideo.id + isPlaying} // Forzamos recarga si cambia el video o el estado de play (aunque pausar YT via URL es limitado)
+                            ></iframe>
+                            <div className="absolute inset-0 z-40 bg-transparent"></div>
                         </div>
                     ) : (
                         <div className="w-full h-full bg-zinc-900 animate-pulse flex items-center justify-center">
-                            <span className="text-white/20 text-xs uppercase tracking-widest">Cargando visuales...</span>
+                            <span className="text-white/20 text-xs uppercase tracking-widest font-bold">Cargando...</span>
                         </div>
                     )}
-
-                    {/* MAL DE AMORES */}
-                    <div className="absolute top-0 left-[-10%] -z-10 w-[400px] h-[400px] block rotate-[-10deg] translate-y-[35px]">
-                        <img
-                            className="w-full h-full object-cover"
-                            src={MalDeAmores}
-                            alt="Mal de amores" />
-                    </div>
-
-                    {/* SPORT */}
-                    <div className="absolute top-0 right-[-10%] -z-10 w-[400px] h-[400px] block rotate-[10deg] translate-y-[35px]">
-                        <img
-                            className="w-full h-full object-cover"
-                            src={Sport}
-                            alt="Mal de amores" />
-                    </div>
                 </div>
-            </picture>
+            </div>
         </section>
     )
 
