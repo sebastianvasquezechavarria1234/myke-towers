@@ -1,50 +1,64 @@
-@import "tailwindcss";
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: dark light;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #121212;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+  font-family: 'Popping';
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* ROOT */
+
+:root{
+  --green: #0fa;
+  --purple: #9c42f5;
+  --blue: #4579f5;
 }
 
-#root {
-  width: 100%;
+::selection{
+  background-color: var(--purple);
+  color: white;
 }
 
-/* Custom styles for Myke Towers Theme */
-.text-gradient {
-  background: linear-gradient(to right, #B8860B, #DAA520, #FFD700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* GLOBALS */
+body{
+  background-color: #212429;
+  color: white;
 }
 
-.bg-pantera {
-  background-color: #121212;
+h1{
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 70px;
 }
 
-.border-young-king {
-  border-color: #B8860B;
+h4{
+  font-size: 36px;
 }
 
-@theme {
-  --color-young-king: #B8860B;
-  --color-young-king-light: #DAA520;
-  --color-young-king-dark: #8B6508;
-  --color-pantera: #121212;
+a, p{
+  font-size: 18px;
+  opacity: .8;
+}
+
+h1 .font-secundary{
+  font-family: 'Great-vibes';
+  font-weight: 300;
+  font-size: 5rem;
+  
+}
+
+.font-secundary{
+  font-family: 'Great-vibes' !important;
+}
+
+
+
+/* FONT PRIMARY */
+@font-face {
+  font-family: 'Popping';
+  src: url(./assets/font/Poppins-Light.ttf);
+}
+
+/* FONT SECUNDARY */
+@font-face {
+  font-family: 'Great-vibes';
+  src: url(./assets/font/Great_Vibes/GreatVibes-Regular.ttf);
 }

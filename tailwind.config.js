@@ -1,20 +1,23 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        'young-king': {
-          DEFAULT: '#B8860B', // Dark Goldenrod for a premium feel
-          light: '#DAA520',
-          dark: '#8B6508',
-        },
-        'pantera': '#121212', // Deep black
-      }
+    container: {
+      center: true,
+      padding: "1rem",
+      // narrower max widths for the page
+      screens: {
+        sm: "640px",
+        md: "720px",
+        lg: "800px",
+        xl: "900px",
+        "2xl": "1000px",
+      },
     },
+    extend: {},
   },
-  plugins: [],
-}
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+};
