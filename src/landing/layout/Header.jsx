@@ -18,6 +18,40 @@ export const Header = () => {
     const [scrollingUp, setScrollingUp] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const lastScrollY = useRef(0);
+    const [progress, setProgress] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+
+    const parseDuration = (timeStr) => {
+        if (!timeStr) return 180;
+        const parts = timeStr.split(':').map(Number);
+        if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+        if (parts.length === 2) return parts[0] * 60 + parts[1];
+        return 180;
+    };
+
+    // Reset progress when video changes
+    useEffect(() => {
+        setCurrentTime(0);
+        setProgress(0);
+    }, [currentVideo]);
+
+    // Timer logic
+    useEffect(() => {
+        let interval = null;
+        if (isPlaying) {
+            interval = setInterval(() => {
+                setCurrentTime(prev => {
+                    const next = prev + 1;
+                    const total = parseDuration(currentVideo?.duracion);
+                    setProgress(Math.min((next / total) * 100, 100));
+                    return next;
+                });
+            }, 1000);
+        } else {
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [isPlaying, currentVideo]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -73,7 +107,7 @@ export const Header = () => {
                     damping: 20, 
                     mass: 1.2 
                 }}
-                className="pointer-events-auto relative bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
+                className="pointer-events-auto relative bg-black/40 backdrop-blur-2xl border-t border-l border-r border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
             >
                 {/* DYNAMIC BACKGROUND IMAGE (VERY FAINT) */}
                 <AnimatePresence>
@@ -100,38 +134,80 @@ export const Header = () => {
                         layout
                         className="relative flex-shrink-0 p-0.5 flex items-center gap-3 pr-2"
                     >
-                    <motion.div
-                        animate={{ rotate: isPlaying ? 360 : 0 }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                        className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center shadow-lg"
-                    >
-                        {currentVideo?.imagen ? (
-                            <img 
-                                src={currentVideo.imagen} 
-                                alt="Current Song Disc" 
-                                className="w-full h-full object-cover opacity-80" 
-                                loading="lazy"
-                                width="44"
-                                height="44"
-                            />
-                        ) : (
-                            <div className="w-full h-full bg-young-king/20" />
-                        )}
-                        <div className="absolute w-3 h-3 bg-white/40 rounded-full shadow-inner" />
-                    </motion.div>
-
-                    {/* TITULO DE LA CANCION Y VISTAS */}
-                    {currentVideo && (
-                        <div className="max-w-[150px] overflow-hidden"> 
-                            <h3 className="text-white font-secundary text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
-                                {currentVideo.titulo.toLowerCase()}
-                            </h3>
-                            <span className="text-white/25 text-[13px] truncate leading-none block mb-0">
-                                {formatViews(currentVideo.vistas)}
-                            </span>
+                        <div className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center shadow-lg ml-0.5 relative">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentVideo?.id}
+                                    initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
+                                    animate={{ 
+                                        opacity: 1, 
+                                        scale: 1, 
+                                        filter: "blur(0px)",
+                                        rotate: isPlaying ? 360 : 0 
+                                    }}
+                                    exit={{ opacity: 0, scale: 1.5, filter: "blur(10px)" }}
+                                    transition={{ 
+                                        rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+                                        default: { duration: 0.4 }
+                                    }}
+                                    className="w-full h-full"
+                                >
+                                    {currentVideo?.imagen ? (
+                                        <img 
+                                            src={currentVideo.imagen} 
+                                            alt="Current Song Disc" 
+                                            className="w-full h-full object-cover opacity-80" 
+                                            loading="lazy"
+                                            width="44"
+                                            height="44"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-young-king/20" />
+                                    )}
+                                </motion.div>
+                            </AnimatePresence>
+                            <div className="absolute w-3 h-3 bg-white/40 rounded-full shadow-inner z-10" />
                         </div>
-                    )}
-                </motion.div>
+
+                        <div className="flex flex-col justify-center max-w-[150px] overflow-hidden">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentVideo?.id}
+                                    initial={{ opacity: 0, x: 20, filter: "blur(5px)" }}
+                                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                                    exit={{ opacity: 0, x: -20, filter: "blur(5px)" }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    <h3 className="text-white font-secundary text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
+                                        {currentVideo?.titulo?.toLowerCase() || "young king"}
+                                    </h3>
+                                <div className="flex items-center gap-2 mt-1">
+                                    <span className="text-white/25 text-[13px] truncate leading-none block mb-0">
+                                        {currentVideo?.vistas ? formatViews(currentVideo.vistas) : "myke towers"}
+                                    </span>
+                                    {/* VISUALIZER BARS (RESTORED) */}
+                                    <div className="flex items-end gap-[2px] h-2 mb-0.5">
+                                        {[1, 2, 3, 4, 5].map((i) => (
+                                            <motion.div
+                                                key={i}
+                                                animate={{
+                                                    height: isPlaying ? [4, 8, 3, 7, 4][i % 5] : 2,
+                                                    opacity: isPlaying ? 1 : 0.3
+                                                }}
+                                                transition={{
+                                                    duration: 0.6,
+                                                    repeat: isPlaying ? Infinity : 0,
+                                                    delay: i * 0.1
+                                                }}
+                                                className="w-[2px] bg-white rounded-full"
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+                    </motion.div>
 
                 {/* DIVISOR 1 (Solo si expandido) */}
                 <AnimatePresence>
@@ -191,13 +267,20 @@ export const Header = () => {
                     className="flex items-center gap-1.5 pl-1 pr-2 py-0.5"
                 >
                     {/* VISUALIZER */}
-                    <div className="flex items-end gap-0.5 h-3 px-2 opacity-40">
-                        {[1, 2, 3, 4].map((i) => (
+                    <div className="flex items-end gap-0.5 h-3 px-2">
+                        {[1, 2, 3, 4, 5].map((i) => (
                             <motion.div
                                 key={i}
-                                animate={{ height: isPlaying ? [4, 12, 6, 10, 4] : 4 }}
-                                transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.1 }}
-                                className="w-[2px] bg-[var(--blue)] rounded-full"
+                                animate={{ 
+                                    height: isPlaying ? [4, 12, 6, 10, 4] : 4,
+                                    opacity: isPlaying ? 1 : 0.3
+                                }}
+                                transition={{ 
+                                    duration: 0.8, 
+                                    repeat: isPlaying ? Infinity : 0, 
+                                    delay: i * 0.1 
+                                }}
+                                className="w-[2px] bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]"
                             />
                         ))}
                     </div>
@@ -212,6 +295,15 @@ export const Header = () => {
                         <SkipForward size={14} fill="currentColor" />
                     </button>
                 </motion.div>
+                </div>
+                {/* PROGRESS BAR AS BOTTOM BORDER (1PX) */}
+                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-20 overflow-hidden rounded-b-[40px]">
+                    <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ ease: "linear", duration: 0.5 }}
+                        className="h-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                    />
                 </div>
             </motion.header>
         </div>
