@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const POSTS = [
-    { id: 1, type: 'ig', url: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&w=400&q=80', size: 'col-span-1 row-span-1' },
-    { id: 2, type: 'tt', url: 'https://images.unsplash.com/photo-1514525253361-bee8718a300c?auto=format&fit=crop&w=400&q=80', size: 'col-span-1 row-span-2' },
-    { id: 3, type: 'ig', url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80', size: 'col-span-2 row-span-1' },
-    { id: 4, type: 'ig', url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80', size: 'col-span-1 row-span-1' },
-    { id: 5, type: 'tt', url: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=400&q=80', size: 'col-span-1 row-span-1' },
-    { id: 6, type: 'ig', url: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80', size: 'col-span-2 row-span-2' },
-    { id: 7, type: 'tt', url: 'https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&w=400&q=80', size: 'col-span-1 row-span-1' },
-];
-
 export const SocialWall = () => {
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:3000/social")
+            .then(res => res.json())
+            .then(data => setPosts(data))
+            .catch(err => console.error("Error loading social posts:", err));
+    }, []);
+
+    if (posts.length === 0) return null;
     return (
         <section className="mt-[200px] mb-[100px] max-w-[1200px] mx-auto px-6">
             <div className="text-center mb-16">
@@ -24,7 +24,7 @@ export const SocialWall = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-3 gap-4 h-[800px]">
-                {POSTS.map((post, idx) => (
+                {posts.map((post, idx) => (
                     <motion.div
                         key={post.id}
                         initial={{ opacity: 0, scale: 0.9 }}

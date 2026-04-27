@@ -60,20 +60,46 @@ export const Header = () => {
         >
             <motion.header
                 layout
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -100, scale: 0.8 }}
                 animate={{
                     opacity: 1,
                     y: 0,
+                    scale: 1,
                     width: "auto",
                 }}
-                transition={{ type: "spring", stiffness: 350, damping: 35 }}
-                className="pointer-events-auto bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
+                transition={{ 
+                    type: "spring", 
+                    stiffness: 400, 
+                    damping: 20, 
+                    mass: 1.2 
+                }}
+                className="pointer-events-auto relative bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
             >
-                {/* LADO IZQUIERDO: DISCO + TITULO */}
-                <motion.div
-                    layout
-                    className="relative flex-shrink-0 p-0.5 flex items-center gap-3 pr-2"
-                >
+                {/* DYNAMIC BACKGROUND IMAGE (VERY FAINT) */}
+                <AnimatePresence>
+                    {currentVideo?.imagen && (
+                        <motion.div
+                            key={currentVideo.imagen}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.15 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 z-0 pointer-events-none"
+                        >
+                            <img 
+                                src={currentVideo.imagen} 
+                                alt="" 
+                                className="w-full h-full object-cover blur-3xl scale-150"
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+                {/* CONTENT WRAPPER */}
+                <div className="relative z-10 flex items-center">
+                    {/* LADO IZQUIERDO: DISCO + TITULO */}
+                    <motion.div
+                        layout
+                        className="relative flex-shrink-0 p-0.5 flex items-center gap-3 pr-2"
+                    >
                     <motion.div
                         animate={{ rotate: isPlaying ? 360 : 0 }}
                         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -186,6 +212,7 @@ export const Header = () => {
                         <SkipForward size={14} fill="currentColor" />
                     </button>
                 </motion.div>
+                </div>
             </motion.header>
         </div>
     );
