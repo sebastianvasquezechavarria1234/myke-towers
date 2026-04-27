@@ -135,54 +135,59 @@ export const Header = () => {
                         className="relative flex-shrink-0 p-0.5 flex items-center gap-3 pr-2"
                     >
                     <div className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center shadow-lg ml-0.5 relative flex-shrink-0">
-                        <motion.div
-                            animate={{ rotate: isPlaying ? 360 : 0 }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                            className="w-full h-full"
-                        >
-                            {currentVideo?.imagen ? (
-                                <img 
-                                    src={currentVideo.imagen} 
-                                    alt="Current Song Disc" 
-                                    className="w-full h-full object-cover opacity-80" 
-                                    loading="lazy"
-                                    width="44"
-                                    height="44"
-                                />
-                            ) : (
-                                <div className="w-full h-full bg-young-king/20" />
-                            )}
-                        </motion.div>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentVideo?.id}
+                                initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    scale: 1,
+                                    filter: "blur(0px)",
+                                    rotate: isPlaying ? 360 : 0 
+                                }}
+                                exit={{ opacity: 0, scale: 1.2, filter: "blur(10px)" }}
+                                transition={{ 
+                                    rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+                                    default: { duration: 0.4 }
+                                }}
+                                className="w-full h-full"
+                            >
+                                {currentVideo?.imagen ? (
+                                    <img 
+                                        src={currentVideo.imagen} 
+                                        alt="Current Song Disc" 
+                                        className="w-full h-full object-cover opacity-80" 
+                                        loading="lazy"
+                                        width="44"
+                                        height="44"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-young-king/20" />
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
                         <div className="absolute w-3 h-3 bg-white/40 rounded-full shadow-inner z-10" />
                     </div>
 
                     <div className="flex flex-col justify-center max-w-[150px] overflow-hidden">
-                        <h3 className="text-white font-secundary text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
-                            {currentVideo?.titulo?.toLowerCase() || "young king"}
-                        </h3>
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="text-white/25 text-[13px] truncate leading-none block mb-0">
-                                {currentVideo?.vistas ? formatViews(currentVideo.vistas) : "myke towers"}
-                            </span>
-                            {/* VISUALIZER BARS (RESTORED) */}
-                            <div className="flex items-end gap-[2px] h-2 mb-0.5">
-                                {[1, 2, 3, 4, 5].map((i) => (
-                                    <motion.div
-                                        key={i}
-                                        animate={{
-                                            height: isPlaying ? [4, 8, 3, 7, 4][i % 5] : 2,
-                                            opacity: isPlaying ? 1 : 0.3
-                                        }}
-                                        transition={{
-                                            duration: 0.6,
-                                            repeat: isPlaying ? Infinity : 0,
-                                            delay: i * 0.1
-                                        }}
-                                        className="w-[2px] bg-white rounded-full"
-                                    />
-                                ))}
-                            </div>
-                        </div>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentVideo?.id}
+                                initial={{ opacity: 0, x: 20, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <h3 className="text-white font-secundary text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
+                                    {currentVideo?.titulo?.toLowerCase() || "young king"}
+                                </h3>
+                                <div className="flex items-center gap-2 mt-1">
+                                    <span className="text-white/25 text-[13px] truncate leading-none block mb-0">
+                                        {currentVideo?.vistas ? formatViews(currentVideo.vistas) : "myke towers"}
+                                    </span>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </motion.div>
 
@@ -217,9 +222,10 @@ export const Header = () => {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
                                                     className="relative group block px-2 py-1"
                                                 >
-                                                    <span className="text-white/60 group-hover:text-white transition-colors text-[13px] font-black uppercase tracking-[0.2em] whitespace-nowrap block">
+                                                    <span className="text-white/60 group-hover:text-white transition-colors text-[14px] font-medium tracking-[0.1em] whitespace-nowrap block">
                                                         {item.label}
                                                     </span>
                                                     <motion.div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300" />
@@ -228,9 +234,10 @@ export const Header = () => {
                                                 <Link to={item.to}>
                                                     <motion.div
                                                         whileHover={{ scale: 1.05 }}
+                                                        whileTap={{ scale: 0.95 }}
                                                         className="relative group px-2 py-1"
                                                     >
-                                                        <span className="text-white/60 group-hover:text-white transition-colors text-[13px] font-black uppercase tracking-[0.2em] whitespace-nowrap block">
+                                                        <span className="text-white/60 group-hover:text-white transition-colors text-[14px] font-medium tracking-[0.1em] whitespace-nowrap block">
                                                             {item.label}
                                                         </span>
                                                         <motion.div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300" />
