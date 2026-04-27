@@ -213,7 +213,7 @@ export const Header = () => {
                             exit={{ opacity: 0, width: 0, x: -10 }}
                             className="flex items-center overflow-hidden"
                         >
-                            <ul className="flex items-center gap-6 px-4">
+                            <ul className="flex items-center gap-3 px-4">
                                     {NAV_ITEMS.map((item) => (
                                         <li key={item.label}>
                                             {item.external ? (
@@ -225,7 +225,7 @@ export const Header = () => {
                                                     whileTap={{ scale: 0.95 }}
                                                     className="relative group block px-2 py-1"
                                                 >
-                                                    <span className="text-white/60 group-hover:text-white transition-colors text-[14px] font-medium tracking-[0.1em] whitespace-nowrap block">
+                                                    <span className="text-white/60 group-hover:text-white transition-colors text-[14px] font-medium whitespace-nowrap block">
                                                         {item.label}
                                                     </span>
                                                     <motion.div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300" />
@@ -237,7 +237,7 @@ export const Header = () => {
                                                         whileTap={{ scale: 0.95 }}
                                                         className="relative group px-2 py-1"
                                                     >
-                                                        <span className="text-white/60 group-hover:text-white transition-colors text-[14px] font-medium tracking-[0.1em] whitespace-nowrap block">
+                                                        <span className="text-white/60 group-hover:text-white transition-colors text-[14px] font-medium whitespace-nowrap block">
                                                             {item.label}
                                                         </span>
                                                         <motion.div className="absolute -bottom-1 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300" />
