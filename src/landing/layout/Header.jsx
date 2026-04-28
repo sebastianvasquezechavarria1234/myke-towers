@@ -6,6 +6,7 @@ import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
 
 const NAV_ITEMS = [
     { label: "Inicio", to: "/" },
+    { label: "Álbumes", to: "/albums" },
     { label: "Biografía", to: "/biografia" },
     { label: "Sitio Oficial", to: "https://www.myketowerspr.com/", external: true },
     { label: "Tour", to: "https://www.myketowerspr.com/tour", external: true },

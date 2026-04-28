@@ -20,7 +20,7 @@ export const Card = ({ video }) => {
             onMouseLeave={() => setHovered(false)}
         >
             {/* PICTURE con overflow hidden para que el scale no se salga */}
-            <div className="relative overflow-hidden" style={{ height: "450px" }}>
+            <div className="relative overflow-hidden" style={{ height: "350px" }}>
                 {/* IMG: scale 1.1 por defecto → 1 en hover */}
                 <motion.img
                     className="w-full h-full object-cover"

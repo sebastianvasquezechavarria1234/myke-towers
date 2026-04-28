@@ -112,45 +112,82 @@ export const Home = () => {
                     {hoveredAlbum && (
                         <motion.div
                             key="follow-preview"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             className="absolute pointer-events-none z-[100]"
                             style={{
                                 left: springX,
                                 top: springY,
+                                perspective: 1000
                             }}
                         >
-                            {/* IMAGEN */}
+                            {/* IMAGEN - Revel Cinemático Ultra Rápido */}
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={hoveredAlbum.img}
-                                    initial={{ opacity: 0, rotate: -5 }}
-                                    animate={{ opacity: 1, rotate: 0 }}
-                                    exit={{ opacity: 0, rotate: 5 }}
-                                    className="relative w-[260px] h-[260px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10"
+                                    initial={{ 
+                                        opacity: 0, 
+                                        scale: 1.2, 
+                                        rotateY: 20,
+                                        filter: "blur(10px)",
+                                    }}
+                                    animate={{ 
+                                        opacity: 1, 
+                                        scale: 1, 
+                                        rotateY: 0,
+                                        filter: "blur(0px)",
+                                    }}
+                                    exit={{ 
+                                        opacity: 0, 
+                                        scale: 0.9, 
+                                        rotateY: -20,
+                                        filter: "blur(10px)",
+                                    }}
+                                    transition={{ 
+                                        duration: 0.3, 
+                                        ease: "circOut" 
+                                    }}
+                                    className="relative w-[280px] h-[280px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-white/10"
                                 >
                                     <img 
                                         src={hoveredAlbum.img} 
                                         alt="" 
                                         className="w-full h-full object-cover"
                                     />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent pointer-events-none" />
                                 </motion.div>
                             </AnimatePresence>
 
-                            {/* TEXTO - Reducido a 85px */}
+                            {/* TEXTO - Revel Snappy */}
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={hoveredAlbum.title}
-                                    initial={{ opacity: 0, x: -15, rotate: 0 }}
-                                    animate={{ opacity: 1, x: 0, rotate: -5 }}
-                                    exit={{ opacity: 0, x: 15, rotate: 0 }}
-                                    className="absolute -bottom-8 -left-10 whitespace-nowrap z-20 pointer-events-none"
+                                    initial={{ 
+                                        opacity: 0, 
+                                        x: -40, 
+                                        skewX: -15,
+                                    }}
+                                    animate={{ 
+                                        opacity: 1, 
+                                        x: 0, 
+                                        skewX: -5,
+                                    }}
+                                    exit={{ 
+                                        opacity: 0, 
+                                        x: 40, 
+                                        skewX: 15,
+                                    }}
+                                    transition={{ 
+                                        duration: 0.25, 
+                                        ease: "circOut"
+                                    }}
+                                    className="absolute -bottom-10 -left-16 whitespace-nowrap z-20 pointer-events-none"
                                 >
                                     <h2 
-                                        className="font-secundary text-white drop-shadow-[0_10px_20px_rgba(0,0,0,1)] select-none"
+                                        className="font-secundary text-white drop-shadow-[0_20px_40px_rgba(0,0,0,1)] select-none"
                                         style={{ 
-                                            fontSize: '85px', 
+                                            fontSize: '100px', 
                                             lineHeight: '1',
                                             margin: 0,
                                             padding: 0
