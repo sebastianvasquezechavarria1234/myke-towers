@@ -12,6 +12,11 @@ import { Cursor } from "../landing/components/common/Cursor";
 export const Routers = () => {
     const location = useLocation();
 
+    // Reset scroll to top on every route change
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
+
     return(
         <>
             <Cursor />

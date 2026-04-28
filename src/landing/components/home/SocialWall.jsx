@@ -1,6 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Instagram, Send, Heart, MessageCircle } from "lucide-react";
+import { Instagram, ArrowUpRight } from "lucide-react";
+
+const SocialCard = ({ post, idx }) => {
+    return (
+        <motion.a
+            href="https://instagram.com/myketowers"
+            target="_blank"
+            rel="noreferrer"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: idx * 0.1 }}
+            className={`${post.size} relative group overflow-hidden bg-white/5 rounded-sm cursor-pointer block aspect-square md:aspect-auto`}
+        >
+            {/* MAIN CONTENT */}
+            <div className="w-full h-full">
+                {post.type === "video" ? (
+                    <video 
+                        src={post.url} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    />
+                ) : (
+                    <img 
+                        src={post.url} 
+                        alt="Myke Towers Social" 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                    />
+                )}
+            </div>
+
+            {/* OVERLAY ICON (Minimalist) */}
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <div className="p-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
+                    <Instagram size={24} className="text-white" />
+                </div>
+            </div>
+
+            {/* TOP RIGHT ARROW */}
+            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
+                <ArrowUpRight size={18} className="text-white" />
+            </div>
+        </motion.a>
+    );
+};
 
 export const SocialWall = () => {
     const [posts, setPosts] = useState([]);
@@ -15,77 +63,31 @@ export const SocialWall = () => {
     if (posts.length === 0) return null;
 
     return (
-        <section className="mt-[200px] mb-[150px] max-w-[1400px] mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-                <div>
-                    <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-4">
-                        Instagram <br />
-                        <span className="font-secundary text-[var(--green)] normal-case text-7xl md:text-9xl">Feed</span>
-                    </h2>
-                    <p className="text-white/30 uppercase tracking-[0.5em] text-[10px] font-bold">
-                        Vibras del Young King Empire
-                    </p>
-                </div>
-                <div className="flex gap-4">
-                    <a 
-                        href="https://instagram.com/myketowers" 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="flex items-center gap-3 px-8 py-4 rounded-full border border-white/10 hover:border-[var(--green)] transition-all text-[11px] uppercase tracking-widest font-black bg-white/5 hover:text-[var(--green)] group"
-                    >
-                        <Instagram size={18} className="group-hover:scale-110 transition-transform" />
-                        @myketowers
-                    </a>
-                </div>
+        <section className="mt-[200px] mb-[150px] max-w-[1200px] mx-auto px-[10px]">
+            {/* TÍTULO AL ESTILO DE LA SECCIÓN DE MÚSICA */}
+            <h1 className="mb-[50px] text-center">
+                Instagram
+                <span className="pl-[20px] font-secundary">
+                    Experience
+                </span>
+            </h1>
+
+            {/* GRID CON EL MISMO MAX-WIDTH Y COMPORTAMIENTO */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] auto-rows-[250px]">
+                {posts.slice(0, 12).map((post, idx) => (
+                    <SocialCard key={post.id} post={post} idx={idx} />
+                ))}
             </div>
 
-            {/* BENTO GRID DE INSTAGRAM */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[250px]">
-                {posts.map((post, idx) => (
-                    <motion.div
-                        key={post.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.05 }}
-                        className={`${post.size} relative group overflow-hidden rounded-2xl bg-white/5 border border-white/5`}
-                    >
-                        {/* IMAGEN */}
-                        <img 
-                            src={post.url} 
-                            alt={post.caption || "Myke Towers IG"} 
-                            className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 group-hover:rotate-1"
-                            loading="lazy"
-                        />
-                        
-                        {/* OVERLAY TIPO INSTAGRAM AL HACER HOVER */}
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
-                            <div className="flex justify-between items-start">
-                                <div className="w-10 h-10 rounded-full border-2 border-[var(--green)] p-0.5 overflow-hidden">
-                                    <img src={posts[0].url} alt="Profile" className="w-full h-full object-cover rounded-full" />
-                                </div>
-                                <Instagram size={20} className="text-white/50" />
-                            </div>
-
-                            <div>
-                                <p className="text-white font-medium text-sm leading-snug mb-4 line-clamp-2">
-                                    {post.caption || "🐈‍⬛ #LaPanteraNegra #MykeTowers"}
-                                </p>
-                                <div className="flex gap-4 text-white/80">
-                                    <div className="flex items-center gap-1.5">
-                                        <Heart size={16} fill="white" className="text-white" />
-                                        <span className="text-[12px] font-bold">428k</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                        <MessageCircle size={16} fill="white" className="text-white" />
-                                        <span className="text-[12px] font-bold">12k</span>
-                                    </div>
-                                    <Send size={16} className="ml-auto" />
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                ))}
+            <div className="mt-16 flex justify-center">
+                <a 
+                    href="https://instagram.com/myketowers" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-10 py-4 border border-white/10 hover:border-[var(--green)] hover:text-[var(--green)] transition-all text-[11px] uppercase tracking-[0.3em] font-black bg-white/5 rounded-full"
+                >
+                    Seguir a @myketowers
+                </a>
             </div>
         </section>
     );

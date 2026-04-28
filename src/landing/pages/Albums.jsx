@@ -33,22 +33,23 @@ export const Albums = () => {
     return (
         <Layout>
             <section className="pt-[160px] pb-[120px] max-w-[1400px] mx-auto px-6">
-                <header className="mb-20 text-center">
-                    <motion.p 
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-[var(--green)] font-bold tracking-[0.5em] uppercase text-[10px] mb-4"
-                    >
-                        Discografía Oficial
-                    </motion.p>
-                    <motion.h1 
+                <header className="mb-20 text-center max-w-[800px] mx-auto">
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-7xl md:text-[100px] font-black uppercase tracking-tighter leading-none"
                     >
-                        Álbumes
-                    </motion.h1>
+                        <p className="italic mb-[20px] text-[var(--green)]">#Coleccionando hits. Marcando la historia</p>
+                        <h1>
+                            Cada proyecto es un capítulo nuevo,
+                            <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
+                                definiendo el sonido
+                            </span>
+                            de una generación que no conoce de
+                            <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
+                                límites ni fronteras
+                            </span>
+                        </h1>
+                    </motion.div>
                 </header>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">

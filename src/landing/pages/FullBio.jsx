@@ -72,17 +72,18 @@ export const FullBio = () => {
                             Young King
                         </motion.p>
 
-                        <div className="relative z-10">
-                            <p className="text-white/20 font-bold tracking-[0.5em] uppercase text-[10px] mb-6">
-                                Official Biography
-                            </p>
-                            <h1 className="text-7xl md:text-[120px] uppercase font-black leading-none tracking-tighter mb-4">
-                                Myke<br />
-                                <span className="font-secundary normal-case text-[var(--green)]">Towers</span>
+                        <div className="relative z-10 max-w-[800px] mx-auto">
+                            <p className="italic mb-[20px] text-[var(--green)]">#El rap es mi esencia. La calle mi escuela</p>
+                            <h1>
+                                Desde las calles de Puerto Rico hasta la cima del mundo,
+                                <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
+                                    cada rima cuenta
+                                </span>
+                                una historia de superación y
+                                <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
+                                    pasión absoluta
+                                </span>
                             </h1>
-                            <p className="text-white/20 text-xs tracking-[0.4em] uppercase mt-6">
-                                San Juan, Puerto Rico · Est. 1994
-                            </p>
                         </div>
                     </div>
 

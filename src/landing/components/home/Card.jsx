@@ -53,22 +53,6 @@ export const Card = ({ video }) => {
                                 <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-1" />
                             </motion.div>
 
-                            <motion.div
-                                className="w-full"
-                                initial={{ y: 10, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                exit={{ y: 10, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                {video?.vistas && (
-                                    <p className="text-white/80 text-sm">
-                                        👁 {Number(video.vistas).toLocaleString()} vistas
-                                    </p>
-                                )}
-                                {video?.duracion && (
-                                    <p className="text-white/70 text-sm">⏱ {video.duracion}</p>
-                                )}
-                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
