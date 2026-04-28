@@ -56,16 +56,14 @@ export const Home = () => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    // Configuración de Spring más sensible y rápida (stiffness alto, mass bajo)
-    const springConfig = { stiffness: 400, damping: 30, mass: 0.1 };
+    const springConfig = { stiffness: 450, damping: 35, mass: 0.1 };
     const springX = useSpring(x, springConfig);
     const springY = useSpring(y, springConfig);
 
     const handleMouseMove = (e) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
-        // Offset para que la imagen aparezca al lado del cursor
-        x.set(e.clientX - rect.left + 60); 
+        x.set(e.clientX - rect.left + 50); 
         y.set(e.clientY - rect.top - 180);
     };
 
@@ -127,11 +125,10 @@ export const Home = () => {
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={hoveredAlbum.img}
-                                    initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-                                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                    exit={{ opacity: 0, scale: 0.9, rotate: 5 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="relative w-[320px] h-[320px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-white/10"
+                                    initial={{ opacity: 0, rotate: -5 }}
+                                    animate={{ opacity: 1, rotate: 0 }}
+                                    exit={{ opacity: 0, rotate: 5 }}
+                                    className="relative w-[260px] h-[260px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10"
                                 >
                                     <img 
                                         src={hoveredAlbum.img} 
@@ -141,19 +138,26 @@ export const Home = () => {
                                 </motion.div>
                             </AnimatePresence>
 
-                            {/* TEXTO A LA IZQUIERDA (Pegado, Blanco y más Grande) */}
+                            {/* TEXTO - Reducido a 85px */}
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={hoveredAlbum.title}
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="absolute top-1/2 right-[calc(100%+20px)] -translate-y-1/2 whitespace-nowrap text-right"
+                                    initial={{ opacity: 0, x: -15, rotate: 0 }}
+                                    animate={{ opacity: 1, x: 0, rotate: -5 }}
+                                    exit={{ opacity: 0, x: 15, rotate: 0 }}
+                                    className="absolute -bottom-8 -left-10 whitespace-nowrap z-20 pointer-events-none"
                                 >
-                                    <p className="font-secundary text-8xl text-white drop-shadow-[0_10px_30px_rgba(0,0,0,1)]">
+                                    <h2 
+                                        className="font-secundary text-white drop-shadow-[0_10px_20px_rgba(0,0,0,1)] select-none"
+                                        style={{ 
+                                            fontSize: '85px', 
+                                            lineHeight: '1',
+                                            margin: 0,
+                                            padding: 0
+                                        }}
+                                    >
                                         {hoveredAlbum.title.toLowerCase()}
-                                    </p>
+                                    </h2>
                                 </motion.div>
                             </AnimatePresence>
                         </motion.div>
