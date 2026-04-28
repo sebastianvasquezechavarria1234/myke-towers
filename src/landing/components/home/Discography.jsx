@@ -1,68 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const ALBUMS = [
-    {
-        id: 1,
-        title: "Easy Money Baby",
-        year: "2020",
-        image: "https://i.scdn.co/image/ab67616d0000b27341e88863f60f64c6321b023e",
-        color: "from-blue-900/60",
-        songs: "18 Canciones",
-        hits: ["Diosa", "Girl"]
-    },
-    {
-        id: 2,
-        title: "Lyke Mike",
-        year: "2021",
-        image: "https://i.scdn.co/image/ab6761610000e5eb38d7e5f608dd0e8dd4d97b23", 
-        color: "from-red-900/60",
-        songs: "23 Canciones",
-        hits: ["Burberry", "Mírenme Ahora"]
-    },
-    {
-        id: 3,
-        title: "La Vida Es Una",
-        year: "2023",
-        image: "https://i.scdn.co/image/ab67616d0000b273b4007b856b3e89547d216f4e",
-        color: "from-cyan-900/60",
-        songs: "23 Canciones",
-        hits: ["LALA", "Ulala"]
-    },
-    {
-        id: 4,
-        title: "Vive La Tuya",
-        year: "2023",
-        image: "https://i.scdn.co/image/ab6761610000e5eb987820194bc02868c22f0c74",
-        color: "from-purple-900/60",
-        songs: "22 Canciones",
-        hits: ["La Falda", "Eterno"]
-    },
-    {
-        id: 5,
-        title: "La Pantera Negra",
-        year: "2024",
-        image: "https://upload.wikimedia.org/wikipedia/en/3/3d/Myke_Towers_-_La_Pantera_Negra.png",
-        color: "from-neutral-800/80",
-        songs: "20 Canciones",
-        hits: ["Adivino", "La Primera Vez"]
-    }
-];
-
 export const Discography = () => {
+    const [albums, setAlbums] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [showTracklist, setShowTracklist] = useState(false);
 
-    const nextAlbum = () => setCurrentIndex((prev) => (prev + 1) % ALBUMS.length);
-    const prevAlbum = () => setCurrentIndex((prev) => (prev - 1 + ALBUMS.length) % ALBUMS.length);
+    useEffect(() => {
+        fetch("http://localhost:3000/albums")
+            .then(res => res.json())
+            .then(data => setAlbums(data))
+            .catch(err => console.error("Error loading albums:", err));
+    }, []);
+
+    const nextAlbum = () => {
+        setCurrentIndex((prev) => (prev + 1) % albums.length);
+        setShowTracklist(false);
+    };
+    const prevAlbum = () => {
+        setCurrentIndex((prev) => (prev - 1 + albums.length) % albums.length);
+        setShowTracklist(false);
+    };
+
+    if (albums.length === 0) return null;
 
     return (
-        <section className={`relative pt-32 pb-48 overflow-hidden transition-colors duration-1000 bg-gradient-to-b ${ALBUMS[currentIndex].color} to-black`}>
+        <section className={`relative pt-32 pb-48 overflow-hidden transition-colors duration-1000 bg-gradient-to-b ${albums[currentIndex].color} to-black`}>
             {/* Background Blur Magic */}
             <div className="absolute inset-0 z-0 flex justify-center items-center opacity-40 pointer-events-none">
                 <AnimatePresence mode="wait">
                     <motion.img
-                        key={ALBUMS[currentIndex].id}
-                        src={ALBUMS[currentIndex].image}
+                        key={albums[currentIndex].id}
+                        src={albums[currentIndex].image}
                         initial={{ opacity: 0, scale: 1.2, filter: "blur(50px)" }}
                         animate={{ opacity: 1, scale: 1, filter: "blur(100px)" }}
                         exit={{ opacity: 0 }}
@@ -84,14 +53,14 @@ export const Discography = () => {
 
                 {/* 3D CAROUSEL */}
                 <div className="relative h-[400px] flex justify-center items-center" style={{ perspective: "1000px" }}>
-                    {ALBUMS.map((album, index) => {
+                    {albums.map((album, index) => {
                         const offset = index - currentIndex;
                         const isCenter = offset === 0;
                         
                         // Wrap around logic
                         let adjustedOffset = offset;
-                        if (offset < -2) adjustedOffset += ALBUMS.length;
-                        if (offset > 2) adjustedOffset -= ALBUMS.length;
+                        if (offset < -2) adjustedOffset += albums.length;
+                        if (offset > 2) adjustedOffset -= albums.length;
 
                         const absOffset = Math.abs(adjustedOffset);
                         
@@ -100,7 +69,12 @@ export const Discography = () => {
                         return (
                             <motion.div
                                 key={album.id}
-                                onClick={() => setCurrentIndex(index)}
+                                onClick={() => {
+                                    if(!isCenter) {
+                                        setCurrentIndex(index);
+                                        setShowTracklist(false);
+                                    }
+                                }}
                                 animate={{
                                     x: adjustedOffset * 220, 
                                     z: -absOffset * 150,     
@@ -109,12 +83,12 @@ export const Discography = () => {
                                     opacity: absOffset > 1 ? 0 : isCenter ? 1 : 0.4
                                 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                className={`absolute cursor-pointer w-[300px] h-[300px] ${isCenter ? 'z-20' : 'z-10'}`}
+                                className={`absolute cursor-pointer w-[300px] h-[300px] ${isCenter ? 'z-30' : 'z-10'}`}
                             >
                                 {/* Disco/Vinyl Record sticking out */}
                                 <motion.div 
                                     animate={{ 
-                                        x: isCenter ? 120 : 0, 
+                                        x: isCenter && !showTracklist ? 120 : 0, 
                                         rotate: isCenter ? 360 : 0 
                                     }}
                                     transition={{ 
@@ -136,24 +110,68 @@ export const Discography = () => {
                                 </motion.div>
 
                                 {/* Cover Art */}
-                                <img 
+                                <motion.img 
                                     src={album.image} 
                                     alt={album.title}
-                                    className="w-full h-full object-cover rounded-[15px] shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/10 relative z-10"
+                                    animate={{
+                                        x: showTracklist && isCenter ? -100 : 0,
+                                        opacity: showTracklist && isCenter ? 0.2 : 1
+                                    }}
+                                    className="w-full h-full object-cover rounded-[15px] shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/10 relative z-20"
                                 />
                                 
                                 <AnimatePresence>
-                                    {isCenter && (
+                                    {isCenter && !showTracklist && (
                                         <motion.div
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: -20 }}
-                                            className="absolute -bottom-28 left-0 right-0 text-center w-[450px] -ml-[75px]"
+                                            className="absolute -bottom-32 left-0 right-0 text-center w-[450px] -ml-[75px] z-30"
                                         >
                                             <h3 className="text-3xl font-black uppercase tracking-widest">{album.title}</h3>
-                                            <div className="flex justify-center gap-4 mt-2">
+                                            <div className="flex justify-center gap-4 mt-2 mb-4">
                                                 <p className="text-white text-xs font-medium bg-white/10 px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">{album.year}</p>
-                                                <p className="text-white text-xs font-medium bg-white/10 px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">{album.songs}</p>
+                                                <p className="text-white text-xs font-medium bg-white/10 px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">{album.songsCount} canciones</p>
+                                            </div>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); setShowTracklist(true); }}
+                                                className="px-6 py-2 bg-white text-black text-[11px] font-black uppercase tracking-widest rounded-full hover:scale-105 transition-transform"
+                                            >
+                                                Ver Canciones
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                {/* TRACKLIST OVERLAY */}
+                                <AnimatePresence>
+                                    {isCenter && showTracklist && (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: 50 }}
+                                            animate={{ opacity: 1, x: 100 }}
+                                            exit={{ opacity: 0, x: 50 }}
+                                            className="absolute top-0 right-0 bottom-0 w-[350px] bg-black/80 backdrop-blur-xl rounded-[15px] border border-white/10 p-6 z-30 flex flex-col shadow-2xl"
+                                        >
+                                            <div className="flex justify-between items-center mb-6">
+                                                <h4 className="text-xl font-black uppercase tracking-widest">{album.title}</h4>
+                                                <button 
+                                                    onClick={(e) => { e.stopPropagation(); setShowTracklist(false); }}
+                                                    className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20"
+                                                >
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                                                </button>
+                                            </div>
+                                            
+                                            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-3">
+                                                {album.tracklist?.map((song) => (
+                                                    <div key={song.track} className="flex items-center gap-4 group hover:bg-white/5 p-2 rounded-lg transition-colors cursor-pointer">
+                                                        <span className="text-white/40 font-bold text-sm w-4">{song.track}</span>
+                                                        <div className="flex-1">
+                                                            <p className="text-white font-medium text-sm group-hover:text-[var(--blue)] transition-colors">{song.name}</p>
+                                                        </div>
+                                                        <span className="text-white/40 text-xs">{song.duration}</span>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </motion.div>
                                     )}

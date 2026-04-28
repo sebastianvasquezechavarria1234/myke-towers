@@ -99,13 +99,18 @@ export const Header = () => {
                     opacity: 1,
                     y: 0,
                     scale: 1,
-                    width: "auto",
                 }}
                 transition={{ 
                     type: "spring", 
                     stiffness: 400, 
-                    damping: 20, 
-                    mass: 1.2 
+                    damping: 17, 
+                    mass: 1.2,
+                    layout: {
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 17,
+                        mass: 1.2
+                    }
                 }}
                 className="pointer-events-auto relative bg-black/40 backdrop-blur-2xl border-t border-l border-r border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
             >
@@ -128,7 +133,11 @@ export const Header = () => {
                     )}
                 </AnimatePresence>
                 {/* CONTENT WRAPPER */}
-                <div className="relative z-10 flex items-center">
+                <motion.div 
+                    layout
+                    transition={{ type: "spring", stiffness: 400, damping: 17, mass: 1.2 }}
+                    className="relative z-10 flex items-center"
+                >
                     {/* LADO IZQUIERDO: DISCO + TITULO */}
                     <motion.div
                         layout
@@ -192,25 +201,33 @@ export const Header = () => {
                 </motion.div>
 
                 {/* DIVISOR 1 (Solo si expandido) */}
-                <AnimatePresence>
+                <AnimatePresence mode="popLayout">
                     {isExpanded && (
                         <motion.div 
+                            layout
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 17, mass: 1.2 }}
                             className="w-px h-6 bg-white/10 mx-1.5"
                         />
                     )}
                 </AnimatePresence>
 
                 {/* CENTRO: NAV ITEMS (Solo en Expanded) */}
-                <AnimatePresence>
+                <AnimatePresence mode="popLayout">
                     {isExpanded && (
                         <motion.nav
                             layout
-                            initial={{ opacity: 0, width: 0, x: -10 }}
-                            animate={{ opacity: 1, width: "auto", x: 0 }}
-                            exit={{ opacity: 0, width: 0, x: -10 }}
+                            initial={{ opacity: 0, scale: 0.9, x: -10 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, x: -10 }}
+                            transition={{ 
+                                type: "spring", 
+                                stiffness: 400, 
+                                damping: 17,
+                                mass: 1.2
+                            }}
                             className="flex items-center overflow-hidden"
                         >
                             <ul className="flex items-center gap-3 px-4">
@@ -252,11 +269,21 @@ export const Header = () => {
                 </AnimatePresence>
 
                 {/* DIVISOR 2 */}
-                <div className="w-px h-6 bg-white/10 mx-1.5" />
+                <motion.div 
+                    layout
+                    transition={{ type: "spring", stiffness: 400, damping: 17, mass: 1.2 }}
+                    className="w-px h-6 bg-white/10 mx-1.5" 
+                />
 
                 {/* LADO DERECHO: CONTROLES */}
                 <motion.div 
                     layout
+                    transition={{ 
+                        type: "spring", 
+                        stiffness: 400, 
+                        damping: 17,
+                        mass: 1.2
+                    }}
                     className="flex items-center gap-1.5 pl-1 pr-2 py-0.5"
                 >
                     {/* VISUALIZER */}
@@ -288,7 +315,7 @@ export const Header = () => {
                         <SkipForward size={14} fill="currentColor" />
                     </button>
                 </motion.div>
-                </div>
+                </motion.div>
                 {/* PROGRESS BAR AS BOTTOM BORDER (1PX) */}
                 <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-20 overflow-hidden rounded-b-[40px]">
                     <motion.div 

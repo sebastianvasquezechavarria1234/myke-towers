@@ -23,7 +23,7 @@ export const Musica = () => {
                 const res = await fetch("http://localhost:3000/videos");
                 if (!res.ok) throw new Error("Error al obtener los videos");
                 const data = await res.json();
-                setVideos(data.videos || []);
+                setVideos(Array.isArray(data) ? data : []);
             } catch (err) {
                 setError(err.message);
             } finally {

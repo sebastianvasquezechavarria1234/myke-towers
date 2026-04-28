@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const INFO = {
+    biografia: "Nació el 15 de enero de 1994 en Río Piedras, San Juan, Puerto Rico. Desde temprana edad demostró interés por la música, inspirado por el rap de los 90. Su nombre artístico une las letras Y y K de Young Kingz.",
+    generos: ["Reggaetón", "Trap Latino", "Hip-Hop", "Dancehall", "R&B"],
+    nombreReal: "Michael Anthony Torres Góngora",
+    nacimiento: "15 de enero de 1994",
+    origen: "San Juan, Puerto Rico",
+};
+
+const STATS = {
+    oyentesMensuales: "34.5M oyentes mensuales en Spotify",
+    cancionMasExitosa: "LALA",
+};
+
 export const Bio = () => {
-    const [info, setInfo] = useState(null);
-    const [stats, setStats] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [resInfo, resStats] = await Promise.all([
-                    fetch("http://localhost:3000/historia"),
-                    fetch("http://localhost:3000/stats")
-                ]);
-                setInfo(await resInfo.json());
-                setStats(await resStats.json());
-            } catch (error) {
-                console.error("Error fetching bio data:", error);
-            }
-        };
-        fetchData();
-    }, []);
-
-    if (!info || !stats) return null;
-
     return (
         <section className="mt-[200px] mb-[150px] max-w-[1200px] mx-auto px-6">
             <div className="bg-white/[0.03] border border-white/10 rounded-[60px] overflow-hidden backdrop-blur-3xl relative">
@@ -50,7 +42,7 @@ export const Bio = () => {
                             </h2>
                             
                             <p className="text-white/50 text-lg leading-relaxed mb-12 max-w-md font-light">
-                                {info.biografia.split('. ')[0]}. Descubre la trayectoria completa del Young King que está redefiniendo el género urbano.
+                                {INFO.biografia.split('. ')[0]}. Descubre la trayectoria completa del Young King que está redefiniendo el género urbano.
                             </p>
 
                             <Link to="/biografia">
@@ -77,7 +69,7 @@ export const Bio = () => {
                             >
                                 <p className="text-[10px] uppercase tracking-widest text-white/30 font-bold mb-4">Alcance Global</p>
                                 <div className="flex items-baseline gap-4">
-                                    <h3 className="text-5xl font-black text-white leading-none">{stats.oyentesMensuales.split(' ')[0]}</h3>
+                                    <h3 className="text-5xl font-black text-white leading-none">{STATS.oyentesMensuales.split(' ')[0]}</h3>
                                     <p className="text-xs text-[var(--green)] font-bold tracking-widest uppercase">Monthly</p>
                                 </div>
                             </motion.div>
@@ -90,7 +82,7 @@ export const Bio = () => {
                                 transition={{ delay: 0.3 }}
                             >
                                 <p className="text-[10px] uppercase tracking-widest text-white/30 font-bold mb-4">Éxito Principal</p>
-                                <h3 className="text-3xl font-black text-[var(--blue)] uppercase leading-tight">{stats.cancionMasExitosa}</h3>
+                                <h3 className="text-3xl font-black text-[var(--blue)] uppercase leading-tight">{STATS.cancionMasExitosa}</h3>
                             </motion.div>
 
                             {/* STAT 3 */}
@@ -102,7 +94,7 @@ export const Bio = () => {
                                 className="pt-8 border-t border-white/10"
                             >
                                 <div className="flex flex-wrap gap-2">
-                                    {info.generos.map((gen) => (
+                                    {INFO.generos.map((gen) => (
                                         <span key={gen} className="text-[9px] uppercase tracking-[0.2em] px-3 py-1 bg-white/5 rounded-md text-white/40 border border-white/5">
                                             {gen}
                                         </span>

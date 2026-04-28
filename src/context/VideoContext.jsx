@@ -12,10 +12,10 @@ export const VideoProvider = ({ children }) => {
             try {
                 const res = await fetch("http://localhost:3000/videos");
                 const data = await res.json();
-                if (data.videos && data.videos.length > 0) {
-                    setVideos(data.videos);
-                    const randomIndex = Math.floor(Math.random() * data.videos.length);
-                    setCurrentVideo(data.videos[randomIndex]);
+                if (Array.isArray(data) && data.length > 0) {
+                    setVideos(data);
+                    const randomIndex = Math.floor(Math.random() * data.length);
+                    setCurrentVideo(data[randomIndex]);
                 }
             } catch (error) {
                 console.error("Error fetching videos:", error);
