@@ -20,15 +20,13 @@ export const Card = ({ video }) => {
             onMouseLeave={() => setHovered(false)}
         >
             {/* PICTURE con overflow hidden para que el scale no se salga */}
-            <div className="relative overflow-hidden" style={{ height: "350px" }}>
+            <div className="relative overflow-hidden" style={{ height: "450px" }}>
                 {/* IMG: scale 1.1 por defecto → 1 en hover */}
                 <motion.img
                     className="w-full h-full object-cover"
                     src={video?.imagen || "https://static.wixstatic.com/media/538d7e_5f608dd0e8dd4d97b239a45c754f0e32~mv2.jpg"}
                     alt={video?.titulo || "Myke Towers Video Thumbnail"}
                     loading="lazy"
-                    width="400"
-                    height="350"
                     animate={{ scale: hovered ? 1 : 1.1 }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
                 />
