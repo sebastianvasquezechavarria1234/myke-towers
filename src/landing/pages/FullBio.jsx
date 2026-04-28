@@ -75,13 +75,9 @@ export const FullBio = () => {
                         <div className="relative z-10 max-w-[800px] mx-auto">
                             <p className="italic mb-[20px] text-[var(--green)]">#El rap es mi esencia. La calle mi escuela</p>
                             <h1>
-                                Desde las calles de Puerto Rico hasta la cima del mundo,
+                                De Puerto Rico a la cima global, cada rima narra una historia de 
                                 <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                                    cada rima cuenta
-                                </span>
-                                una historia de superación y
-                                <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                                    pasión absoluta
+                                    superación y éxito
                                 </span>
                             </h1>
                         </div>
@@ -90,10 +86,7 @@ export const FullBio = () => {
                     {/* INTRO TEXT */}
                     <div className="max-w-[680px] mx-auto mb-28 text-center space-y-5">
                         <p className="text-white/50 text-xl leading-[1.9] font-light">
-                            Nació el 15 de enero de 1994 en Río Piedras, una antigua localidad que ahora pertenece a San Juan, Puerto Rico. Desde temprana edad demostró interés por la música, inspirado por el rap de la década de 1990.
-                        </p>
-                        <p className="text-white/40 text-lg leading-[1.9] font-light">
-                            En 2013 comenzó a publicar sus primeros temas en SoundCloud. Modificó su nombre de Mike a <span className="text-white/70 font-medium">Myke</span> para juntar las letras «Y» y «K»: <span className="text-white/70 font-medium">Young Kingz</span>.
+                            Nacido en Río Piedras, Puerto Rico, Myke Towers transformó el rap de los 90 en un movimiento global. Desde SoundCloud hasta los escenarios más grandes, su evolución como el <span className="text-white/70 font-medium">Young King</span> ha redefinido el género urbano.
                         </p>
                     </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "../layout/Layout";
 import { Hero } from "../components/home/Hero";
 import { Musica } from "../components/home/Musica";
@@ -50,6 +50,7 @@ const AlbumItem = ({ album, onHover }) => {
 };
 
 export const Home = () => {
+    const [albums, setAlbums] = useState([]);
     const [hoveredAlbum, setHoveredAlbum] = useState(null);
     const containerRef = React.useRef(null);
     
@@ -60,12 +61,39 @@ export const Home = () => {
     const springX = useSpring(x, springConfig);
     const springY = useSpring(y, springConfig);
 
+    useEffect(() => {
+        fetch("http://localhost:3000/albums")
+            .then(res => res.json())
+            .then(data => {
+                // Ordenar por año descendente (más nuevo primero)
+                const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+                setAlbums(sorted);
+            })
+            .catch(err => console.error("Error loading albums for home:", err));
+    }, []);
+
     const handleMouseMove = (e) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
         x.set(e.clientX - rect.left + 50); 
         y.set(e.clientY - rect.top - 180);
     };
+
+    // Categorizar álbumes de forma flexible para que no falte ninguno
+    const categorized = [
+        { 
+            label: "Álbumes de estudio", 
+            items: albums.filter(a => a.format?.toLowerCase().includes("álbum")) 
+        },
+        { 
+            label: "Mixtapes", 
+            items: albums.filter(a => a.format?.toLowerCase().includes("mixtape")) 
+        },
+        { 
+            label: "EP & Singles", 
+            items: albums.filter(a => a.format?.toLowerCase().includes("ep")) 
+        },
+    ];
 
     return(
         <Layout>
@@ -88,7 +116,7 @@ export const Home = () => {
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {DISCOGRAPHY_DATA.map((col) => (
+                        {categorized.map((col) => (
                             <div key={col.label} className="space-y-6">
                                 <p className="text-[14px] font-normal text-white/30 border-b border-white/[0.06] pb-4">
                                     {col.label}
@@ -96,7 +124,7 @@ export const Home = () => {
                                 <div className="flex flex-col">
                                     {col.items.map((a) => (
                                         <AlbumItem 
-                                            key={a.title} 
+                                            key={a.id} 
                                             album={a} 
                                             onHover={setHoveredAlbum}
                                         />
@@ -151,7 +179,7 @@ export const Home = () => {
                                     className="relative w-[280px] h-[280px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-white/10"
                                 >
                                     <img 
-                                        src={hoveredAlbum.img} 
+                                        src={hoveredAlbum.image} 
                                         alt="" 
                                         className="w-full h-full object-cover"
                                     />

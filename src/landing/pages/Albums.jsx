@@ -40,14 +40,11 @@ export const Albums = () => {
                     >
                         <p className="italic mb-[20px] text-[var(--green)]">#Coleccionando hits. Marcando la historia</p>
                         <h1>
-                            Cada proyecto es un capítulo nuevo,
+                            Cada álbum es un nuevo capítulo, 
                             <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
                                 definiendo el sonido
                             </span>
-                            de una generación que no conoce de
-                            <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                                límites ni fronteras
-                            </span>
+                            de una generación sin límites.
                         </h1>
                     </motion.div>
                 </header>
