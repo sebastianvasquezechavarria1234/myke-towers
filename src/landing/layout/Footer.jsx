@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export const Footer = () => {
     return (
-        <footer className="mt-[200px] px-4 pb-10">
+        <footer className="relative z-50 -mt-[40vh] px-4 pb-6">
             <div className="max-w-[1200px] mx-auto">
                 {/* GLASS PANEL — mismo estilo que el header */}
                 <motion.div

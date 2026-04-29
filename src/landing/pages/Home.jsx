@@ -114,10 +114,13 @@ export const Home = () => {
     return(
         <Layout>
             <Hero />
-            
+            <Musica />
+            <SocialWall />
+
+            {/* DISCOGRAFÍA - justo encima del footer */}
             <section 
                 ref={containerRef}
-                className="pt-32 pb-0 max-w-[900px] mx-auto px-6 relative"
+                className="pt-32 pb-32 max-w-[900px] mx-auto px-6 relative"
                 onMouseMove={handleMouseMove}
             >
                 <div className="space-y-16">
@@ -127,14 +130,14 @@ export const Home = () => {
                         className="flex items-center gap-6"
                     >
                         <div className="flex-1 h-px bg-white/[0.06]" />
-                        <span className="font-secundary text-5xl text-white/[0.05] capitalize">Discografía</span>
+                        <span className="font-secundary text-5xl text-white capitalize">Discografía</span>
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {categorized.map((col) => (
                             <div key={col.label} className="space-y-6">
-                                <p className="text-[14px] font-light text-white/[0.05] border-b border-white/[0.06] pb-4">
+                                <p className="text-[14px] font-light text-white border-b border-white/[0.06] pb-4">
                                     {col.label}
                                 </p>
                                 <div className="flex flex-col">
@@ -172,11 +175,10 @@ export const Home = () => {
                             }}
                             exit={{ 
                                 opacity: 0, 
-                                scale: 0.2, 
-                                rotateX: -45,
-                                y: 100,
-                                filter: "blur(10px)",
-                                transition: { duration: 0.3, ease: "circIn" } 
+                                scale: 0.95, 
+                                y: 15,
+                                filter: "blur(8px)",
+                                transition: { duration: 0.15, ease: "easeOut" } 
                             }}
                             transition={{ 
                                 type: "spring",
@@ -203,7 +205,6 @@ export const Home = () => {
 
                             {/* CONTENIDO CON STAGGER */}
                             <div className="relative p-[10px] flex flex-col gap-3">
-                                {/* IMAGEN */}
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -217,19 +218,16 @@ export const Home = () => {
                                     />
                                 </motion.div>
 
-                                {/* TEXTO */}
                                 <motion.div
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.15, duration: 0.3 }}
                                     className="px-1"
                                 >
-                                    <h2 
-                                        className="font-secundary text-black text-xl leading-tight break-words whitespace-normal"
-                                    >
+                                    <h2 className="font-secundary text-black text-xl leading-tight break-words whitespace-normal">
                                         {hoveredAlbum.title}
                                     </h2>
-                                    <p className="text-black/40 text-[9px] font-bold tracking-widest mt-0.5">
+                                    <p className="text-black/40 text-[9px] font-bold mt-0.5">
                                         {hoveredAlbum.year} · {hoveredAlbum.format || 'Álbum'}
                                     </p>
                                 </motion.div>
@@ -238,9 +236,6 @@ export const Home = () => {
                     )}
                 </AnimatePresence>
             </section>
-
-            <Musica />
-            <SocialWall />
         </Layout>
     )
 }
