@@ -3,7 +3,7 @@ import { Layout } from "../layout/Layout";
 import { Hero } from "../components/home/Hero";
 import { Musica } from "../components/home/Musica";
 import { SocialWall } from "../components/home/SocialWall";
-import { motion, AnimatePresence, useSpring, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, useSpring, useMotionValue, useVelocity, useTransform } from "framer-motion";
 
 const DISCOGRAPHY_DATA = [
     {
@@ -39,7 +39,7 @@ const AlbumItem = ({ album, onHover }) => {
             onMouseLeave={() => onHover(null)}
             className="flex gap-6 items-baseline group cursor-pointer py-3 border-b border-white/[0.03] last:border-0"
         >
-            <span className="text-white/10 text-[11px] font-bold shrink-0 group-hover:text-white/40 transition-colors duration-300">
+            <span className="text-white/20 text-[11px] font-light shrink-0 group-hover:text-white/40 transition-colors duration-300">
                 {album.year}
             </span>
             <span className="text-white/30 text-sm font-light group-hover:text-white group-hover:pl-2 transition-all duration-300">
@@ -57,9 +57,24 @@ export const Home = () => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    const springConfig = { stiffness: 450, damping: 35, mass: 0.1 };
+    const xVelocity = useVelocity(x);
+    const yVelocity = useVelocity(y);
+
+    const xVelocity = useVelocity(x);
+    const yVelocity = useVelocity(y);
+
+    // Escala líquida muy sutil para la card (sin deformar bordes)
+    const dynamicScaleX = useTransform(xVelocity, [-3000, 0, 3000], [1.1, 1, 1.1]);
+    const dynamicScaleY = useTransform(yVelocity, [-3000, 0, 3000], [1.1, 1, 1.1]);
+
+    const springConfig = { stiffness: 500, damping: 40, mass: 0.1 };
+    const lagConfig = { stiffness: 100, damping: 20, mass: 0.5 };
+    
     const springX = useSpring(x, springConfig);
     const springY = useSpring(y, springConfig);
+    
+    const lagX = useSpring(x, lagConfig);
+    const lagY = useSpring(y, lagConfig);
 
     useEffect(() => {
         fetch("http://localhost:3000/albums")
@@ -101,7 +116,7 @@ export const Home = () => {
             
             <section 
                 ref={containerRef}
-                className="py-32 max-w-[900px] mx-auto px-6 relative"
+                className="pt-32 pb-0 max-w-[900px] mx-auto px-6 relative"
                 onMouseMove={handleMouseMove}
             >
                 <div className="space-y-16">
@@ -111,14 +126,14 @@ export const Home = () => {
                         className="flex items-center gap-6"
                     >
                         <div className="flex-1 h-px bg-white/[0.06]" />
-                        <span className="font-secundary text-5xl text-white/40 lowercase">Discografía</span>
+                        <span className="font-secundary text-5xl text-white/[0.05] capitalize">Discografía</span>
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {categorized.map((col) => (
                             <div key={col.label} className="space-y-6">
-                                <p className="text-[14px] font-normal text-white/30 border-b border-white/[0.06] pb-4">
+                                <p className="text-[14px] font-light text-white/[0.05] border-b border-white/[0.06] pb-4">
                                     {col.label}
                                 </p>
                                 <div className="flex flex-col">
@@ -140,91 +155,56 @@ export const Home = () => {
                     {hoveredAlbum && (
                         <motion.div
                             key="follow-preview"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute pointer-events-none z-[100]"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            className="absolute pointer-events-none z-[100] bg-white p-[10px] shadow-[0_30px_60px_rgba(0,0,0,0.3)] flex flex-col gap-3 w-[200px] overflow-hidden"
                             style={{
                                 left: springX,
                                 top: springY,
-                                perspective: 1000
+                                perspective: 1000,
+                                scaleX: dynamicScaleX,
+                                scaleY: dynamicScaleY
                             }}
                         >
-                            {/* IMAGEN - Revel Cinemático Ultra Rápido */}
-                            <AnimatePresence mode="wait">
+                            {/* CONTENIDO INTERNO - Con retraso (Inercia) */}
+                            <motion.div
+                                style={{
+                                    x: useTransform(() => lagX.get() - springX.get()),
+                                    y: useTransform(() => lagY.get() - springY.get()),
+                                    scale: 1.1
+                                }}
+                            >
+                                {/* IMAGEN */}
                                 <motion.div
-                                    key={hoveredAlbum.img}
-                                    initial={{ 
-                                        opacity: 0, 
-                                        scale: 1.2, 
-                                        rotateY: 20,
-                                        filter: "blur(10px)",
-                                    }}
-                                    animate={{ 
-                                        opacity: 1, 
-                                        scale: 1, 
-                                        rotateY: 0,
-                                        filter: "blur(0px)",
-                                    }}
-                                    exit={{ 
-                                        opacity: 0, 
-                                        scale: 0.9, 
-                                        rotateY: -20,
-                                        filter: "blur(10px)",
-                                    }}
-                                    transition={{ 
-                                        duration: 0.3, 
-                                        ease: "circOut" 
-                                    }}
-                                    className="relative w-[280px] h-[280px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-white/10"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="relative w-full aspect-square overflow-hidden"
                                 >
                                     <img 
                                         src={hoveredAlbum.image} 
                                         alt="" 
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover" 
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent pointer-events-none" />
                                 </motion.div>
-                            </AnimatePresence>
 
-                            {/* TEXTO - Revel Snappy */}
-                            <AnimatePresence mode="wait">
+                                {/* TEXTO */}
                                 <motion.div
-                                    key={hoveredAlbum.title}
-                                    initial={{ 
-                                        opacity: 0, 
-                                        x: -40, 
-                                        skewX: -15,
-                                    }}
-                                    animate={{ 
-                                        opacity: 1, 
-                                        x: 0, 
-                                        skewX: -5,
-                                    }}
-                                    exit={{ 
-                                        opacity: 0, 
-                                        x: 40, 
-                                        skewX: 15,
-                                    }}
-                                    transition={{ 
-                                        duration: 0.25, 
-                                        ease: "circOut"
-                                    }}
-                                    className="absolute -bottom-10 -left-16 whitespace-nowrap z-20 pointer-events-none"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.1 }}
+                                    className="px-1 mt-3"
                                 >
                                     <h2 
-                                        className="font-secundary text-white drop-shadow-[0_20px_40px_rgba(0,0,0,1)] select-none"
-                                        style={{ 
-                                            fontSize: '100px', 
-                                            lineHeight: '1',
-                                            margin: 0,
-                                            padding: 0
-                                        }}
+                                        className="font-secundary text-black text-xl leading-tight break-words whitespace-normal"
                                     >
-                                        {hoveredAlbum.title.toLowerCase()}
+                                        {hoveredAlbum.title}
                                     </h2>
+                                    <p className="text-black/40 text-[9px] font-bold tracking-widest mt-0.5">
+                                        {hoveredAlbum.year} · {hoveredAlbum.format || 'Álbum'}
+                                    </p>
                                 </motion.div>
-                            </AnimatePresence>
+                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>

@@ -34,7 +34,7 @@ export const Musica = () => {
     }, []);
 
     return (
-        <section className="mt-[200px] max-w-[1200px] mx-auto px-[10px]">
+        <section className="mt-10 max-w-[1200px] mx-auto px-[10px]">
             <h1 className="mb-[30px] text-center">
                 Lo mejor de
                 <span className="pl-[20px] font-secundary">

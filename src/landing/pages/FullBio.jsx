@@ -160,7 +160,7 @@ export const FullBio = () => {
                     <div className="mt-28 space-y-12">
                         <div className="flex items-center gap-6">
                             <div className="flex-1 h-px bg-white/[0.06]" />
-                            <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold">Discografía</span>
+                            <span className="text-white text-[10px] capitalize tracking-[0.4em] font-light">Discografía</span>
                             <div className="flex-1 h-px bg-white/[0.06]" />
                         </div>
 
@@ -168,7 +168,7 @@ export const FullBio = () => {
                             {[
                                 {
                                     label: "Álbumes de Estudio",
-                                    color: "text-white/40",
+                                    color: "text-white",
                                     items: [
                                         { year: "2020", title: "Easy Money Baby" },
                                         { year: "2021", title: "Lyke Mike" },
@@ -181,14 +181,14 @@ export const FullBio = () => {
                                 },
                                 {
                                     label: "Mixtapes",
-                                    color: "text-white/40",
+                                    color: "text-white",
                                     items: [
                                         { year: "2016", title: "El final del principio" },
                                     ]
                                 },
                                 {
                                     label: "EP",
-                                    color: "text-white/40",
+                                    color: "text-white",
                                     items: [
                                         { year: "2020", title: "Para mi ex" },
                                         { year: "2023", title: "Sweet & Sour" },
@@ -198,13 +198,13 @@ export const FullBio = () => {
                                 }
                             ].map((col) => (
                                 <div key={col.label} className="space-y-4">
-                                    <p className={`text-[10px] uppercase tracking-[0.3em] font-bold ${col.color} border-b border-white/[0.06] pb-3`}>
+                                    <p className={`text-[10px] uppercase tracking-[0.3em] font-light ${col.color} border-b border-white/[0.06] pb-3`}>
                                         {col.label}
                                     </p>
                                     {col.items.map((a) => (
                                         <div key={a.title} className="flex gap-5 items-baseline group">
-                                            <span className="text-white/15 text-xs font-bold shrink-0 group-hover:text-white/30 transition-colors">{a.year}</span>
-                                            <span className="text-white/40 text-sm font-light group-hover:text-white/70 transition-colors">{a.title}</span>
+                                            <span className="text-white/20 text-xs font-light shrink-0 group-hover:text-white/30 transition-colors">{a.year}</span>
+                                            <span className="text-white/30 text-sm font-light group-hover:text-white/70 transition-colors">{a.title}</span>
                                         </div>
                                     ))}
                                 </div>

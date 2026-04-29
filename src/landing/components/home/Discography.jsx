@@ -113,7 +113,7 @@ export const Discography = () => {
 
     return (
         <section
-            className="relative overflow-hidden py-32"
+            className="relative overflow-hidden pt-32 pb-0"
             style={{ minHeight: '100vh', background: 'black' }}
             onMouseDown={onDown}
             onMouseMove={onMove}
@@ -155,7 +155,7 @@ export const Discography = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-24"
                 >
-                    <p className="text-white/20 text-[10px] uppercase tracking-[0.8em] font-bold mb-3">Discografía Oficial</p>
+                    <p className="text-white text-[10px] capitalize tracking-[0.8em] font-light mb-3">Discografía oficial</p>
                     <h2 className="text-[4rem] font-bold uppercase tracking-tighter leading-[70px]">
                         El <span className="font-secundary normal-case text-[5rem] ml-2 text-[var(--blue)]">Legado</span>
                     </h2>
@@ -272,8 +272,8 @@ export const Discography = () => {
                                 {toSentenceCase(currentAlbum.title)}
                             </h3>
                             <div className="flex gap-4 mb-12">
-                                <span className="px-8 py-2.5 bg-white/5 rounded-full text-[11px] font-bold border border-white/10 text-white/40 tracking-[0.2em]">{currentAlbum.year}</span>
-                                <span className="px-8 py-2.5 bg-white/5 rounded-full text-[11px] font-bold border border-white/10 text-white/40 tracking-[0.2em]">{currentAlbum.songsCount} canciones</span>
+                                <span className="px-8 py-2.5 bg-white/5 rounded-full text-[11px] font-light border border-white/10 text-white/20 tracking-[0.2em]">{currentAlbum.year}</span>
+                                <span className="px-8 py-2.5 bg-white/5 rounded-full text-[11px] font-bold border border-white/10 text-white/20 tracking-[0.2em]">{currentAlbum.songsCount} canciones</span>
                             </div>
                             <motion.button 
                                 whileHover={{ scale: 1.05 }}
