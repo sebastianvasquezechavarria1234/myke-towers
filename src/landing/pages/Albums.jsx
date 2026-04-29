@@ -20,7 +20,7 @@ const AlbumCard = ({ album, index }) => {
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
-            <div className="relative overflow-hidden" style={{ height: "450px" }}>
+            <div className="relative overflow-hidden" style={{ height: "350px" }}>
                 {/* IMG: Animación de escala suave y grayscale */}
                 <motion.img
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0"
