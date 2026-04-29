@@ -1,40 +1,136 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Layout } from "../layout/Layout";
 import { Hero } from "../components/home/Hero";
 import { Musica } from "../components/home/Musica";
 import { SocialWall } from "../components/home/SocialWall";
 import { motion, AnimatePresence, useSpring, useMotionValue, useVelocity, useTransform } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 
-const DISCOGRAPHY_DATA = [
-    {
-        label: "Álbumes de estudio",
-        items: [
-            { year: "2020", title: "Easy Money Baby", img: "/mal-de-amores.avif" },
-            { year: "2021", title: "Lyke Mike", img: "/sport.avif" },
-            { year: "2023", title: "La vida es una", img: "/mal-de-amores.avif" },
-            { year: "2024", title: "La Pantera Negra", img: "/sport.avif" },
-            { year: "2025", title: "Island Boyz", img: "/mal-de-amores.avif" },
-        ]
-    },
-    {
-        label: "Mixtapes",
-        items: [
-            { year: "2016", title: "El final del principio", img: "/sport.avif" },
-        ]
-    },
-    {
-        label: "EP & otros",
-        items: [
-            { year: "2020", title: "Para mi ex", img: "/mal-de-amores.avif" },
-            { year: "2023", title: "Sweet & Sour", img: "/sport.avif" },
-            { year: "2024", title: "Cassette 01", img: "/mal-de-amores.avif" },
-        ]
-    }
-];
+/* Componente de la Card de Previsualización Reutilizable */
+const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) => {
+    if (!album) return null;
+
+    return (
+        <motion.div
+            initial={isGhost ? false : {
+                opacity: 0,
+                scale: 0.4,
+                rotateY: 30,
+                rotateX: -15,
+                filter: "blur(20px)"
+            }}
+            animate={isGhost ? { opacity: 0.06 } : {
+                opacity: 1,
+                scale: 1,
+                rotateY: 0,
+                rotateX: 0,
+                filter: "blur(0px)"
+            }}
+            exit={isGhost ? false : {
+                opacity: 0,
+                scale: 0.95,
+                filter: "blur(2px)",
+                transition: { duration: 0.1, ease: "linear" }
+            }}
+            transition={isGhost ? { duration: 0 } : {
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+                mass: 0.4
+            }}
+            className="absolute pointer-events-none z-[100] w-[150px] flex flex-col"
+            style={{
+                ...style,
+                perspective: 1000
+            }}
+        >
+            {/* FONDO BLANCO ELÁSTICO */}
+            <motion.div
+                className="absolute inset-0 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
+                style={isGhost ? {} : {
+                    scaleX: dynamicScaleX,
+                    scaleY: dynamicScaleY,
+                    transformOrigin: "center"
+                }}
+            />
+
+            {/* CONTENIDO */}
+            <div className="relative p-[8px] flex flex-col gap-2">
+                <motion.div
+                    initial={isGhost ? false : { opacity: 0, scale: 0.8 }}
+                    animate={isGhost ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                    transition={isGhost ? { duration: 0 } : { duration: 0.4 }}
+                    className="relative w-full aspect-square overflow-hidden"
+                >
+                    <img
+                        src={album.image}
+                        alt=""
+                        className="w-full h-full object-cover"
+                    />
+                </motion.div>
+
+                <div className="px-1">
+                    <h2 className="font-secundary text-black text-sm leading-tight break-words whitespace-normal">
+                        {album.title}
+                    </h2>
+                    <p className="text-black/40 text-[7px] font-bold mt-0.5 uppercase tracking-wider">
+                        {album.year} · {album.format || 'Álbum'}
+                    </p>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
+/* Componente Individual de Ghost Card con Lógica Propia */
+const GhostCardItem = ({ albums, initialPos, delay }) => {
+    const [currentPos, setCurrentPos] = useState(initialPos);
+    const [albumIdx, setAlbumIdx] = useState(() => Math.floor(Math.random() * albums.length));
+
+    useEffect(() => {
+        const positions = [
+            { top: '15%', left: '10%' }, { top: '25%', left: '85%' },
+            { top: '65%', left: '15%' }, { top: '80%', left: '90%' },
+            { top: '50%', left: '50%' }, { top: '10%', left: '70%' },
+            { top: '85%', left: '35%' }, { top: '40%', left: '15%' },
+            { top: '75%', left: '75%' }, { top: '30%', left: '45%' }
+        ];
+
+        // Usar el delay para desfasar el inicio de la animación
+        const startTimeout = setTimeout(() => {
+            const interval = setInterval(() => {
+                const newPos = positions[Math.floor(Math.random() * positions.length)];
+                const newAlbumIdx = Math.floor(Math.random() * albums.length);
+                setCurrentPos(newPos);
+                setAlbumIdx(newAlbumIdx);
+            }, 5000); // Cada 5 segundos cambia de lugar
+
+            return () => clearInterval(interval);
+        }, delay);
+
+        return () => clearTimeout(startTimeout);
+    }, [albums, delay]);
+
+    return (
+        <AnimatePresence>
+            <PreviewCard 
+                key={`ghost-item-${currentPos.top}-${currentPos.left}`}
+                album={albums[albumIdx]} 
+                isGhost={true} 
+                style={{ 
+                    top: currentPos.top,
+                    left: currentPos.left,
+                    transform: 'translate(-50%, -50%)',
+                    transition: 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+            />
+        </AnimatePresence>
+    );
+};
 
 const AlbumItem = ({ album, onHover }) => {
     return (
-        <div 
+        <div
             onMouseEnter={() => onHover(album)}
             onMouseLeave={() => onHover(null)}
             className="flex gap-6 items-baseline group cursor-pointer py-3 border-b border-white/[0.03] last:border-0"
@@ -53,35 +149,24 @@ export const Home = () => {
     const [albums, setAlbums] = useState([]);
     const [hoveredAlbum, setHoveredAlbum] = useState(null);
     const containerRef = React.useRef(null);
-    
+
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
     const xVelocity = useVelocity(x);
     const yVelocity = useVelocity(y);
 
-    // Escala líquida muy sutil para la card (sin deformar bordes)
     const dynamicScaleX = useTransform(xVelocity, [-3000, 0, 3000], [1.1, 1, 1.1]);
     const dynamicScaleY = useTransform(yVelocity, [-3000, 0, 3000], [1.1, 1, 1.1]);
 
     const springConfig = { stiffness: 500, damping: 40, mass: 0.1 };
-    const lagConfig = { stiffness: 100, damping: 20, mass: 0.5 };
-    
     const springX = useSpring(x, springConfig);
     const springY = useSpring(y, springConfig);
-    
-    const lagX = useSpring(x, lagConfig);
-    const lagY = useSpring(y, lagConfig);
-
-    // Cálculos de inercia (fuera del render para evitar bugs de pantalla gris)
-    const contentX = useTransform([lagX, springX], ([lx, sx]) => lx - sx);
-    const contentY = useTransform([lagY, springY], ([ly, sy]) => ly - sy);
 
     useEffect(() => {
         fetch("http://localhost:3000/albums")
             .then(res => res.json())
             .then(data => {
-                // Ordenar por año descendente (más nuevo primero)
                 const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
                 setAlbums(sorted);
             })
@@ -91,38 +176,39 @@ export const Home = () => {
     const handleMouseMove = (e) => {
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
-        x.set(e.clientX - rect.left + 50); 
+        x.set(e.clientX - rect.left + 50);
         y.set(e.clientY - rect.top - 180);
     };
 
-    // Categorizar álbumes de forma flexible para que no falte ninguno
     const categorized = [
-        { 
-            label: "Álbumes de estudio", 
-            items: albums.filter(a => a.format?.toLowerCase().includes("álbum")) 
+        {
+            label: "Álbumes de estudio",
+            items: albums.filter(a => a.format?.toLowerCase().includes("álbum"))
         },
-        { 
-            label: "Mixtapes", 
-            items: albums.filter(a => a.format?.toLowerCase().includes("mixtape")) 
+        {
+            label: "Mixtapes",
+            items: albums.filter(a => a.format?.toLowerCase().includes("mixtape"))
         },
-        { 
-            label: "EP & Singles", 
-            items: albums.filter(a => a.format?.toLowerCase().includes("ep")) 
+        {
+            label: "EP & Singles",
+            items: albums.filter(a => a.format?.toLowerCase().includes("ep"))
         },
     ];
 
-    return(
+    return (
         <Layout>
             <Hero />
+            <Musica />
+            <SocialWall />
             
             {/* DISCOGRAFÍA */}
-            <section 
+            <section
                 ref={containerRef}
                 className="pt-32 pb-0 max-w-[900px] mx-auto px-6 relative"
                 onMouseMove={handleMouseMove}
             >
                 <div className="space-y-16">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         className="flex items-center gap-6"
@@ -132,7 +218,7 @@ export const Home = () => {
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative min-h-[600px]">
                         {categorized.map((col) => (
                             <div key={col.label} className="space-y-6">
                                 <p className="text-[14px] font-light text-white border-b border-white/[0.06] pb-4">
@@ -140,103 +226,44 @@ export const Home = () => {
                                 </p>
                                 <div className="flex flex-col">
                                     {col.items.map((a) => (
-                                        <AlbumItem 
-                                            key={a.id} 
-                                            album={a} 
+                                        <AlbumItem
+                                            key={a.id}
+                                            album={a}
                                             onHover={setHoveredAlbum}
                                         />
                                     ))}
                                 </div>
                             </div>
                         ))}
+
+                        {/* 3 GHOST CARDS TOTALMENTE INDEPENDIENTES */}
+                        {!hoveredAlbum && albums.length > 0 && (
+                            <>
+                                <GhostCardItem albums={albums} initialPos={{ top: '25%', left: '20%' }} delay={0} />
+                                <GhostCardItem albums={albums} initialPos={{ top: '55%', left: '80%' }} delay={1500} />
+                                <GhostCardItem albums={albums} initialPos={{ top: '80%', left: '40%' }} delay={3000} />
+                            </>
+                        )}
                     </div>
                 </div>
 
-                {/* MOUSE FOLLOW PREVIEW - REVEAL CINEMÁTICO */}
+                {/* MOUSE FOLLOW PREVIEW (Hover dinámico) */}
                 <AnimatePresence>
                     {hoveredAlbum && (
-                        <motion.div
-                            key="follow-preview"
-                            initial={{ 
-                                opacity: 0, 
-                                scale: 0.4, 
-                                rotateY: 30, 
-                                rotateX: -15,
-                                filter: "blur(20px)" 
-                            }}
-                            animate={{ 
-                                opacity: 1, 
-                                scale: 1, 
-                                rotateY: 0, 
-                                rotateX: 0,
-                                filter: "blur(0px)" 
-                            }}
-                            exit={{ 
-                                opacity: 0, 
-                                scale: 0.95, 
-                                y: 15,
-                                filter: "blur(8px)",
-                                transition: { duration: 0.15, ease: "easeOut" } 
-                            }}
-                            transition={{ 
-                                type: "spring",
-                                stiffness: 300,
-                                damping: 25,
-                                mass: 0.8
-                            }}
-                            className="absolute pointer-events-none z-[100] w-[200px] flex flex-col"
+                        <PreviewCard 
+                            key="follow-mouse"
+                            album={hoveredAlbum} 
+                            isGhost={false} 
                             style={{
                                 left: springX,
-                                top: springY,
-                                perspective: 1000
+                                top: springY
                             }}
-                        >
-                            {/* FONDO BLANCO ELÁSTICO */}
-                            <motion.div 
-                                className="absolute inset-0 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
-                                style={{
-                                    scaleX: dynamicScaleX,
-                                    scaleY: dynamicScaleY,
-                                    transformOrigin: "center"
-                                }}
-                            />
-
-                            {/* CONTENIDO CON STAGGER */}
-                            <div className="relative p-[10px] flex flex-col gap-3">
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    transition={{ delay: 0.05, duration: 0.4 }}
-                                    className="relative w-full aspect-square overflow-hidden"
-                                >
-                                    <img 
-                                        src={hoveredAlbum.image} 
-                                        alt="" 
-                                        className="w-full h-full object-cover" 
-                                    />
-                                </motion.div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.15, duration: 0.3 }}
-                                    className="px-1"
-                                >
-                                    <h2 className="font-secundary text-black text-xl leading-tight break-words whitespace-normal">
-                                        {hoveredAlbum.title}
-                                    </h2>
-                                    <p className="text-black/40 text-[9px] font-bold mt-0.5">
-                                        {hoveredAlbum.year} · {hoveredAlbum.format || 'Álbum'}
-                                    </p>
-                                </motion.div>
-                            </div>
-                        </motion.div>
+                            dynamicScaleX={dynamicScaleX}
+                            dynamicScaleY={dynamicScaleY}
+                        />
                     )}
                 </AnimatePresence>
             </section>
-
-            <Musica />
-            <SocialWall />
         </Layout>
-    )
-}
+    );
+};

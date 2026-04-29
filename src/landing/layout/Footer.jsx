@@ -1,6 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+
+/* Constantes de Estilo */
+const GRADIENT_BORDER = "linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent)";
+const VERTICAL_GRADIENT = "linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent)";
+
+/* Ícono flecha externa (Lucide) */
+const ExternalIcon = () => (
+    <span className="inline-flex items-center justify-center shrink-0 opacity-100 transition-opacity ml-1.5">
+        <ExternalLink size={11} strokeWidth={1.5} />
+    </span>
+);
 
 /* Íconos para los botones de acción */
 const GithubIcon = () => (
@@ -24,24 +36,6 @@ const PortfolioIcon = () => (
     </svg>
 );
 
-/* Ícono flecha ↗ en cuadradito */
-const ExternalIcon = () => (
-    <span
-        className="inline-flex items-center justify-center shrink-0 opacity-40 group-hover:opacity-100 transition-opacity"
-        style={{
-            width: "11px",
-            height: "11px",
-            border: "1px solid currentColor",
-            borderRadius: "2px",
-            marginLeft: "5px"
-        }}
-    >
-        <svg width="5" height="5" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 8L8 2M8 2H4M8 2v4" />
-        </svg>
-    </span>
-);
-
 /* Ícono social en CÍRCULO */
 const SocialCircle = ({ href, children, title }) => (
     <a
@@ -52,7 +46,7 @@ const SocialCircle = ({ href, children, title }) => (
         className="flex items-center justify-center transition-all duration-300 group"
         style={{
             width: "36px",
-            height: "36px",
+            height: "34px",
             border: "1px solid rgba(255,255,255,0.08)",
             borderRadius: "50%",
             color: "rgba(255,255,255,0.4)",
@@ -92,21 +86,21 @@ const NavLink = ({ to, href, children, external }) => {
     );
 };
 
-/* Botón Minimalista (Ajuste de tamaño a 12px) */
+/* Botón Minimalista */
 const ActionButton = ({ href, children, icon: Icon }) => (
     <a 
         href={href} 
         target="_blank" 
         rel="noreferrer"
         className="font-light transition-all duration-300 flex items-center gap-1.5 group py-0.5"
-        style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)" }}
+        style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)" }}
         onMouseEnter={e => e.currentTarget.style.color = "#ffffff"}
-        onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.3)"}
+        onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.6)"}
     >
-        <span className="opacity-40 group-hover:opacity-100 transition-opacity">
+        <span className="opacity-90 group-hover:opacity-100 transition-opacity">
             <Icon />
         </span>
-        <span className="group-hover:underline underline-offset-4 decoration-white/20">
+        <span className="underline underline-offset-4 decoration-white/20 group-hover:decoration-white/50">
             {children}
         </span>
     </a>
@@ -120,10 +114,11 @@ export const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="max-w-[1240px] mx-auto rounded-[32px] overflow-hidden"
+                className="max-w-[1240px] mx-auto rounded-[32px] overflow-hidden relative"
                 style={{
-                    background: "#212429",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "linear-gradient(to bottom, rgba(33, 36, 41, 0.8), transparent)",
+                    backdropFilter: "blur(12px)",
+                    borderTop: "2px solid rgba(255,255,255,0.06)",
                 }}
             >
                 <div className="flex flex-col md:flex-row items-center p-10 md:p-14 gap-12 md:gap-0">
@@ -136,12 +131,12 @@ export const Footer = () => {
                             <span className="font-secundary text-white/20 text-[32px] italic" style={{ fontWeight: 100 }}>Young King Baby</span>
                         </div>
 
-                        {/* Tagline Profesional (Estilos Restaurados) */}
+                        {/* Tagline Profesional */}
                         <p className="text-white/80 text-[20px] md:text-[24px] leading-[1.4] font-light tracking-tight max-w-[420px]">
                             Un proyecto editorial de vanguardia enfocado en la experiencia digital del artista. Diseñado y desarrollado por Sebastian Vasquez Echavarria.
                         </p>
 
-                        {/* Botones de Acción (Gap reducido y font size 12px) */}
+                        {/* Botones de Acción */}
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5">
                             <ActionButton href="https://github.com/sebastianvasquezechavarria1234/myke-towers" icon={RepoIcon}>
                                 Ver Repositorio
@@ -156,17 +151,19 @@ export const Footer = () => {
 
                         {/* Copyright */}
                         <div>
-                            <p className="font-light tracking-[0.05em] opacity-15" style={{ fontSize: "10px" }}>
+                            <p className="font-thin tracking-[0.05em] opacity-80" style={{ fontSize: "10px" }}>
                                 © 2027 Young King Entertainment. Todos los derechos reservados.
                             </p>
                         </div>
                     </div>
 
-                    {/* Divisor Vertical */}
-                    <div className="hidden md:block w-px bg-white/5 self-stretch my-6" />
+                    {/* Divisor Vertical 1 */}
+                    <div className="hidden md:block w-[1.5px] self-stretch my-4" 
+                        style={{ background: VERTICAL_GRADIENT }} 
+                    />
 
                     {/* ── COLUMNAS CENTRALES ── */}
-                    <div className="flex-1 flex flex-col md:flex-row px-0 md:px-12 gap-8 md:gap-0">
+                    <div className="flex-[1.2] flex flex-col md:flex-row px-0 md:px-12 gap-8 md:gap-0">
                         {/* Navegación */}
                         <div className="flex-1 flex flex-col gap-1.5">
                             <p className="text-[11px] font-medium text-white/90 mb-3">Páginas</p>
@@ -185,8 +182,10 @@ export const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Divisor Vertical */}
-                    <div className="hidden md:block w-px bg-white/5 self-stretch my-6" />
+                    {/* Divisor Vertical 2 */}
+                    <div className="hidden md:block w-[1.5px] self-stretch my-4" 
+                        style={{ background: VERTICAL_GRADIENT }} 
+                    />
 
                     {/* ── COLUMNA DERECHA ── */}
                     <div className="flex flex-row md:flex-col items-center justify-center gap-4 pl-0 md:pl-12">
