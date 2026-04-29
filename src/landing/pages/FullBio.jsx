@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "../layout/Layout";
 import { motion } from "framer-motion";
+import { DiscographySection } from "../components/home/DiscographySection";
 
 const ERAS = [
     {
@@ -156,61 +157,8 @@ export const FullBio = () => {
                         <div className="border-t border-white/[0.06]" />
                     </div>
 
-                    {/* DISCOGRAFÍA */}
-                    <div className="mt-28 space-y-12">
-                        <div className="flex items-center gap-6">
-                            <div className="flex-1 h-px bg-white/[0.06]" />
-                            <span className="text-white text-[10px] capitalize tracking-[0.4em] font-light">Discografía</span>
-                            <div className="flex-1 h-px bg-white/[0.06]" />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                            {[
-                                {
-                                    label: "Álbumes de Estudio",
-                                    color: "text-white",
-                                    items: [
-                                        { year: "2020", title: "Easy Money Baby" },
-                                        { year: "2021", title: "Lyke Mike" },
-                                        { year: "2023", title: "La vida es una" },
-                                        { year: "2023", title: "LVEU: Vive la tuya... no la mía" },
-                                        { year: "2024", title: "La Pantera Negra" },
-                                        { year: "2024", title: "Lyke Miike" },
-                                        { year: "2025", title: "Island Boyz" },
-                                    ]
-                                },
-                                {
-                                    label: "Mixtapes",
-                                    color: "text-white",
-                                    items: [
-                                        { year: "2016", title: "El final del principio" },
-                                    ]
-                                },
-                                {
-                                    label: "EP",
-                                    color: "text-white",
-                                    items: [
-                                        { year: "2020", title: "Para mi ex" },
-                                        { year: "2023", title: "Sweet & Sour" },
-                                        { year: "2023", title: "Icy Hot" },
-                                        { year: "2024", title: "Cassette 01 (con Ovy on the Drums)" },
-                                    ]
-                                }
-                            ].map((col) => (
-                                <div key={col.label} className="space-y-4">
-                                    <p className={`text-[10px] uppercase tracking-[0.3em] font-light ${col.color} border-b border-white/[0.06] pb-3`}>
-                                        {col.label}
-                                    </p>
-                                    {col.items.map((a) => (
-                                        <div key={a.title} className="flex gap-5 items-baseline group">
-                                            <span className="text-white/20 text-xs font-light shrink-0 group-hover:text-white/30 transition-colors">{a.year}</span>
-                                            <span className="text-white/30 text-sm font-light group-hover:text-white/70 transition-colors">{a.title}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    {/* DISCOGRAFÍA DINÁMICA */}
+                    <DiscographySection padding="mt-40 mb-0" />
 
                     {/* QUOTE FINAL */}
                     <div className="mt-28 text-center">
