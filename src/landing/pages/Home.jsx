@@ -151,35 +151,63 @@ export const Home = () => {
                     </div>
                 </div>
 
-                {/* MOUSE FOLLOW PREVIEW */}
+                {/* MOUSE FOLLOW PREVIEW - REVEAL CINEMÁTICO */}
                 <AnimatePresence>
                     {hoveredAlbum && (
                         <motion.div
                             key="follow-preview"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            className="absolute pointer-events-none z-[100] bg-white p-[10px] shadow-[0_30px_60px_rgba(0,0,0,0.3)] flex flex-col gap-3 w-[200px] overflow-hidden"
+                            initial={{ 
+                                opacity: 0, 
+                                scale: 0.4, 
+                                rotateY: 30, 
+                                rotateX: -15,
+                                filter: "blur(20px)" 
+                            }}
+                            animate={{ 
+                                opacity: 1, 
+                                scale: 1, 
+                                rotateY: 0, 
+                                rotateX: 0,
+                                filter: "blur(0px)" 
+                            }}
+                            exit={{ 
+                                opacity: 0, 
+                                scale: 0.2, 
+                                rotateX: -45,
+                                y: 100,
+                                filter: "blur(10px)",
+                                transition: { duration: 0.3, ease: "circIn" } 
+                            }}
+                            transition={{ 
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 25,
+                                mass: 0.8
+                            }}
+                            className="absolute pointer-events-none z-[100] w-[200px] flex flex-col"
                             style={{
                                 left: springX,
                                 top: springY,
-                                perspective: 1000,
-                                scaleX: dynamicScaleX,
-                                scaleY: dynamicScaleY
+                                perspective: 1000
                             }}
                         >
-                            {/* CONTENIDO INTERNO - Con retraso (Inercia) */}
-                            <motion.div
+                            {/* FONDO BLANCO ELÁSTICO */}
+                            <motion.div 
+                                className="absolute inset-0 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
                                 style={{
-                                    x: contentX,
-                                    y: contentY,
-                                    scale: 1.1
+                                    scaleX: dynamicScaleX,
+                                    scaleY: dynamicScaleY,
+                                    transformOrigin: "center"
                                 }}
-                            >
+                            />
+
+                            {/* CONTENIDO CON STAGGER */}
+                            <div className="relative p-[10px] flex flex-col gap-3">
                                 {/* IMAGEN */}
                                 <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    transition={{ delay: 0.05, duration: 0.4 }}
                                     className="relative w-full aspect-square overflow-hidden"
                                 >
                                     <img 
@@ -191,10 +219,10 @@ export const Home = () => {
 
                                 {/* TEXTO */}
                                 <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.1 }}
-                                    className="px-1 mt-3"
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.15, duration: 0.3 }}
+                                    className="px-1"
                                 >
                                     <h2 
                                         className="font-secundary text-black text-xl leading-tight break-words whitespace-normal"
@@ -205,7 +233,7 @@ export const Home = () => {
                                         {hoveredAlbum.year} · {hoveredAlbum.format || 'Álbum'}
                                     </p>
                                 </motion.div>
-                            </motion.div>
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
