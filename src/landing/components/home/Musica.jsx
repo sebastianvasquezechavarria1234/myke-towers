@@ -39,7 +39,6 @@ export const Musica = () => {
 
     const showLess = () => {
         setVisibleCount(9);
-        // Scroll suave hacia arriba de la sección al reducir
         const section = document.getElementById('musica-section');
         if (section) {
             section.scrollIntoView({ behavior: 'smooth' });
@@ -62,33 +61,39 @@ export const Musica = () => {
                 ) : error ? (
                     <p className="col-span-3 text-center text-red-400 opacity-80">⚠ {error}</p>
                 ) : (
-                    videos.slice(0, visibleCount).map((video, idx) => (
-                        <motion.div
-                            key={video.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
-                        >
-                            <Card video={video} index={idx} />
-                        </motion.div>
-                    ))
+                    <AnimatePresence mode="popLayout">
+                        {videos.slice(0, visibleCount).map((video, idx) => (
+                            <motion.div
+                                key={video.id}
+                                layout
+                                initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                                transition={{ 
+                                    duration: 0.6, 
+                                    delay: (idx >= visibleCount - 9) ? (idx % 3) * 0.1 : 0,
+                                    ease: [0.43, 0.13, 0.23, 0.96]
+                                }}
+                            >
+                                <Card video={video} index={idx} />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 )}
             </div>
 
             {/* BOTONES DE CONTROL */}
             {!loading && (
-                <div className="mt-24 flex flex-col md:flex-row items-center justify-center gap-6">
+                <div className="mt-20 flex items-center justify-center gap-10">
                     {/* MOSTRAR MÁS */}
                     {videos.length > visibleCount && (
                         <button
                             onClick={showMore}
-                            className="group relative px-12 py-4 overflow-hidden border border-white/10 hover:border-white/40 transition-colors duration-500"
+                            className="group relative transition-colors duration-300"
                         >
-                            <span className="relative z-10 text-white/40 group-hover:text-white text-[11px] uppercase tracking-[0.4em] font-light transition-colors duration-500">
-                                Mostrar más
+                            <span className="text-white/40 group-hover:text-white text-[13px] font-light transition-colors duration-300">
+                                mostrar más
                             </span>
-                            <div className="absolute inset-0 bg-white/[0.03] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                         </button>
                     )}
 
@@ -96,12 +101,11 @@ export const Musica = () => {
                     {visibleCount > 9 && (
                         <button
                             onClick={showLess}
-                            className="group relative px-12 py-4 overflow-hidden border border-white/5 hover:border-red-500/20 transition-colors duration-500"
+                            className="group relative transition-colors duration-300"
                         >
-                            <span className="relative z-10 text-white/20 group-hover:text-red-400/60 text-[11px] uppercase tracking-[0.4em] font-light transition-colors duration-500">
-                                Mostrar menos
+                            <span className="text-white/20 group-hover:text-red-400/60 text-[13px] font-light transition-colors duration-300">
+                                mostrar menos
                             </span>
-                            <div className="absolute inset-0 bg-red-500/[0.02] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                         </button>
                     )}
                 </div>
