@@ -178,7 +178,13 @@ export const Home = () => {
                         className="flex items-center gap-6"
                     >
                         <div className="flex-1 h-px bg-white/[0.06]" />
-                        <span className="font-secundary text-5xl text-white capitalize">Discografía</span>
+                        <div className="text-4xl md:text-5xl text-white flex flex-wrap items-center justify-center gap-x-4 gap-y-2 max-w-[650px] mx-auto text-center leading-tight">
+                            <span className="font-bold">Legado</span>
+                            <span className="font-secundary text-[var(--blue)] lowercase italic">musical</span>
+                            <span className="font-bold">&</span>
+                            <span className="font-secundary text-[var(--blue)] lowercase italic">discografía</span>
+                            <span className="font-bold">completa</span>
+                        </div>
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </motion.div>
 
