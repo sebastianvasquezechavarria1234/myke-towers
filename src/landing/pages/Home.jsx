@@ -73,6 +73,10 @@ export const Home = () => {
     const lagX = useSpring(x, lagConfig);
     const lagY = useSpring(y, lagConfig);
 
+    // Cálculos de inercia (fuera del render para evitar bugs de pantalla gris)
+    const contentX = useTransform([lagX, springX], ([lx, sx]) => lx - sx);
+    const contentY = useTransform([lagY, springY], ([ly, sy]) => ly - sy);
+
     useEffect(() => {
         fetch("http://localhost:3000/albums")
             .then(res => res.json())
@@ -167,8 +171,8 @@ export const Home = () => {
                             {/* CONTENIDO INTERNO - Con retraso (Inercia) */}
                             <motion.div
                                 style={{
-                                    x: useTransform(() => lagX.get() - springX.get()),
-                                    y: useTransform(() => lagY.get() - springY.get()),
+                                    x: contentX,
+                                    y: contentY,
                                     scale: 1.1
                                 }}
                             >
