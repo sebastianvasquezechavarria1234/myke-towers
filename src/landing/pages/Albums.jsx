@@ -1,7 +1,77 @@
 import React, { useEffect, useState } from "react";
 import { Layout } from "../layout/Layout";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+
+const AlbumCard = ({ album, index }) => {
+    const [hovered, setHovered] = useState(false);
+    const displayIndex = String(index + 1).padStart(2, '0');
+
+    const formatTitle = (text) => {
+        if (!text) return "Sin título";
+        const lower = text.toLowerCase();
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+    };
+
+    return (
+        <Link
+            to={`/album/${album.id}`}
+            className="block group"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+            <div className="relative overflow-hidden" style={{ height: "450px" }}>
+                {/* IMG: Animación de escala suave y grayscale */}
+                <motion.img
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0"
+                    src={album.image}
+                    alt={album.title}
+                    loading="lazy"
+                    animate={{ scale: hovered ? 1 : 1.05 }}
+                    transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+                />
+
+                {/* OVERLAY MINIMALISTA (Icono de Link/Ver) */}
+                <AnimatePresence>
+                    {hovered && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="absolute inset-0 flex items-center justify-center"
+                            style={{
+                                background: "rgba(0,0,0,0.4)",
+                                backdropFilter: "blur(2px)"
+                            }}
+                        >
+                            <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                className="w-14 h-14 rounded-full border border-white/40 flex items-center justify-center shadow-2xl"
+                            >
+                                <div className="text-white text-xs uppercase tracking-widest font-bold">Ver</div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {/* CARD BODY — Numero y Titulo en bloque vertical (Igual que Música) */}
+            <div className="mt-6 flex flex-col gap-2">
+                <span className="font-secundary text-white/10 text-4xl leading-none">
+                    {displayIndex}
+                </span>
+                <h4 className="font-secundary text-3xl text-white/80 group-hover:text-white transition-colors duration-300 leading-tight">
+                    {formatTitle(album.title)}
+                </h4>
+                <p className="text-white/20 text-[11px] uppercase tracking-[0.2em] font-light mt-1">
+                    {album.year} · {album.format}
+                </p>
+            </div>
+        </Link>
+    );
+};
 
 export const Albums = () => {
     const [albums, setAlbums] = useState([]);
@@ -11,7 +81,8 @@ export const Albums = () => {
         fetch("http://localhost:3000/albums")
             .then(res => res.json())
             .then(data => {
-                setAlbums(data);
+                const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+                setAlbums(sorted);
                 setLoading(false);
             })
             .catch(err => {
@@ -32,62 +103,39 @@ export const Albums = () => {
 
     return (
         <Layout>
-            <section className="pt-[160px] pb-[120px] max-w-[1400px] mx-auto px-6">
-                <header className="mb-20 text-center max-w-[800px] mx-auto">
+            <section className="pt-[160px] pb-[120px] max-w-[1200px] mx-auto px-6">
+                <header className="mb-24 text-center max-w-[800px] mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        <p className="italic mb-[20px] text-[var(--green)]">#Coleccionando hits. Marcando la historia</p>
+                        <p className="italic mb-[20px] text-[var(--blue)]">#Young King Legacy. El sonido de una era.</p>
                         <h1>
-                            Cada álbum es un nuevo capítulo, 
+                            Explora la discografía completa y el 
                             <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                                definiendo el sonido
+                                legado musical
                             </span>
-                            de una generación sin límites.
+                            que ha redefinido el género urbano.
                         </h1>
                     </motion.div>
                 </header>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA DE LA HOME */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-20">
                     {albums.map((album, idx) => (
                         <motion.div
                             key={album.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                             viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="group"
+                            transition={{ 
+                                duration: 0.6, 
+                                delay: (idx % 3) * 0.1,
+                                ease: [0.43, 0.13, 0.23, 0.96]
+                            }}
                         >
-                            <Link to={`/album/${album.id}`} className="block relative aspect-square overflow-hidden bg-white/5">
-                                {/* IMAGE */}
-                                <motion.img 
-                                    src={album.image} 
-                                    alt={album.title}
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ease-out"
-                                />
-                                
-                                {/* OVERLAY */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                
-                                {/* INFO ON HOVER */}
-                                <div className="absolute inset-x-0 bottom-0 p-8 translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
-                                    <p className="text-[var(--green)] font-bold text-[10px] tracking-[0.3em] uppercase mb-2">
-                                        {album.year} · {album.format}
-                                    </p>
-                                    <h3 className="text-3xl font-black uppercase leading-none text-white">
-                                        {album.title}
-                                    </h3>
-                                </div>
-                            </Link>
-                            
-                            <div className="mt-6 flex justify-between items-center px-2">
-                                <div>
-                                    <h3 className="text-white/80 font-bold uppercase text-sm tracking-widest">{album.title}</h3>
-                                    <p className="text-white/30 text-xs mt-1">{album.format}</p>
-                                </div>
-                                <span className="text-white/10 text-4xl font-black">{idx + 1}</span>
-                            </div>
+                            <AlbumCard album={album} index={idx} />
                         </motion.div>
                     ))}
                 </div>
