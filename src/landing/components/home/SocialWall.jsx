@@ -12,7 +12,7 @@ const SocialCard = ({ post, idx }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: idx * 0.1 }}
-            className={`${post.size} relative group overflow-hidden bg-white/5 rounded-sm cursor-pointer block h-full w-full`}
+            className={`${post.size} relative group overflow-hidden bg-white/5 rounded-sm cursor-pointer block aspect-square md:aspect-auto`}
         >
             {/* MAIN CONTENT */}
             <div className="w-full h-full">
@@ -63,23 +63,30 @@ export const SocialWall = () => {
     if (posts.length === 0) return null;
 
     return (
-        <section className="w-full h-screen relative mt-20">
-            {/* TÍTULO SUTIL */}
-            <div className="absolute top-10 left-0 w-full z-10 flex justify-center pointer-events-none">
-                <h2 className="text-white/80 text-xl md:text-3xl font-secundary tracking-widest drop-shadow-2xl">
-                    Social Wall
-                </h2>
-            </div>
+        <section className="mt-[200px] mb-[150px] max-w-[1200px] mx-auto px-[10px]">
+            <h1 className="mb-[50px] text-center">
+                Instagram
+                <span className="pl-[20px] font-secundary">
+                    Experience
+                </span>
+            </h1>
 
-            {/* GRID 4x4 EXACTO - MITAD DEL VIEWPORT */}
-            <div className="grid grid-cols-4 grid-rows-4 w-full h-full gap-0.5">
-                {posts.slice(0, 16).map((post, idx) => (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-[15px] auto-rows-[250px]">
+                {posts.slice(0, 12).map((post, idx) => (
                     <SocialCard key={post.id} post={post} idx={idx} />
                 ))}
             </div>
-            
-            {/* Gradiente sutil abajo para que el footer se mezcle bien */}
-            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
+
+            <div className="mt-16 flex justify-center">
+                <a 
+                    href="https://instagram.com/myketowers" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-10 py-4 border border-white/10 hover:border-[var(--green)] hover:text-[var(--green)] transition-all text-[11px] uppercase tracking-[0.3em] font-black bg-white/5 rounded-full"
+                >
+                    Seguir a @myketowers
+                </a>
+            </div>
         </section>
     );
 };

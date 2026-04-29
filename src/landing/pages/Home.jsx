@@ -114,13 +114,11 @@ export const Home = () => {
     return(
         <Layout>
             <Hero />
-            <Musica />
-            <SocialWall />
-
-            {/* DISCOGRAFÍA - justo encima del footer */}
+            
+            {/* DISCOGRAFÍA */}
             <section 
                 ref={containerRef}
-                className="pt-32 pb-32 max-w-[900px] mx-auto px-6 relative"
+                className="pt-32 pb-0 max-w-[900px] mx-auto px-6 relative"
                 onMouseMove={handleMouseMove}
             >
                 <div className="space-y-16">
@@ -236,6 +234,9 @@ export const Home = () => {
                     )}
                 </AnimatePresence>
             </section>
+
+            <Musica />
+            <SocialWall />
         </Layout>
     )
 }
