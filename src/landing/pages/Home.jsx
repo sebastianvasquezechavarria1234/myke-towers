@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "../layout/Layout";
 import { Hero } from "../components/home/Hero";
 import { Musica } from "../components/home/Musica";
@@ -7,42 +7,32 @@ import { motion, AnimatePresence, useSpring, useMotionValue, useVelocity, useTra
 import { ExternalLink } from "lucide-react";
 
 /* Componente de la Card de Previsualización Reutilizable */
-const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) => {
+const PreviewCard = ({ album, style, dynamicScaleX, dynamicScaleY }) => {
     if (!album) return null;
 
     return (
         <motion.div
-            initial={isGhost ? { opacity: 0, scale: 0.7, rotate: -10, x: -30, filter: "blur(20px)" } : {
+            initial={{
                 opacity: 0,
                 scale: 0.4,
                 rotateY: 30,
                 rotateX: -15,
                 filter: "blur(20px)"
             }}
-            animate={isGhost ? { opacity: 0.06, scale: 1, rotate: 0, x: 0, filter: "blur(0px)" } : {
+            animate={{
                 opacity: 1,
                 scale: 1,
                 rotateY: 0,
                 rotateX: 0,
                 filter: "blur(0px)"
             }}
-            exit={isGhost ? { 
-                opacity: 0, 
-                scale: 0.7, 
-                rotate: 10,
-                x: 30,
-                filter: "blur(20px)",
-                transition: { duration: 0.8, ease: "easeInOut" }
-            } : {
+            exit={{
                 opacity: 0,
                 scale: 0.95,
                 filter: "blur(2px)",
                 transition: { duration: 0.1, ease: "linear" }
             }}
-            transition={isGhost ? { 
-                duration: 0.6,
-                ease: "easeOut"
-            } : {
+            transition={{
                 type: "spring",
                 stiffness: 300,
                 damping: 25,
@@ -57,7 +47,7 @@ const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) =>
             {/* FONDO BLANCO ELÁSTICO */}
             <motion.div
                 className="absolute inset-0 bg-white shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
-                style={isGhost ? {} : {
+                style={{
                     scaleX: dynamicScaleX,
                     scaleY: dynamicScaleY,
                     transformOrigin: "center"
@@ -67,7 +57,7 @@ const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) =>
             {/* CONTENIDO */}
             <div className="relative p-[8px] flex flex-col gap-2">
                 <motion.div
-                    initial={isGhost ? { opacity: 0, scale: 0.9 } : { opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="relative w-full aspect-square overflow-hidden"
@@ -80,60 +70,15 @@ const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) =>
                 </motion.div>
 
                 <div className="px-1">
-                    <h2 className="font-secundary text-black text-sm leading-tight break-words whitespace-normal">
+                    <h2 className="font-secundary text-black text-[17px] leading-tight break-words whitespace-normal">
                         {album.title}
                     </h2>
-                    <p className="text-black/40 text-[7px] font-bold mt-0.5 uppercase tracking-wider">
-                        {album.year} · {album.format || 'Álbum'}
-                    </p>
+                    <span className="text-black/50 text-[13px] font-light lowercase block mt-0.5">
+                        {album.year} · {album.format || 'álbum'}
+                    </span>
                 </div>
             </div>
         </motion.div>
-    );
-};
-
-/* Componente Individual de Ghost Card con Lógica Propia */
-const GhostCardItem = ({ albums, initialPos, delay }) => {
-    const [currentPos, setCurrentPos] = useState(initialPos);
-    const [albumIdx, setAlbumIdx] = useState(() => Math.floor(Math.random() * albums.length));
-
-    useEffect(() => {
-        const positions = [
-            { top: '15%', left: '10%' }, { top: '25%', left: '85%' },
-            { top: '65%', left: '15%' }, { top: '80%', left: '90%' },
-            { top: '50%', left: '50%' }, { top: '10%', left: '70%' },
-            { top: '85%', left: '35%' }, { top: '40%', left: '15%' },
-            { top: '75%', left: '75%' }, { top: '30%', left: '45%' }
-        ];
-
-        // Usar el delay para desfasar el inicio de la animación
-        const startTimeout = setTimeout(() => {
-            const interval = setInterval(() => {
-                const newPos = positions[Math.floor(Math.random() * positions.length)];
-                const newAlbumIdx = Math.floor(Math.random() * albums.length);
-                setCurrentPos(newPos);
-                setAlbumIdx(newAlbumIdx);
-            }, 5000); // Cada 5 segundos cambia de lugar
-
-            return () => clearInterval(interval);
-        }, delay);
-
-        return () => clearTimeout(startTimeout);
-    }, [albums, delay]);
-
-    return (
-        <AnimatePresence>
-            <PreviewCard 
-                key={`ghost-item-${currentPos.top}-${currentPos.left}-${albumIdx}`}
-                album={albums[albumIdx]} 
-                isGhost={true} 
-                style={{ 
-                    top: currentPos.top,
-                    left: currentPos.left,
-                    transform: 'translate(-50%, -50%)'
-                }}
-            />
-        </AnimatePresence>
     );
 };
 
@@ -142,14 +87,24 @@ const AlbumItem = ({ album, onHover }) => {
         <div
             onMouseEnter={() => onHover(album)}
             onMouseLeave={() => onHover(null)}
-            className="flex gap-6 items-baseline group cursor-pointer py-3 border-b border-white/[0.03] last:border-0"
+            className="flex gap-4 items-center group cursor-pointer py-3 border-b border-white/[0.03] last:border-0"
         >
-            <span className="text-white/20 text-[11px] font-light shrink-0 group-hover:text-white/40 transition-colors duration-300">
-                {album.year}
-            </span>
-            <span className="text-white/30 text-sm font-light group-hover:text-white group-hover:pl-2 transition-all duration-300">
-                {album.title}
-            </span>
+            <div className="w-9 h-9 overflow-hidden rounded-[2px] opacity-20 group-hover:opacity-100 transition-all duration-300 shrink-0">
+                <img 
+                    src={album.image} 
+                    alt="" 
+                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-500"
+                />
+            </div>
+            
+            <div className="flex flex-col leading-tight gap-0.5">
+                <span className="text-white/30 text-[13px] font-light group-hover:text-white transition-all duration-300">
+                    {album.title}
+                </span>
+                <span className="text-white/15 text-[9px] font-light lowercase group-hover:text-white/40 transition-colors duration-300">
+                    {album.year} · {album.format || 'álbum'}
+                </span>
+            </div>
         </div>
     );
 };
@@ -244,16 +199,6 @@ export const Home = () => {
                                 </div>
                             </div>
                         ))}
-
-                        {/* 4 GHOST CARDS TOTALMENTE INDEPENDIENTES */}
-                        {!hoveredAlbum && albums.length > 0 && (
-                            <>
-                                <GhostCardItem albums={albums} initialPos={{ top: '25%', left: '20%' }} delay={0} />
-                                <GhostCardItem albums={albums} initialPos={{ top: '55%', left: '80%' }} delay={1200} />
-                                <GhostCardItem albums={albums} initialPos={{ top: '80%', left: '40%' }} delay={2400} />
-                                <GhostCardItem albums={albums} initialPos={{ top: '15%', left: '60%' }} delay={3600} />
-                            </>
-                        )}
                     </div>
                 </div>
 
@@ -263,7 +208,6 @@ export const Home = () => {
                         <PreviewCard 
                             key="follow-mouse"
                             album={hoveredAlbum} 
-                            isGhost={false} 
                             style={{
                                 left: springX,
                                 top: springY

@@ -108,7 +108,7 @@ const ActionButton = ({ href, children, icon: Icon }) => (
 
 export const Footer = () => {
     return (
-        <footer className="w-full px-6 pb-12" style={{ marginTop: "140px" }}>
+        <footer className="w-full px-6 pb-12" style={{ marginTop: "40px" }}>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
