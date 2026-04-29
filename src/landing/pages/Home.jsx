@@ -12,27 +12,37 @@ const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) =>
 
     return (
         <motion.div
-            initial={isGhost ? false : {
+            initial={isGhost ? { opacity: 0, scale: 0.7, rotate: -10, x: -30, filter: "blur(20px)" } : {
                 opacity: 0,
                 scale: 0.4,
                 rotateY: 30,
                 rotateX: -15,
                 filter: "blur(20px)"
             }}
-            animate={isGhost ? { opacity: 0.06 } : {
+            animate={isGhost ? { opacity: 0.06, scale: 1, rotate: 0, x: 0, filter: "blur(0px)" } : {
                 opacity: 1,
                 scale: 1,
                 rotateY: 0,
                 rotateX: 0,
                 filter: "blur(0px)"
             }}
-            exit={isGhost ? false : {
+            exit={isGhost ? { 
+                opacity: 0, 
+                scale: 0.7, 
+                rotate: 10,
+                x: 30,
+                filter: "blur(20px)",
+                transition: { duration: 0.8, ease: "easeInOut" }
+            } : {
                 opacity: 0,
                 scale: 0.95,
                 filter: "blur(2px)",
                 transition: { duration: 0.1, ease: "linear" }
             }}
-            transition={isGhost ? { duration: 0 } : {
+            transition={isGhost ? { 
+                duration: 0.6,
+                ease: "easeOut"
+            } : {
                 type: "spring",
                 stiffness: 300,
                 damping: 25,
@@ -57,9 +67,9 @@ const PreviewCard = ({ album, isGhost, style, dynamicScaleX, dynamicScaleY }) =>
             {/* CONTENIDO */}
             <div className="relative p-[8px] flex flex-col gap-2">
                 <motion.div
-                    initial={isGhost ? false : { opacity: 0, scale: 0.8 }}
-                    animate={isGhost ? { opacity: 1 } : { opacity: 1, scale: 1 }}
-                    transition={isGhost ? { duration: 0 } : { duration: 0.4 }}
+                    initial={isGhost ? { opacity: 0, scale: 0.9 } : { opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     className="relative w-full aspect-square overflow-hidden"
                 >
                     <img
@@ -114,14 +124,13 @@ const GhostCardItem = ({ albums, initialPos, delay }) => {
     return (
         <AnimatePresence>
             <PreviewCard 
-                key={`ghost-item-${currentPos.top}-${currentPos.left}`}
+                key={`ghost-item-${currentPos.top}-${currentPos.left}-${albumIdx}`}
                 album={albums[albumIdx]} 
                 isGhost={true} 
                 style={{ 
                     top: currentPos.top,
                     left: currentPos.left,
-                    transform: 'translate(-50%, -50%)',
-                    transition: 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                    transform: 'translate(-50%, -50%)'
                 }}
             />
         </AnimatePresence>
@@ -236,12 +245,13 @@ export const Home = () => {
                             </div>
                         ))}
 
-                        {/* 3 GHOST CARDS TOTALMENTE INDEPENDIENTES */}
+                        {/* 4 GHOST CARDS TOTALMENTE INDEPENDIENTES */}
                         {!hoveredAlbum && albums.length > 0 && (
                             <>
                                 <GhostCardItem albums={albums} initialPos={{ top: '25%', left: '20%' }} delay={0} />
-                                <GhostCardItem albums={albums} initialPos={{ top: '55%', left: '80%' }} delay={1500} />
-                                <GhostCardItem albums={albums} initialPos={{ top: '80%', left: '40%' }} delay={3000} />
+                                <GhostCardItem albums={albums} initialPos={{ top: '55%', left: '80%' }} delay={1200} />
+                                <GhostCardItem albums={albums} initialPos={{ top: '80%', left: '40%' }} delay={2400} />
+                                <GhostCardItem albums={albums} initialPos={{ top: '15%', left: '60%' }} delay={3600} />
                             </>
                         )}
                     </div>
