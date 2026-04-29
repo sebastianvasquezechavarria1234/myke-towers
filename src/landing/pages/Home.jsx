@@ -60,9 +60,6 @@ export const Home = () => {
     const xVelocity = useVelocity(x);
     const yVelocity = useVelocity(y);
 
-    const xVelocity = useVelocity(x);
-    const yVelocity = useVelocity(y);
-
     // Escala líquida muy sutil para la card (sin deformar bordes)
     const dynamicScaleX = useTransform(xVelocity, [-3000, 0, 3000], [1.1, 1, 1.1]);
     const dynamicScaleY = useTransform(yVelocity, [-3000, 0, 3000], [1.1, 1, 1.1]);
