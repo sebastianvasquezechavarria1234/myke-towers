@@ -155,7 +155,7 @@ export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
     return (
         <section
             ref={containerRef}
-            className={`${padding} w-full max-w-none md:max-w-[900px] mx-auto px-6 relative`}
+            className={`${padding} w-full max-w-none md:max-w-[900px] mx-auto px-[10px] md:px-6 relative`}
             onMouseMove={handleMouseMove}
         >
             <div className="space-y-16">
