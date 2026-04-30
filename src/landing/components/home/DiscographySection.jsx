@@ -82,7 +82,7 @@ const AlbumItem = ({ album, onHover }) => {
             onMouseLeave={() => onHover(null)}
             className="flex gap-4 items-center group cursor-pointer py-3 border-b border-white/[0.03] last:border-0"
         >
-            <div className="w-9 h-9 overflow-hidden rounded-[2px] opacity-20 group-hover:opacity-100 transition-all duration-300 shrink-0">
+            <div className="w-9 h-9 overflow-hidden rounded-none opacity-20 group-hover:opacity-100 transition-all duration-300 shrink-0">
                 <img 
                     src={album.image} 
                     alt="" 
@@ -91,10 +91,10 @@ const AlbumItem = ({ album, onHover }) => {
             </div>
             
             <div className="flex flex-col leading-tight gap-0.5">
-                <span className="text-white/30 text-[13px] font-light group-hover:text-white transition-all duration-300">
+                <span className="text-white/30 !text-[12px] md:!text-[14px] font-light group-hover:text-white transition-all duration-300">
                     {album.title}
                 </span>
-                <span className="text-white/15 text-[9px] font-light lowercase group-hover:text-white/40 transition-colors duration-300">
+                <span className="text-white/15 !text-[10px] font-light lowercase group-hover:text-white/40 transition-colors duration-300">
                     {album.year} · {album.format || 'álbum'}
                 </span>
             </div>
@@ -102,7 +102,7 @@ const AlbumItem = ({ album, onHover }) => {
     );
 };
 
-export const DiscographySection = ({ padding = "pt-32 pb-0" }) => {
+export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
     const [albums, setAlbums] = useState([]);
     const [hoveredAlbum, setHoveredAlbum] = useState(null);
     const containerRef = useRef(null);
