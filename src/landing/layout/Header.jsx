@@ -89,12 +89,26 @@ export const Header = () => {
     };
 
     return (
-        <div 
-            className="fixed top-5 left-0 right-0 flex justify-center z-50 pointer-events-none"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            <motion.header
+        <>
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/60 backdrop-blur-xl z-40 lg:hidden pointer-events-auto"
+                        onClick={() => setIsMenuOpen(false)}
+                        style={{ WebkitBackdropFilter: "blur(24px)", backdropFilter: "blur(24px)" }}
+                    />
+                )}
+            </AnimatePresence>
+
+            <div 
+                className="fixed top-5 left-0 right-0 flex justify-center z-50 pointer-events-none"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <motion.header
                 layout
                 initial={{ opacity: 0, y: -100, scale: 0.8 }}
                 animate={{
@@ -114,26 +128,28 @@ export const Header = () => {
                         mass: 1.2
                     }
                 }}
-                className="pointer-events-auto relative bg-black/40 backdrop-blur-2xl border-t border-l border-r border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex items-center px-0 py-0 rounded-[40px]"
+                className="pointer-events-auto relative bg-black/40 backdrop-blur-2xl border-t border-l border-r border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center px-0 py-0 rounded-[40px]"
             >
-                {/* DYNAMIC BACKGROUND IMAGE (VERY FAINT) */}
-                <AnimatePresence>
-                    {currentVideo?.imagen && (
-                        <motion.div
-                            key={currentVideo.imagen}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.15 }}
-                            exit={{ opacity: 0 }}
-                            className="absolute inset-0 z-0 pointer-events-none"
-                        >
-                            <img 
-                                src={currentVideo.imagen} 
-                                alt="" 
-                                className="w-full h-full object-cover blur-3xl scale-150"
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                <div className="absolute inset-0 overflow-hidden rounded-[40px] pointer-events-none z-0">
+                    {/* DYNAMIC BACKGROUND IMAGE (VERY FAINT) */}
+                    <AnimatePresence>
+                        {currentVideo?.imagen && (
+                            <motion.div
+                                key={currentVideo.imagen}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 0.15 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0"
+                            >
+                                <img 
+                                    src={currentVideo.imagen} 
+                                    alt="" 
+                                    className="w-full h-full object-cover blur-3xl scale-150"
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
                 {/* CONTENT WRAPPER */}
                 <motion.div 
                     layout
@@ -336,7 +352,8 @@ export const Header = () => {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-3xl border-b border-white/10 overflow-hidden lg:hidden"
+                            className="absolute top-[calc(100%+10px)] left-0 right-0 bg-white/10 backdrop-blur-[30px] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden rounded-[30px] lg:hidden"
+                            style={{ WebkitBackdropFilter: "blur(30px)", backdropFilter: "blur(30px)" }}
                         >
                             <nav className="p-8">
                                 <ul className="flex flex-col gap-6">
@@ -353,7 +370,7 @@ export const Header = () => {
                                                     target="_blank" 
                                                     rel="noopener noreferrer"
                                                     onClick={() => setIsMenuOpen(false)}
-                                                    className="text-white/60 hover:text-white text-2xl font-secundary transition-colors"
+                                                    className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
                                                 >
                                                     {item.label.toLowerCase()}
                                                 </a>
@@ -361,7 +378,7 @@ export const Header = () => {
                                                 <Link 
                                                     to={item.to}
                                                     onClick={() => setIsMenuOpen(false)}
-                                                    className="text-white/60 hover:text-white text-2xl font-secundary transition-colors"
+                                                    className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
                                                 >
                                                     {item.label.toLowerCase()}
                                                 </Link>
@@ -375,15 +392,20 @@ export const Header = () => {
                 </AnimatePresence>
 
                 {/* PROGRESS BAR AS BOTTOM BORDER (1PX) */}
-                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-20 overflow-hidden rounded-b-[40px]">
-                    <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progress}%` }}
-                        transition={{ ease: "linear", duration: 0.5 }}
-                        className="h-full bg-white/80 shadow-[0_0_5px_white]"
-                    />
+                <div className="absolute inset-0 overflow-hidden rounded-[40px] pointer-events-none z-20">
+                    <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10">
+                        <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${progress}%` }}
+                            transition={{ ease: "linear", duration: 0.5 }}
+                            className="h-full bg-white/80 shadow-[0_0_5px_white]"
+                        />
+                    </div>
                 </div>
             </motion.header>
         </div>
+        </>
     );
 };
+
+export default Header;
