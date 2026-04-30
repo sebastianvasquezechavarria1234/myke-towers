@@ -55,7 +55,7 @@ export const Musica = () => {
             </h1>
 
             {/* GRID CON SKELETONS Y REVEAL */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-[10px] md:p-0">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-0">
                 {loading ? (
                     [...Array(9)].map((_, idx) => <Skeleton key={idx} />)
                 ) : error ? (

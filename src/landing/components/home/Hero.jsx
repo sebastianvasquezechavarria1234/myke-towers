@@ -49,7 +49,7 @@ export const Hero = () => {
     const videoId = getYouTubeId(currentVideo?.url);
 
     return (
-        <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-6 text-center pt-[100px] md:pt-[120px] overflow-hidden">
+        <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-6 text-center pt-[100px] md:pt-[120px]">
             {/* HERO TEXT */}
             <div className="relative z-20 max-w-[800px] mx-auto">
                 <p className="italic mb-[20px] text-[var(--green)] text-sm md:text-base">#No sigo tendencias. Yo soy la tendencia</p>
@@ -72,7 +72,7 @@ export const Hero = () => {
                 {/* DECORATIVE IMAGES WITH PARALLAX */}
                 <motion.div 
                     style={{ y: y1, rotate: rotate1 }}
-                    className="absolute top-[20px] left-[-25%] md:left-[-5%] lg:left-[-10%] z-10 w-[180px] md:w-[400px] aspect-square block"
+                    className="absolute top-[20px] md:top-[35px] left-[-10%] md:left-[-5%] lg:left-[-5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
                 >
                     <img
                         className="w-full h-full object-cover opacity-30 md:opacity-100"
@@ -84,7 +84,7 @@ export const Hero = () => {
 
                 <motion.div 
                     style={{ y: y2, rotate: rotate2 }}
-                    className="absolute top-[20px] right-[-25%] md:right-[-5%] lg:right-[-10%] z-10 w-[180px] md:w-[400px] aspect-square block"
+                    className="absolute top-[20px] md:top-[35px] right-[-10%] md:right-[-5%] lg:right-[-5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
                 >
                     <img
                         className="w-full h-full object-cover opacity-30 md:opacity-100"
