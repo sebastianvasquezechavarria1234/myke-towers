@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, ArrowUpRight } from "lucide-react";
-import { Skeleton } from "./Skeleton";
 
 const SocialCard = ({ post, idx }) => {
     const [hovered, setHovered] = useState(false);
@@ -69,6 +68,10 @@ const SocialCard = ({ post, idx }) => {
     );
 };
 
+import { CardSkeleton } from "./Skeleton";
+
+// ... (SocialCard component remains same)
+
 export const SocialWall = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -86,8 +89,6 @@ export const SocialWall = () => {
             });
     }, []);
 
-    if (!loading && posts.length === 0) return null;
-
     return (
         <section className="mt-[100px] md:mt-[200px] mb-[80px] md:mb-[150px] max-w-[1200px] mx-auto px-6">
             <h1 className="mb-[40px] md:mb-[60px] text-center">
@@ -100,9 +101,7 @@ export const SocialWall = () => {
             {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA — Compactado sin textos */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-[15px]">
                 {loading ? (
-                    [...Array(9)].map((_, idx) => (
-                        <Skeleton key={idx} hasText={false} />
-                    ))
+                    [...Array(6)].map((_, idx) => <CardSkeleton key={idx} />)
                 ) : (
                     posts.slice(0, 9).map((post, idx) => (
                         <SocialCard key={post.id} post={post} idx={idx} />

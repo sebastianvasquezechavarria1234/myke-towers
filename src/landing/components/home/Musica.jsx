@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
-import { Skeleton } from "./Skeleton";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { CardSkeleton } from "./Skeleton";
 
 export const Musica = () => {
     const [videos, setVideos] = useState([]);
@@ -49,7 +50,7 @@ export const Musica = () => {
             {/* GRID CON SKELETONS Y REVEAL */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-0">
                 {loading ? (
-                    [...Array(9)].map((_, idx) => <Skeleton key={idx} />)
+                    [...Array(9)].map((_, idx) => <CardSkeleton key={idx} />)
                 ) : error ? (
                     <p className="col-span-3 text-center text-red-400 opacity-80">⚠ {error}</p>
                 ) : (

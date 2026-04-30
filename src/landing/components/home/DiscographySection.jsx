@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useSpring, useMotionValue, useVelocity, useTransform } from "framer-motion";
+import { ListSkeleton } from "./Skeleton";
 
 /* Componente de la Card de Previsualización Reutilizable */
 const PreviewCard = ({ album, style, dynamicScaleX, dynamicScaleY }) => {
@@ -48,17 +49,25 @@ const PreviewCard = ({ album, style, dynamicScaleX, dynamicScaleY }) => {
                 }}
             />
 
-            <div className="relative z-10 p-0 border border-white/10 bg-black">
-                <img
-                    src={album.image}
-                    alt={album.title}
-                    className="w-full aspect-square object-cover"
-                />
-                <div className="p-3 bg-black/80 backdrop-blur-md border-t border-white/5">
-                    <h4 className="text-white text-[14px] font-secundary truncate leading-tight">
-                        {album.title.toLowerCase()}
-                    </h4>
-                    <span className="text-white/40 text-[10px] font-light">
+            <div className="relative p-[8px] flex flex-col gap-2">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="relative w-full aspect-square overflow-hidden"
+                >
+                    <img
+                        src={album.image}
+                        alt=""
+                        className="w-full h-full object-cover"
+                    />
+                </motion.div>
+
+                <div className="px-1">
+                    <h2 className="font-secundary text-black text-[17px] leading-tight break-words whitespace-normal">
+                        {album.title}
+                    </h2>
+                    <span className="text-black/50 text-[13px] font-light lowercase block mt-0.5">
                         {album.year} · {album.format || 'álbum'}
                     </span>
                 </div>
@@ -93,20 +102,6 @@ const AlbumItem = ({ album, onHover }) => {
         </div>
     );
 };
-
-const ListSkeleton = () => (
-    <div className="flex flex-col gap-0">
-        {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex gap-4 items-center py-3 border-b border-white/[0.03] last:border-0">
-                <div className="w-9 h-9 bg-white/5 animate-pulse shrink-0" />
-                <div className="flex flex-col gap-1.5 flex-1">
-                    <div className="w-2/3 h-3 bg-white/5 animate-pulse rounded" />
-                    <div className="w-1/3 h-2 bg-white/5 animate-pulse rounded opacity-50" />
-                </div>
-            </div>
-        ))}
-    </div>
-);
 
 export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
     const [albums, setAlbums] = useState([]);
@@ -154,6 +149,10 @@ export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
             items: albums.filter(a => a.format?.toLowerCase().includes("álbum"))
         },
         {
+            label: "Mixtapes",
+            items: albums.filter(a => a.format?.toLowerCase().includes("mixtape"))
+        },
+        {
             label: "EP & Singles",
             items: albums.filter(a => a.format?.toLowerCase().includes("ep"))
         },
@@ -190,7 +189,7 @@ export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
                             </p>
                             <div className="flex flex-col">
                                 {loading ? (
-                                    <ListSkeleton />
+                                    [...Array(5)].map((_, idx) => <ListSkeleton key={idx} />)
                                 ) : (
                                     col.items.map((a) => (
                                         <AlbumItem
@@ -209,8 +208,12 @@ export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
             <AnimatePresence>
                 {hoveredAlbum && (
                     <PreviewCard 
+                        key="follow-mouse"
                         album={hoveredAlbum} 
-                        style={{ x: springX, y: springY }}
+                        style={{
+                            left: springX,
+                            top: springY
+                        }}
                         dynamicScaleX={dynamicScaleX}
                         dynamicScaleY={dynamicScaleY}
                     />

@@ -3,7 +3,7 @@ import { Layout } from "../layout/Layout";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Hero } from "../components/home/Hero";
-import { Skeleton } from "../components/home/Skeleton";
+import { CardSkeleton } from "../components/home/Skeleton";
 
 const AlbumCard = ({ album, index }) => {
     const [hovered, setHovered] = useState(false);
@@ -105,8 +105,6 @@ export const Albums = () => {
             .catch(err => console.error("Error fetching social:", err));
     }, []);
 
-
-
     return (
         <Layout>
             <Hero 
@@ -121,31 +119,30 @@ export const Albums = () => {
                 images={socialImages.length >= 3 ? socialImages : []}
                 showVideo={false}
                 hasBorder={false}
-                loading={loading || socialImages.length < 3}
             />
 
             <section className="pb-[120px] max-w-[1200px] mx-auto px-[10px] md:px-6">
                 {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA DE LA HOME */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-0">
                     {loading ? (
-                        [...Array(6)].map((_, idx) => <Skeleton key={idx} />)
+                        [...Array(6)].map((_, idx) => <CardSkeleton key={idx} />)
                     ) : (
                         albums.map((album, idx) => (
-                        <motion.div
-                            key={album.id}
-                            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                            viewport={{ once: true }}
-                            transition={{ 
-                                duration: 0.6, 
-                                delay: (idx % 3) * 0.1,
-                                ease: [0.43, 0.13, 0.23, 0.96]
-                            }}
-                        >
-                            <AlbumCard album={album} index={idx} />
-                        </motion.div>
-                    ))
-                )}
+                            <motion.div
+                                key={album.id}
+                                initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                                whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                viewport={{ once: true }}
+                                transition={{ 
+                                    duration: 0.6, 
+                                    delay: (idx % 3) * 0.1,
+                                    ease: [0.43, 0.13, 0.23, 0.96]
+                                }}
+                            >
+                                <AlbumCard album={album} index={idx} />
+                            </motion.div>
+                        ))
+                    )}
                 </div>
             </section>
         </Layout>
