@@ -155,7 +155,7 @@ export const DiscographySection = ({ padding = "pt-32 pb-0" }) => {
     return (
         <section
             ref={containerRef}
-            className={`${padding} max-w-[900px] mx-auto px-6 relative`}
+            className={`${padding} w-full max-w-none md:max-w-[900px] mx-auto px-6 relative`}
             onMouseMove={handleMouseMove}
         >
             <div className="space-y-16">
@@ -167,16 +167,10 @@ export const DiscographySection = ({ padding = "pt-32 pb-0" }) => {
                     <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
                     <h1 className="text-center w-full max-w-none md:max-w-[900px] mx-auto">
                         Legado
-                        <span className="md:px-[10px] font-secundary lowercase italic block md:inline">
-                            musical
-                        </span>
-                        <span className="hidden md:inline"> & </span>
-                        <br className="block md:hidden" />
-                        <span className="block md:hidden">&</span>
-                        <span className="md:px-[10px] font-secundary lowercase italic block md:inline">
-                            discografía
-                        </span>
-                        <span className="block md:inline">completa</span>
+                        <span className="md:px-[10px] font-secundary lowercase italic"> musical</span>
+                        {" "}& {" "}
+                        <span className="font-secundary lowercase italic">discografía</span>
+                        {" "}completa
                     </h1>
                     <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
                 </motion.div>

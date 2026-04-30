@@ -51,7 +51,7 @@ export const Hero = () => {
     return (
         <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-6 text-center pt-[100px] md:pt-[120px]">
             {/* HERO TEXT */}
-            <div className="relative z-20 max-w-[800px] mx-auto">
+            <div className="relative z-20 max-w-[700px] mx-auto">
                 <p className="italic mb-[20px] text-[var(--green)] text-sm md:text-base">#No sigo tendencias. Yo soy la tendencia</p>
                 <h1>
                     Solo quienes se
