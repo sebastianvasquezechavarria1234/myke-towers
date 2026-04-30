@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../layout/Layout";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Hero } from "../components/home/Hero";
 
 const AlbumCard = ({ album, index }) => {
     const [hovered, setHovered] = useState(false);
@@ -103,24 +104,22 @@ export const Albums = () => {
 
     return (
         <Layout>
-            <section className="pt-[160px] pb-[120px] max-w-[1200px] mx-auto px-6">
-                <header className="mb-24 text-center max-w-[800px] mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <p className="italic mb-[20px] text-[var(--blue)]">#Young King Legacy. El sonido de una era.</p>
-                        <h1>
-                            Explora la discografía completa y el 
-                            <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                                legado musical
-                            </span>
-                            que ha redefinido el género urbano.
-                        </h1>
-                    </motion.div>
-                </header>
+            <Hero 
+                tagline="#Young King Legacy. El sonido de una era."
+                title={
+                    <>
+                        Explora la discografía completa y el 
+                        <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
+                            legado musical
+                        </span>
+                        {" "}que ha redefinido el género urbano.
+                    </>
+                }
+                images={albums.length >= 3 ? [albums[0].image, albums[1].image, albums[2].image] : []}
+                showVideo={false}
+            />
 
+            <section className="pb-[120px] max-w-[1200px] mx-auto px-6">
                 {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA DE LA HOME */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-20">
                     {albums.map((album, idx) => (

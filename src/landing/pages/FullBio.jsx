@@ -3,6 +3,8 @@ import { Layout } from "../layout/Layout";
 import { motion } from "framer-motion";
 import { DiscographySection } from "../components/home/DiscographySection";
 import { SocialWall } from "../components/home/SocialWall";
+import { Hero } from "../components/home/Hero";
+
 const ERAS = [
     {
         years: "2016 — 2018",
@@ -48,42 +50,41 @@ const ERAS = [
 
 export const FullBio = () => {
     const [activeEra, setActiveEra] = useState(0);
+    const [albums, setAlbums] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        fetch("http://localhost:3000/albums")
+            .then(res => res.json())
+            .then(data => {
+                const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+                setAlbums(sorted);
+            })
+            .catch(err => console.error("Error fetching albums:", err));
     }, []);
 
     return (
         <Layout>
-            <section className="pt-[160px] pb-[120px] max-w-[1100px] mx-auto px-6">
+            <Hero 
+                tagline="#El rap es mi esencia. La calle mi escuela"
+                title={
+                    <>
+                        De Puerto Rico a la cima global, cada rima narra una historia de 
+                        <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
+                            superación y éxito
+                        </span>
+                    </>
+                }
+                images={albums.length >= 3 ? [albums[0].image, albums[1].image, albums[2].image] : []}
+                showVideo={false}
+            />
+
+            <section className="pb-[120px] max-w-[1100px] mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    {/* HERO */}
-                    <div className="text-center mb-24 relative">
-                        {/* Young King — muy oscuro/sutil */}
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.3, duration: 1 }}
-                            className="font-secundary text-[clamp(50px,11vw,120px)] leading-none text-white/[0.04] select-none absolute inset-x-0 -top-4 pointer-events-none"
-                        >
-                            Young King
-                        </motion.p>
-
-                        <div className="relative z-10 max-w-[800px] mx-auto">
-                            <p className="italic mb-[20px] text-[var(--green)]">#El rap es mi esencia. La calle mi escuela</p>
-                            <h1>
-                                De Puerto Rico a la cima global, cada rima narra una historia de 
-                                <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                                    superación y éxito
-                                </span>
-                            </h1>
-                        </div>
-                    </div>
-
                     {/* INTRO TEXT */}
                     <div className="max-w-[680px] mx-auto mb-28 text-center space-y-5">
                         <p className="text-white/50 text-xl leading-[1.9] font-light">

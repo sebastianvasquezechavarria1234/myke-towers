@@ -4,7 +4,12 @@ import MalDeAmores from '/mal-de-amores.avif'
 import Sport from '/sport.avif'
 import { useVideo } from "../../../context/VideoContext";
 
-export const Hero = () => {
+export const Hero = ({ 
+    tagline = "#No sigo tendencias. Yo soy la tendencia", 
+    title, 
+    images = [MalDeAmores, null, Sport],
+    showVideo = true
+}) => {
     const { currentVideo, isPlaying, nextVideo } = useVideo();
     const containerRef = useRef(null);
     
@@ -21,7 +26,7 @@ export const Hero = () => {
 
     // Lógica para saltar al siguiente video cuando este termine
     useEffect(() => {
-        if (!currentVideo || !isPlaying) return;
+        if (!currentVideo || !isPlaying || !showVideo) return;
 
         const parseDuration = (timeStr) => {
             if (!timeStr) return 180;
@@ -37,7 +42,7 @@ export const Hero = () => {
         }, (durationSeconds + 2) * 1000);
 
         return () => clearTimeout(timer);
-    }, [currentVideo, isPlaying, nextVideo]);
+    }, [currentVideo, isPlaying, nextVideo, showVideo]);
 
     const getYouTubeId = (url) => {
         if (!url) return null;
@@ -46,23 +51,28 @@ export const Hero = () => {
         return (match && match[2].length === 11) ? match[2] : null;
     };
 
-    const videoId = getYouTubeId(currentVideo?.url);
+    const videoId = showVideo ? getYouTubeId(currentVideo?.url) : null;
+
+    // Default title if none provided
+    const defaultTitle = (
+        <>
+            Solo quienes se
+            <span className="pl-[10px] font-secundary text-[var(--blue)]">
+                atreven a ser diferentes
+            </span>
+            , tienen el poder de escribir su
+            <span className="pl-[10px] font-secundary text-[var(--blue)]">
+                propia historia
+            </span>
+        </>
+    );
 
     return (
         <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-6 text-center pt-[100px] md:pt-[120px]">
             {/* HERO TEXT */}
             <div className="relative z-20 max-w-[700px] mx-auto">
-                <p className="italic mb-[20px] text-[var(--green)] text-sm md:text-base">#No sigo tendencias. Yo soy la tendencia</p>
-                <h1>
-                    Solo quienes se
-                    <span className="pl-[10px] font-secundary text-[var(--blue)]">
-                        atreven a ser diferentes
-                    </span>
-                    , tienen el poder de escribir su
-                    <span className="pl-[10px] font-secundary text-[var(--blue)]">
-                        propia historia
-                    </span>
-                </h1>
+                <p className="italic mb-[20px] text-[var(--green)] text-sm md:text-base">{tagline}</p>
+                <h1>{title || defaultTitle}</h1>
             </div>
 
 
@@ -76,8 +86,8 @@ export const Hero = () => {
                 >
                     <img
                         className="w-full h-full object-cover opacity-30 md:opacity-100"
-                        src={MalDeAmores}
-                        alt="Álbum Mal de Amores - Myke Towers" 
+                        src={images[0]}
+                        alt="Myke Towers" 
                         loading="lazy"
                     />
                 </motion.div>
@@ -88,50 +98,62 @@ export const Hero = () => {
                 >
                     <img
                         className="w-full h-full object-cover opacity-30 md:opacity-100"
-                        src={Sport}
-                        alt="Álbum Sport - Myke Towers" 
+                        src={images[2]}
+                        alt="Myke Towers" 
                         loading="lazy"
                     />
                 </motion.div>
 
-                {/* MAIN VIDEO PLAYER CONTAINER */}
+                {/* MAIN PLAYER/IMAGE CONTAINER */}
                 <div className="relative z-30 group">
                     <div className="w-[220px] h-[220px] md:w-[400px] md:h-[400px] overflow-hidden bg-black border border-white/10 shadow-2xl relative">
-                        {videoId ? (
-                            <div className="absolute inset-0 scale-[1.5] w-full h-full origin-center">
-                                <iframe
-                                    width="100%"
-                                    height="100%"
-                                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&enablejsapi=1&disablekb=1&widget_referrer=${encodeURIComponent(window.location.origin)}&origin=${encodeURIComponent(window.location.origin)}`}
-                                    title="YouTube video player"
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    className="w-full h-full object-cover pointer-events-none"
-                                ></iframe>
-                            </div>
+                        {showVideo ? (
+                            <>
+                                {videoId ? (
+                                    <div className="absolute inset-0 scale-[1.5] w-full h-full origin-center">
+                                        <iframe
+                                            width="100%"
+                                            height="100%"
+                                            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&enablejsapi=1&disablekb=1&widget_referrer=${encodeURIComponent(window.location.origin)}&origin=${encodeURIComponent(window.location.origin)}`}
+                                            title="YouTube video player"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            className="w-full h-full object-cover pointer-events-none"
+                                        ></iframe>
+                                    </div>
+                                ) : (
+                                    <div className="w-full h-full bg-zinc-900 animate-pulse flex items-center justify-center">
+                                        <span className="text-white/20 text-xs uppercase tracking-widest font-bold">Cargando Video...</span>
+                                    </div>
+                                )}
+                                <div className="absolute inset-0 z-40 bg-transparent"></div>
+                            </>
                         ) : (
-                            <div className="w-full h-full bg-zinc-900 animate-pulse flex items-center justify-center">
-                                <span className="text-white/20 text-xs uppercase tracking-widest font-bold">Cargando Video...</span>
-                            </div>
+                            <img 
+                                src={images[1]} 
+                                className="w-full h-full object-cover" 
+                                alt="Myke Towers" 
+                            />
                         )}
-                        <div className="absolute inset-0 z-40 bg-transparent"></div>
                     </div>
 
-                    {/* TITULO FUERA DE LA CARD CON ANIMACIÓN */}
-                    <AnimatePresence mode="wait">
-                        <motion.div 
-                            key={currentVideo?.titulo}
-                            initial={{ opacity: 0, x: -50, filter: "blur(20px)" }}
-                            animate={{ opacity: 1, x: -30, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
-                            transition={{ duration: 0.5, ease: "easeOut" }}
-                            className="absolute top-[calc(100%-40px)] md:top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[200px] md:max-w-[350px]"
-                        >
-                            <h2 className="font-secundary text-white text-[40px] md:text-[70px] leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] line-clamp-2">
-                                {currentVideo?.titulo.toLowerCase()}
-                            </h2>
-                        </motion.div>
-                    </AnimatePresence>
+                    {/* TITULO FUERA DE LA CARD CON ANIMACIÓN (Solo para video) */}
+                    {showVideo && (
+                        <AnimatePresence mode="wait">
+                            <motion.div 
+                                key={currentVideo?.titulo}
+                                initial={{ opacity: 0, x: -50, filter: "blur(20px)" }}
+                                animate={{ opacity: 1, x: -30, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
+                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                className="absolute top-[calc(100%-40px)] md:top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[200px] md:max-w-[350px]"
+                            >
+                                <h2 className="font-secundary text-white text-[40px] md:text-[70px] leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] line-clamp-2">
+                                    {currentVideo?.titulo.toLowerCase()}
+                                </h2>
+                            </motion.div>
+                        </AnimatePresence>
+                    )}
                 </div>
             </div>
         </section>
