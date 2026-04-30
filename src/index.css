@@ -48,8 +48,11 @@ p {
 }
 
 @media (max-width: 650px) {
-  a, p, span, li {
+  a, p, li {
     font-size: 12px !important;
+  }
+  span {
+    font-size: inherit;
   }
 }
 

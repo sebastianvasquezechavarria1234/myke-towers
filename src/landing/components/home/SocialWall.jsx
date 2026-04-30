@@ -20,7 +20,7 @@ const SocialCard = ({ post, idx }) => {
             className="block group"
         >
             {/* PICTURE CONTAINER - Matching Music Card Height */}
-            <div className="relative overflow-hidden" style={{ height: "350px" }}>
+            <div className="relative overflow-hidden h-[200px] md:h-[350px]">
                 {post.type === "video" ? (
                     <video 
                         src={post.url} 
@@ -90,7 +90,7 @@ export const SocialWall = () => {
             </h1>
 
             {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA — Compactado sin textos */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-[15px]">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-[15px]">
                 {posts.slice(0, 9).map((post, idx) => (
                     <SocialCard key={post.id} post={post} idx={idx} />
                 ))}

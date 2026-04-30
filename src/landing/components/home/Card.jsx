@@ -21,7 +21,7 @@ export const Card = ({ video, index }) => {
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
-            <div className="relative overflow-hidden" style={{ height: "350px" }}>
+            <div className="relative overflow-hidden h-[200px] md:h-[350px]">
                 {/* IMG: Animación de escala suave */}
                 <motion.img
                     className="w-full h-full object-cover"
