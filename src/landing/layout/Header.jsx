@@ -205,11 +205,11 @@ export const Header = () => {
                                 exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <h3 className="text-white font-secundary text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
+                                <h3 className="text-white font-secundary text-[22px] md:text-[30px] font-thin truncate whitespace-nowrap leading-none mt-1">
                                     {currentVideo?.titulo?.toLowerCase() || "young king"}
                                 </h3>
                                 <div className="flex items-center gap-2 mt-1">
-                                    <span className="text-white/25 text-[13px] truncate leading-none block mb-0">
+                                    <span className="text-white/25 !text-[10px] md:!text-[13px] truncate leading-none block mb-0">
                                         {currentVideo?.vistas ? formatViews(currentVideo.vistas) : "myke towers"}
                                     </span>
                                 </div>
@@ -370,7 +370,7 @@ export const Header = () => {
                                                     target="_blank" 
                                                     rel="noopener noreferrer"
                                                     onClick={() => setIsMenuOpen(false)}
-                                                    className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
+                                                    className="text-white/60 hover:text-white !text-2xl font-secundary transition-colors"
                                                 >
                                                     {item.label.toLowerCase()}
                                                 </a>
@@ -378,7 +378,7 @@ export const Header = () => {
                                                 <Link 
                                                     to={item.to}
                                                     onClick={() => setIsMenuOpen(false)}
-                                                    className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
+                                                    className="text-white/60 hover:text-white !text-2xl font-secundary transition-colors"
                                                 >
                                                     {item.label.toLowerCase()}
                                                 </Link>
