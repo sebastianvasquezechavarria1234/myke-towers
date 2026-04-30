@@ -52,27 +52,25 @@ export const FullBio = () => {
     const [activeEra, setActiveEra] = useState(0);
     const [albums, setAlbums] = useState([]);
     const [socialImages, setSocialImages] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const fetchAlbums = fetch("http://localhost:3000/albums").then(res => res.json());
-        const fetchSocial = fetch("http://localhost:3000/social").then(res => res.json());
-
-        Promise.all([fetchAlbums, fetchSocial])
-            .then(([albumsData, socialData]) => {
-                const sorted = albumsData.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+        fetch("http://localhost:3000/albums")
+            .then(res => res.json())
+            .then(data => {
+                const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
                 setAlbums(sorted);
-                
-                // Seleccionamos específicamente los índices 3, 6 y 5 para Biografía
-                const selected = [socialData[3], socialData[6], socialData[5]].map(p => p?.url);
-                setSocialImages(selected);
-                setLoading(false);
             })
-            .catch(err => {
-                console.error("Error fetching bio data:", err);
-                setLoading(false);
-            });
+            .catch(err => console.error("Error fetching albums:", err));
+
+        fetch("http://localhost:3000/social")
+            .then(res => res.json())
+            .then(data => {
+                // Seleccionamos específicamente los índices 3, 6 y 5 para Biografía
+                const selected = [data[3], data[6], data[5]].map(p => p?.url);
+                setSocialImages(selected);
+            })
+            .catch(err => console.error("Error fetching social:", err));
     }, []);
 
     return (
@@ -91,7 +89,6 @@ export const FullBio = () => {
                 images={socialImages.length >= 3 ? socialImages : []}
                 showVideo={false}
                 hasBorder={false}
-                loading={loading}
             />
 
             <section className="pb-[120px] max-w-[1100px] mx-auto px-6">
