@@ -21,7 +21,7 @@ const AlbumCard = ({ album, index }) => {
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
-            <div className="relative overflow-hidden" style={{ height: "350px" }}>
+            <div className="relative overflow-hidden h-[200px] md:h-[350px]">
                 {/* IMG: Animación de escala suave y grayscale */}
                 <motion.img
                     className="w-full h-full object-cover"
@@ -130,9 +130,9 @@ export const Albums = () => {
                 hasBorder={false}
             />
 
-            <section className="pb-[120px] max-w-[1200px] mx-auto px-6">
+            <section className="pb-[120px] max-w-[1200px] mx-auto px-[10px] md:px-6">
                 {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA DE LA HOME */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-20">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-0">
                     {albums.map((album, idx) => (
                         <motion.div
                             key={album.id}
