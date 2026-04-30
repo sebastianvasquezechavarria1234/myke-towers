@@ -69,16 +69,16 @@ export const Hero = ({
     );
 
     return (
-        <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-6 text-center pt-[100px] md:pt-[120px]">
+        <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-0 md:px-6 text-center pt-[100px] md:pt-[120px]">
             {/* HERO TEXT */}
-            <div className="relative z-20 max-w-[700px] mx-auto">
+            <div className="relative z-20 max-w-[700px] mx-auto px-6">
                 <p className="italic mb-[20px] text-[var(--green)] text-sm md:text-base">{tagline}</p>
                 <h1>{title || defaultTitle}</h1>
             </div>
 
 
             {/* PICTURE CONTAINER */}
-            <div className="mt-[40px] md:mt-[60px] relative flex justify-center items-center h-[350px] md:h-[450px]">
+            <div className="mt-[40px] md:mt-[60px] relative flex justify-center items-center h-[350px] md:h-[450px] overflow-x-hidden md:overflow-visible">
                 
                 {/* DECORATIVE IMAGES WITH PARALLAX */}
                 <motion.div 
