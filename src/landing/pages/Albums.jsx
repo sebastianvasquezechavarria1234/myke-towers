@@ -121,6 +121,7 @@ export const Albums = () => {
                 images={socialImages.length >= 3 ? socialImages : []}
                 showVideo={false}
                 hasBorder={false}
+                loading={loading || socialImages.length < 3}
             />
 
             <section className="pb-[120px] max-w-[1200px] mx-auto px-[10px] md:px-6">

@@ -4,6 +4,27 @@ import { Layout } from "../layout/Layout";
 import { motion } from "framer-motion";
 import { Play, ArrowLeft, Clock, Disc } from "lucide-react";
 
+const AlbumDetailSkeleton = () => (
+    <section className="min-h-screen pt-[120px] pb-[100px]">
+        <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[450px_1fr] gap-20 items-end mb-20">
+            <div className="w-full aspect-square bg-white/5 animate-pulse rounded-sm" />
+            <div className="space-y-8 w-full">
+                <div className="w-32 h-4 bg-white/5 animate-pulse rounded" />
+                <div className="w-3/4 h-20 md:h-32 bg-white/10 animate-pulse rounded" />
+                <div className="flex gap-6">
+                    <div className="w-32 h-8 bg-white/5 animate-pulse rounded" />
+                    <div className="w-40 h-12 bg-white/20 animate-pulse rounded" />
+                </div>
+            </div>
+        </div>
+        <div className="max-w-[1100px] mx-auto px-6 space-y-4">
+            {[...Array(8)].map((_, i) => (
+                <div key={i} className="h-20 bg-white/5 animate-pulse rounded-sm" />
+            ))}
+        </div>
+    </section>
+);
+
 export const AlbumDetail = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
@@ -25,9 +46,7 @@ export const AlbumDetail = () => {
     if (loading) {
         return (
             <Layout>
-                <div className="h-screen flex items-center justify-center">
-                    <span className="text-white/20 font-secundary text-4xl animate-pulse">Cargando canciones...</span>
-                </div>
+                <AlbumDetailSkeleton />
             </Layout>
         );
     }
