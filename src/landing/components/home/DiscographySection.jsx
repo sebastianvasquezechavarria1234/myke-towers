@@ -165,13 +165,14 @@ export const DiscographySection = ({ padding = "pt-32 pb-0" }) => {
                     className="flex items-center gap-4 md:gap-6"
                 >
                     <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
-                    <h1 className="text-center w-full md:max-w-[900px] mx-auto break-words">
+                    <h1 className="text-center w-full max-w-none md:max-w-[900px] mx-auto">
                         Legado
                         <span className="md:px-[10px] font-secundary lowercase italic block md:inline">
                             musical
                         </span>
-                        <span className="block md:inline md:hidden">&</span>
-                        <span className="hidden md:inline">&</span>
+                        <span className="hidden md:inline"> & </span>
+                        <br className="block md:hidden" />
+                        <span className="block md:hidden">&</span>
                         <span className="md:px-[10px] font-secundary lowercase italic block md:inline">
                             discografía
                         </span>
