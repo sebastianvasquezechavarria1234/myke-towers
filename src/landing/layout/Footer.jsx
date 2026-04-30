@@ -163,9 +163,9 @@ export const Footer = () => {
                     />
 
                     {/* ── COLUMNAS CENTRALES ── */}
-                    <div className="flex-[1.2] flex flex-col md:flex-row px-0 md:px-12 gap-8 md:gap-0">
+                    <div className="flex-[1.2] flex flex-row flex-wrap px-0 md:px-12 gap-x-12 gap-y-8 md:gap-0">
                         {/* Navegación */}
-                        <div className="flex-1 flex flex-col gap-1.5">
+                        <div className="flex-1 flex flex-col gap-1.5 min-w-[140px]">
                             <p className="text-[11px] font-medium text-white/90 mb-3">Páginas</p>
                             <NavLink to="/">Inicio</NavLink>
                             <NavLink to="/biografia">Biografía</NavLink>
@@ -174,7 +174,7 @@ export const Footer = () => {
                             <NavLink to="/">Social Wall</NavLink>
                         </div>
                         {/* Oficial */}
-                        <div className="flex-1 flex flex-col gap-1.5">
+                        <div className="flex-1 flex flex-col gap-1.5 min-w-[140px]">
                             <p className="text-[11px] font-medium text-white/90 mb-3">Oficial</p>
                             <NavLink href="https://www.myketowerspr.com/" external>Sitio Web</NavLink>
                             <NavLink href="https://www.instagram.com/myketowers" external>Instagram</NavLink>

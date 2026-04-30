@@ -47,6 +47,12 @@ p {
   opacity: .8;
 }
 
+@media (max-width: 650px) {
+  a, p, span, li {
+    font-size: 12px !important;
+  }
+}
+
 h1 .font-secundary {
   font-family: 'Great-vibes';
   font-weight: 300;

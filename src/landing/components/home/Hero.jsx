@@ -72,7 +72,7 @@ export const Hero = () => {
                 {/* DECORATIVE IMAGES WITH PARALLAX */}
                 <motion.div 
                     style={{ y: y1, rotate: rotate1 }}
-                    className="absolute top-[20px] left-[-20%] md:left-[-5%] lg:left-[-10%] z-10 w-[250px] md:w-[400px] aspect-square block"
+                    className="absolute top-[20px] left-[-25%] md:left-[-5%] lg:left-[-10%] z-10 w-[180px] md:w-[400px] aspect-square block"
                 >
                     <img
                         className="w-full h-full object-cover opacity-30 md:opacity-100"
@@ -84,7 +84,7 @@ export const Hero = () => {
 
                 <motion.div 
                     style={{ y: y2, rotate: rotate2 }}
-                    className="absolute top-[20px] right-[-20%] md:right-[-5%] lg:right-[-10%] z-10 w-[250px] md:w-[400px] aspect-square block"
+                    className="absolute top-[20px] right-[-25%] md:right-[-5%] lg:right-[-10%] z-10 w-[180px] md:w-[400px] aspect-square block"
                 >
                     <img
                         className="w-full h-full object-cover opacity-30 md:opacity-100"
@@ -96,7 +96,7 @@ export const Hero = () => {
 
                 {/* MAIN VIDEO PLAYER CONTAINER */}
                 <div className="relative z-30 group">
-                    <div className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] overflow-hidden bg-black border border-white/10 shadow-2xl relative">
+                    <div className="w-[220px] h-[220px] md:w-[400px] md:h-[400px] overflow-hidden bg-black border border-white/10 shadow-2xl relative">
                         {videoId ? (
                             <div className="absolute inset-0 scale-[1.5] w-full h-full origin-center">
                                 <iframe

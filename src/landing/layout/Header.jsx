@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useVideo } from "../../context/VideoContext";
-import { Play, Pause, SkipBack, SkipForward } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
     { label: "Inicio", to: "/" },
@@ -18,6 +18,7 @@ export const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [scrollingUp, setScrollingUp] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const lastScrollY = useRef(0);
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
@@ -76,7 +77,7 @@ export const Header = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const isExpanded = !scrolled || isHovered || scrollingUp;
+    const isExpanded = (!scrolled || isHovered || scrollingUp) && !isMenuOpen;
 
     // Función para formatear vistas (ej: 1.2M, 13k)
     const formatViews = (num) => {
@@ -144,7 +145,7 @@ export const Header = () => {
                         layout
                         className="relative flex-shrink-0 p-0.5 flex items-center gap-3 pr-2"
                     >
-                    <div className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-black flex items-center justify-center shadow-lg ml-0.5 relative flex-shrink-0">
+                    <div className="w-11 h-11 rounded-full border-2 border-white/20 overflow-hidden bg-young-king/10 flex items-center justify-center shadow-lg ml-0.5 relative flex-shrink-0">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentVideo?.id}
@@ -201,7 +202,7 @@ export const Header = () => {
                     </div>
                 </motion.div>
 
-                {/* DIVISOR 1 (Solo si expandido) */}
+                {/* DIVISOR 1 (Solo si expandido y no móvil) */}
                 <AnimatePresence mode="popLayout">
                     {isExpanded && (
                         <motion.div 
@@ -210,7 +211,7 @@ export const Header = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0 }}
                             transition={{ type: "spring", stiffness: 400, damping: 17, mass: 1.2 }}
-                            className="w-px h-6 bg-white/10 mx-1.5"
+                            className="hidden lg:block w-px h-6 bg-white/10 mx-1.5"
                         />
                     )}
                 </AnimatePresence>
@@ -269,7 +270,17 @@ export const Header = () => {
                     )}
                 </AnimatePresence>
 
-                {/* DIVISOR 2 (Solo en Desktop) */}
+                {/* HAMBURGER MENU BUTTON (Solo en móvil) */}
+                <div className="lg:hidden flex items-center pr-2">
+                    <button 
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="p-2 text-white/60 hover:text-white transition-colors"
+                    >
+                        {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                </div>
+
+                {/* DIVISOR 2 (Solo en Desktop o si el menu está cerrado) */}
                 <motion.div 
                     layout
                     transition={{ type: "spring", stiffness: 400, damping: 17, mass: 1.2 }}
@@ -310,13 +321,59 @@ export const Header = () => {
                         <SkipBack size={14} fill="currentColor" />
                     </button>
                     <button onClick={togglePlay} className="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                        {isPlaying ? <Pause size={12} md:size={14} fill="currentColor" /> : <Play size={12} md:size={14} fill="currentColor" className="ml-0.5" />}
+                        {isPlaying ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="ml-0.5" />}
                     </button>
                     <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors p-1">
                         <SkipForward size={14} fill="currentColor" />
                     </button>
                 </motion.div>
                 </motion.div>
+
+                {/* MOBILE MENU OVERLAY */}
+                <AnimatePresence>
+                    {isMenuOpen && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-3xl border-b border-white/10 overflow-hidden lg:hidden"
+                        >
+                            <nav className="p-8">
+                                <ul className="flex flex-col gap-6">
+                                    {NAV_ITEMS.map((item, idx) => (
+                                        <motion.li 
+                                            key={item.label}
+                                            initial={{ x: -20, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: idx * 0.05 }}
+                                        >
+                                            {item.external ? (
+                                                <a 
+                                                    href={item.to} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                    className="text-white/60 hover:text-white text-2xl font-secundary transition-colors"
+                                                >
+                                                    {item.label.toLowerCase()}
+                                                </a>
+                                            ) : (
+                                                <Link 
+                                                    to={item.to}
+                                                    onClick={() => setIsMenuOpen(false)}
+                                                    className="text-white/60 hover:text-white text-2xl font-secundary transition-colors"
+                                                >
+                                                    {item.label.toLowerCase()}
+                                                </Link>
+                                            )}
+                                        </motion.li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
                 {/* PROGRESS BAR AS BOTTOM BORDER (1PX) */}
                 <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10 z-20 overflow-hidden rounded-b-[40px]">
                     <motion.div 
