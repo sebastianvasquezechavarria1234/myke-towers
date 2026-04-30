@@ -122,7 +122,7 @@ export const Hero = () => {
                         <motion.div 
                             key={currentVideo?.titulo}
                             initial={{ opacity: 0, x: -50, filter: "blur(20px)" }}
-                            animate={{ opacity: 1, x: -30, md: x: -80, filter: "blur(0px)" }}
+                            animate={{ opacity: 1, x: -30, filter: "blur(0px)" }}
                             exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                             transition={{ duration: 0.5, ease: "easeOut" }}
                             className="absolute top-[calc(100%-40px)] md:top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[200px] md:max-w-[350px]"
