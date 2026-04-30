@@ -65,7 +65,7 @@ const AlbumCard = ({ album, index }) => {
                 <h4 className="font-secundary text-3xl text-white/80 group-hover:text-white transition-colors duration-300 leading-tight">
                     {formatTitle(album.title)}
                 </h4>
-                <p className="text-white/20 text-[11px] uppercase tracking-[0.2em] font-light mt-1">
+                <p className="text-white/20 text-[11px] font-light mt-1">
                     {album.year} · {album.format}
                 </p>
             </div>

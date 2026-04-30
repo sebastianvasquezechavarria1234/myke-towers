@@ -127,8 +127,8 @@ export const Footer = () => {
                     <div className="flex-1 flex flex-col gap-8 pr-0 md:pr-12">
                         {/* Cabecera */}
                         <div className="flex flex-col leading-[0.8]">
-                            <span className="font-secundary text-white text-[44px]" style={{ fontWeight: 100 }}>Myke Towers</span>
-                            <span className="font-secundary text-white/20 text-[32px] italic" style={{ fontWeight: 100 }}>Young King Baby</span>
+                            <span className="font-secundary text-white text-[32px] md:text-[44px]" style={{ fontWeight: 100 }}>Myke Towers</span>
+                            <span className="font-secundary text-white/20 text-[24px] md:text-[32px] italic" style={{ fontWeight: 100 }}>Young King Baby</span>
                         </div>
 
                         {/* Tagline Profesional */}

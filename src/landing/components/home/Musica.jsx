@@ -46,10 +46,10 @@ export const Musica = () => {
     };
 
     return (
-        <section id="musica-section" className="mt-[230px] max-w-[1200px] mx-auto px-[10px] pb-20">
-            <h1 className="mb-[60px] text-center">
+        <section id="musica-section" className="mt-[100px] md:mt-[230px] max-w-[1200px] mx-auto px-6 pb-20">
+            <h1 className="mb-[40px] md:mb-[60px] text-center">
                 Lo mejor de
-                <span className="pl-[20px] font-secundary">
+                <span className="md:pl-[20px] font-secundary block md:inline">
                     Myke towers
                 </span>
             </h1>

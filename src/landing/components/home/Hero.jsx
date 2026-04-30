@@ -49,10 +49,10 @@ export const Hero = () => {
     const videoId = getYouTubeId(currentVideo?.url);
 
     return (
-        <section ref={containerRef} className="relative max-w-[800px] mx-auto px-[10px] text-center pt-[120px]">
+        <section ref={containerRef} className="relative max-w-[1200px] mx-auto px-6 text-center pt-[100px] md:pt-[120px] overflow-hidden">
             {/* HERO TEXT */}
-            <div className="relative z-20">
-                <p className="italic mb-[20px] text-[var(--green)]">#No sigo tendencias. Yo soy la tendencia</p>
+            <div className="relative z-20 max-w-[800px] mx-auto">
+                <p className="italic mb-[20px] text-[var(--green)] text-sm md:text-base">#No sigo tendencias. Yo soy la tendencia</p>
                 <h1>
                     Solo quienes se
                     <span className="pl-[10px] font-secundary text-[var(--blue)]">
@@ -67,40 +67,36 @@ export const Hero = () => {
 
 
             {/* PICTURE CONTAINER */}
-            <div className="mt-[60px] relative flex justify-center items-center h-[450px]">
+            <div className="mt-[40px] md:mt-[60px] relative flex justify-center items-center h-[350px] md:h-[450px]">
                 
                 {/* DECORATIVE IMAGES WITH PARALLAX */}
                 <motion.div 
                     style={{ y: y1, rotate: rotate1 }}
-                    className="absolute top-[35px] left-[-5%] md:left-[-10%] z-10 w-[400px] h-[400px] block"
+                    className="absolute top-[20px] left-[-20%] md:left-[-5%] lg:left-[-10%] z-10 w-[250px] md:w-[400px] aspect-square block"
                 >
                     <img
-                        className="w-full h-full object-cover opacity-40 md:opacity-100"
+                        className="w-full h-full object-cover opacity-30 md:opacity-100"
                         src={MalDeAmores}
                         alt="Álbum Mal de Amores - Myke Towers" 
                         loading="lazy"
-                        width="400"
-                        height="400"
                     />
                 </motion.div>
 
                 <motion.div 
                     style={{ y: y2, rotate: rotate2 }}
-                    className="absolute top-[35px] right-[-5%] md:right-[-10%] z-10 w-[400px] h-[400px] block"
+                    className="absolute top-[20px] right-[-20%] md:right-[-5%] lg:right-[-10%] z-10 w-[250px] md:w-[400px] aspect-square block"
                 >
                     <img
-                        className="w-full h-full object-cover opacity-40 md:opacity-100"
+                        className="w-full h-full object-cover opacity-30 md:opacity-100"
                         src={Sport}
                         alt="Álbum Sport - Myke Towers" 
                         loading="lazy"
-                        width="400"
-                        height="400"
                     />
                 </motion.div>
 
                 {/* MAIN VIDEO PLAYER CONTAINER */}
                 <div className="relative z-30 group">
-                    <div className="w-[400px] h-[400px] overflow-hidden bg-black border border-white/10 shadow-2xl relative">
+                    <div className="w-[280px] h-[280px] md:w-[400px] md:h-[400px] overflow-hidden bg-black border border-white/10 shadow-2xl relative">
                         {videoId ? (
                             <div className="absolute inset-0 scale-[1.5] w-full h-full origin-center">
                                 <iframe
@@ -125,13 +121,13 @@ export const Hero = () => {
                     <AnimatePresence mode="wait">
                         <motion.div 
                             key={currentVideo?.titulo}
-                            initial={{ opacity: 0, x: -100, filter: "blur(20px)" }}
-                            animate={{ opacity: 1, x: -80, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+                            initial={{ opacity: 0, x: -50, filter: "blur(20px)" }}
+                            animate={{ opacity: 1, x: -30, md: x: -80, filter: "blur(0px)" }}
+                            exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                             transition={{ duration: 0.5, ease: "easeOut" }}
-                            className="absolute top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[350px]"
+                            className="absolute top-[calc(100%-40px)] md:top-[calc(100%-70px)] left-0 z-50 pointer-events-none text-left transform rotate-[-6deg] max-w-[200px] md:max-w-[350px]"
                         >
-                            <h2 className="font-secundary text-white text-[70px] leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] line-clamp-2">
+                            <h2 className="font-secundary text-white text-[40px] md:text-[70px] leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] line-clamp-2">
                                 {currentVideo?.titulo.toLowerCase()}
                             </h2>
                         </motion.div>

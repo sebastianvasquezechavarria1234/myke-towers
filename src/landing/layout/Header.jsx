@@ -215,7 +215,7 @@ export const Header = () => {
                     )}
                 </AnimatePresence>
 
-                {/* CENTRO: NAV ITEMS (Solo en Expanded) */}
+                {/* CENTRO: NAV ITEMS (Solo en Expanded y Desktop) */}
                 <AnimatePresence mode="popLayout">
                     {isExpanded && (
                         <motion.nav
@@ -229,7 +229,7 @@ export const Header = () => {
                                 damping: 17,
                                 mass: 1.2
                             }}
-                            className="flex items-center overflow-hidden"
+                            className="hidden lg:flex items-center overflow-hidden"
                         >
                             <ul className="flex items-center gap-3 px-4">
                                     {NAV_ITEMS.map((item) => (
@@ -269,11 +269,11 @@ export const Header = () => {
                     )}
                 </AnimatePresence>
 
-                {/* DIVISOR 2 */}
+                {/* DIVISOR 2 (Solo en Desktop) */}
                 <motion.div 
                     layout
                     transition={{ type: "spring", stiffness: 400, damping: 17, mass: 1.2 }}
-                    className="w-px h-6 bg-white/10 mx-1.5" 
+                    className="hidden lg:block w-px h-6 bg-white/10 mx-1.5" 
                 />
 
                 {/* LADO DERECHO: CONTROLES */}
@@ -285,10 +285,10 @@ export const Header = () => {
                         damping: 17,
                         mass: 1.2
                     }}
-                    className="flex items-center gap-1.5 pl-1 pr-2 py-0.5"
+                    className="flex items-center gap-1 md:gap-1.5 pl-1 pr-2 py-0.5"
                 >
-                    {/* VISUALIZER */}
-                    <div className="flex items-end gap-0.5 h-3 px-2">
+                    {/* VISUALIZER (Oculto en móvil muy pequeño) */}
+                    <div className="hidden sm:flex items-end gap-0.5 h-3 px-2">
                         {[1, 2, 3, 4, 5].map((i) => (
                             <motion.div
                                 key={i}
@@ -306,11 +306,11 @@ export const Header = () => {
                         ))}
                     </div>
 
-                    <button onClick={prevVideo} className="text-white/60 hover:text-white transition-colors p-1">
+                    <button onClick={prevVideo} className="hidden md:block text-white/60 hover:text-white transition-colors p-1">
                         <SkipBack size={14} fill="currentColor" />
                     </button>
-                    <button onClick={togglePlay} className="w-11 h-11 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                        {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" className="ml-0.5" />}
+                    <button onClick={togglePlay} className="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                        {isPlaying ? <Pause size={12} md:size={14} fill="currentColor" /> : <Play size={12} md:size={14} fill="currentColor" className="ml-0.5" />}
                     </button>
                     <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors p-1">
                         <SkipForward size={14} fill="currentColor" />

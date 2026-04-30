@@ -81,10 +81,10 @@ export const SocialWall = () => {
     if (posts.length === 0) return null;
 
     return (
-        <section className="mt-[200px] mb-[150px] max-w-[1200px] mx-auto px-[10px]">
-            <h1 className="mb-[60px] text-center">
+        <section className="mt-[100px] md:mt-[200px] mb-[80px] md:mb-[150px] max-w-[1200px] mx-auto px-6">
+            <h1 className="mb-[40px] md:mb-[60px] text-center">
                 Instagram
-                <span className="pl-[20px] font-secundary">
+                <span className="md:pl-[20px] font-secundary block md:inline">
                     Experience
                 </span>
             </h1>

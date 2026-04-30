@@ -31,7 +31,7 @@ export const Cursor = () => {
         <>
             {/* MAIN CURSOR DOT */}
             <motion.div
-                className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+                className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference hidden lg:block"
                 animate={{
                     x: mousePos.x - 4,
                     y: mousePos.y - 4,
@@ -41,7 +41,7 @@ export const Cursor = () => {
             />
             {/* OUTER RING */}
             <motion.div
-                className="fixed top-0 left-0 w-8 h-8 border border-white/30 rounded-full pointer-events-none z-[9999]"
+                className="fixed top-0 left-0 w-8 h-8 border border-white/30 rounded-full pointer-events-none z-[9999] hidden lg:block"
                 animate={{
                     x: mousePos.x - 16,
                     y: mousePos.y - 16,
