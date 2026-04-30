@@ -3,6 +3,7 @@ import { Layout } from "../layout/Layout";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Hero } from "../components/home/Hero";
+import { Skeleton } from "../components/home/Skeleton";
 
 const AlbumCard = ({ album, index }) => {
     const [hovered, setHovered] = useState(false);
@@ -104,15 +105,7 @@ export const Albums = () => {
             .catch(err => console.error("Error fetching social:", err));
     }, []);
 
-    if (loading) {
-        return (
-            <Layout>
-                <div className="h-screen flex items-center justify-center">
-                    <span className="text-white/20 font-secundary text-4xl animate-pulse">Cargando Discografía...</span>
-                </div>
-            </Layout>
-        );
-    }
+
 
     return (
         <Layout>
@@ -133,7 +126,10 @@ export const Albums = () => {
             <section className="pb-[120px] max-w-[1200px] mx-auto px-[10px] md:px-6">
                 {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA DE LA HOME */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-0">
-                    {albums.map((album, idx) => (
+                    {loading ? (
+                        [...Array(6)].map((_, idx) => <Skeleton key={idx} />)
+                    ) : (
+                        albums.map((album, idx) => (
                         <motion.div
                             key={album.id}
                             initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
@@ -147,7 +143,8 @@ export const Albums = () => {
                         >
                             <AlbumCard album={album} index={idx} />
                         </motion.div>
-                    ))}
+                    ))
+                )}
                 </div>
             </section>
         </Layout>

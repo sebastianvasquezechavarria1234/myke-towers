@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
+import { Skeleton } from "./Skeleton";
 import { motion, AnimatePresence } from "framer-motion";
-
-const Skeleton = () => (
-    <div className="flex flex-col gap-4">
-        <div className="w-full h-[350px] bg-white/5 animate-pulse rounded-sm" />
-        <div className="space-y-2">
-            <div className="w-3/4 h-6 bg-white/5 animate-pulse rounded" />
-        </div>
-    </div>
-);
 
 export const Musica = () => {
     const [videos, setVideos] = useState([]);

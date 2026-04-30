@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, ArrowUpRight } from "lucide-react";
+import { Skeleton } from "./Skeleton";
 
 const SocialCard = ({ post, idx }) => {
     const [hovered, setHovered] = useState(false);
@@ -70,15 +71,22 @@ const SocialCard = ({ post, idx }) => {
 
 export const SocialWall = () => {
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch("http://localhost:3000/social")
             .then(res => res.json())
-            .then(data => setPosts(data))
-            .catch(err => console.error("Error loading social posts:", err));
+            .then(data => {
+                setPosts(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Error loading social posts:", err);
+                setLoading(false);
+            });
     }, []);
 
-    if (posts.length === 0) return null;
+    if (!loading && posts.length === 0) return null;
 
     return (
         <section className="mt-[100px] md:mt-[200px] mb-[80px] md:mb-[150px] max-w-[1200px] mx-auto px-6">
@@ -91,9 +99,15 @@ export const SocialWall = () => {
 
             {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA — Compactado sin textos */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-[15px]">
-                {posts.slice(0, 9).map((post, idx) => (
-                    <SocialCard key={post.id} post={post} idx={idx} />
-                ))}
+                {loading ? (
+                    [...Array(9)].map((_, idx) => (
+                        <Skeleton key={idx} hasText={false} />
+                    ))
+                ) : (
+                    posts.slice(0, 9).map((post, idx) => (
+                        <SocialCard key={post.id} post={post} idx={idx} />
+                    ))
+                )}
             </div>
 
             <div className="mt-20 flex justify-center">
