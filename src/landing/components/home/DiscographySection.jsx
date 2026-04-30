@@ -165,13 +165,18 @@ export const DiscographySection = ({ padding = "pt-32 pb-0" }) => {
                     className="flex items-center gap-4 md:gap-6"
                 >
                     <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
-                    <div className="text-3xl md:text-5xl text-white flex flex-wrap items-center justify-center gap-x-4 gap-y-2 max-w-[650px] mx-auto text-center leading-tight">
-                        <span className="font-bold">Legado</span>
-                        <span className="font-secundary text-[var(--blue)] lowercase italic">musical</span>
-                        <span className="font-bold">&</span>
-                        <span className="font-secundary text-[var(--blue)] lowercase italic">discografía</span>
-                        <span className="font-bold">completa</span>
-                    </div>
+                    <h1 className="max-w-[800px] mx-auto text-center">
+                        Legado
+                        <span className="px-[10px] font-secundary lowercase italic">
+                            musical
+                        </span>
+                        <br className="hidden md:block" />
+                        &
+                        <span className="px-[10px] font-secundary lowercase italic">
+                            discografía
+                        </span>
+                        completa
+                    </h1>
                     <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
                 </motion.div>
 
