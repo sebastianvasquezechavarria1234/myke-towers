@@ -120,11 +120,9 @@ export const Albums = () => {
                 tagline="#Young King Legacy. El sonido de una era."
                 title={
                     <>
-                        Explora la discografía completa y el 
-                        <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                            legado musical
-                        </span>
-                        {" "}que ha redefinido el género urbano.
+                        La <span className="px-[10px] font-secundary text-[var(--blue)]">discografía</span> completa y el legado 
+                        <span className="px-[10px] font-secundary text-[var(--blue)]">musical</span>
+                        {" "}de una era.
                     </>
                 }
                 images={socialImages.length >= 3 ? socialImages : []}

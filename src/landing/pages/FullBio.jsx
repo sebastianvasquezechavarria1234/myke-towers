@@ -79,10 +79,11 @@ export const FullBio = () => {
                 tagline="#El rap es mi esencia. La calle mi escuela"
                 title={
                     <>
-                        De Puerto Rico a la cima global, cada rima narra una historia de 
-                        <span className="pl-[10px] font-secundary text-[var(--blue)] block md:inline">
-                            superación y éxito
-                        </span>
+                        Desde 
+                        <span className="px-[10px] font-secundary text-[var(--blue)]">Puerto Rico</span> 
+                        al mundo, una historia de 
+                        <span className="px-[10px] font-secundary text-[var(--blue)]">superación</span> 
+                        y éxito.
                     </>
                 }
                 images={socialImages.length >= 3 ? socialImages : []}
