@@ -24,7 +24,7 @@ const SocialCard = ({ post, idx }) => {
                 {post.type === "video" ? (
                     <video 
                         src={post.url} 
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover transition-all duration-700"
                         autoPlay
                         muted
                         loop
@@ -34,7 +34,7 @@ const SocialCard = ({ post, idx }) => {
                     <motion.img 
                         src={post.url} 
                         alt="Myke Towers Social" 
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0"
+                        className="w-full h-full object-cover"
                         animate={{ scale: hovered ? 1 : 1.05 }}
                         transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
                     />

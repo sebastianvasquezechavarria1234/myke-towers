@@ -24,7 +24,7 @@ export const Card = ({ video, index }) => {
             <div className="relative overflow-hidden" style={{ height: "350px" }}>
                 {/* IMG: Animación de escala suave */}
                 <motion.img
-                    className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0"
+                    className="w-full h-full object-cover"
                     src={video?.imagen || "https://static.wixstatic.com/media/538d7e_5f608dd0e8dd4d97b239a45c754f0e32~mv2.jpg"}
                     alt={video?.titulo || "Myke Towers Video Thumbnail"}
                     loading="lazy"
