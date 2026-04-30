@@ -51,6 +51,7 @@ const ERAS = [
 export const FullBio = () => {
     const [activeEra, setActiveEra] = useState(0);
     const [albums, setAlbums] = useState([]);
+    const [socialImages, setSocialImages] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -61,6 +62,15 @@ export const FullBio = () => {
                 setAlbums(sorted);
             })
             .catch(err => console.error("Error fetching albums:", err));
+
+        fetch("http://localhost:3000/social")
+            .then(res => res.json())
+            .then(data => {
+                // Seleccionamos específicamente los índices 3, 6 y 5 para Biografía
+                const selected = [data[3], data[6], data[5]].map(p => p?.url);
+                setSocialImages(selected);
+            })
+            .catch(err => console.error("Error fetching social:", err));
     }, []);
 
     return (
@@ -75,8 +85,9 @@ export const FullBio = () => {
                         </span>
                     </>
                 }
-                images={albums.length >= 3 ? [albums[0].image, albums[1].image, albums[2].image] : []}
+                images={socialImages.length >= 3 ? socialImages : []}
                 showVideo={false}
+                hasBorder={false}
             />
 
             <section className="pb-[120px] max-w-[1100px] mx-auto px-6">

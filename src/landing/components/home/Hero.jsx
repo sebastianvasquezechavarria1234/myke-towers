@@ -8,7 +8,8 @@ export const Hero = ({
     tagline = "#No sigo tendencias. Yo soy la tendencia", 
     title, 
     images = [MalDeAmores, null, Sport],
-    showVideo = true
+    showVideo = true,
+    hasBorder = true
 }) => {
     const { currentVideo, isPlaying, nextVideo } = useVideo();
     const containerRef = useRef(null);
@@ -106,7 +107,7 @@ export const Hero = ({
 
                 {/* MAIN PLAYER/IMAGE CONTAINER */}
                 <div className="relative z-30 group">
-                    <div className="w-[220px] h-[220px] md:w-[400px] md:h-[400px] overflow-hidden bg-black border border-white/10 shadow-2xl relative">
+                    <div className={`w-[220px] h-[220px] md:w-[400px] md:h-[400px] overflow-hidden bg-black ${hasBorder ? 'border border-white/10' : 'border-0'} shadow-2xl relative`}>
                         {showVideo ? (
                             <>
                                 {videoId ? (

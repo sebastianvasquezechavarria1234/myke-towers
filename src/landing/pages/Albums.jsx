@@ -76,9 +76,11 @@ const AlbumCard = ({ album, index }) => {
 
 export const Albums = () => {
     const [albums, setAlbums] = useState([]);
+    const [socialImages, setSocialImages] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Fetch albums for the grid
         fetch("http://localhost:3000/albums")
             .then(res => res.json())
             .then(data => {
@@ -90,6 +92,16 @@ export const Albums = () => {
                 console.error("Error fetching albums:", err);
                 setLoading(false);
             });
+
+        // Fetch social images for the Hero
+        fetch("http://localhost:3000/social")
+            .then(res => res.json())
+            .then(data => {
+                // Seleccionamos un set diferente (índices 7, 8, 9) para Álbumes
+                const selected = [data[7], data[8], data[9]].map(p => p?.url);
+                setSocialImages(selected);
+            })
+            .catch(err => console.error("Error fetching social:", err));
     }, []);
 
     if (loading) {
@@ -115,8 +127,9 @@ export const Albums = () => {
                         {" "}que ha redefinido el género urbano.
                     </>
                 }
-                images={albums.length >= 3 ? [albums[0].image, albums[1].image, albums[2].image] : []}
+                images={socialImages.length >= 3 ? socialImages : []}
                 showVideo={false}
+                hasBorder={false}
             />
 
             <section className="pb-[120px] max-w-[1200px] mx-auto px-6">
