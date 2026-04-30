@@ -114,7 +114,7 @@ export const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="max-w-[1240px] mx-auto overflow-hidden relative border-t-2 border-white/[0.06]"
+                className="max-w-[1240px] mx-auto overflow-hidden relative border-t border-white/[0.06]"
             >
                 <div className="flex flex-col md:flex-row items-start md:items-center p-10 md:p-14 gap-12 md:gap-0">
 
