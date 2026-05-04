@@ -125,17 +125,15 @@ export const Albums = () => {
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    className="flex items-center gap-4 md:gap-6 max-w-[1200px] mx-auto px-6"
+                    className="max-w-[1200px] mx-auto px-6 text-center"
                 >
-                    <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
-                    <h1 className="text-center w-full max-w-none md:max-w-[900px] mx-auto text-4xl md:text-6xl uppercase font-bold tracking-tighter">
+                    <h1 className="w-full max-w-none md:max-w-[900px] mx-auto text-4xl md:text-6xl font-bold tracking-tighter">
                         Legado
                         <span className="md:px-[10px] font-secundary lowercase italic"> musical</span>
                         {" "}& {" "}
                         <span className="font-secundary lowercase italic">discografía</span>
                         {" "}completa
                     </h1>
-                    <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
                 </motion.div>
             </div>
 
