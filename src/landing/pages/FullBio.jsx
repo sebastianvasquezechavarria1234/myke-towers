@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../layout/Layout";
 import { motion } from "framer-motion";
 import { DiscographySection } from "../components/home/DiscographySection";
-import { SocialWall } from "../components/home/SocialWall";
 import { Hero } from "../components/home/Hero";
 
 const ERAS = [
@@ -173,8 +172,7 @@ export const FullBio = () => {
                     {/* DISCOGRAFÍA DINÁMICA */}
                     <DiscographySection padding="mt-40 mb-0" />
 
-                    {/* INSTAGRAM EXPERIENCE */}
-                    <SocialWall />
+
 
                     {/* QUOTE FINAL */}
                     <div className="mt-28 text-center">
