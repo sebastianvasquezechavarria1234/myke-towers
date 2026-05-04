@@ -63,15 +63,15 @@ export const AlbumDetail = () => {
                     </motion.div>
 
                     <div className="space-y-8">
-                        <Link to="/albums" className="flex items-center gap-2 text-white/40 hover:text-[var(--green)] transition-colors text-[10px] uppercase font-bold tracking-[0.3em]">
-                            <ArrowLeft size={14} /> Volver a la discografía
+                        <Link to="/albums" className="flex items-center gap-2 text-white/40 hover:text-[var(--green)] transition-colors text-[10px] font-medium">
+                            <ArrowLeft size={14} /> Regresar a los álbumes
                         </Link>
                         
                         <div>
-                            <p className="text-[var(--green)] font-bold text-xs tracking-[0.5em] uppercase mb-4">
+                            <p className="text-[var(--green)] font-medium text-xs mb-4">
                                 {data.year} · Official Release
                             </p>
-                            <h1 className="text-6xl md:text-[120px] font-black uppercase tracking-tighter leading-[0.8] mb-6">
+                            <h1 className="text-6xl md:text-[120px] font-secundary lowercase tracking-tighter leading-[0.8] mb-6">
                                 {data.album}
                             </h1>
                         </div>
