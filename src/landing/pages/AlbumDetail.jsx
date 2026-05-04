@@ -47,7 +47,7 @@ export const AlbumDetail = () => {
         <Layout>
             <section className="min-h-screen pt-[120px] pb-[100px]">
                 {/* HERO DEL ÁLBUM */}
-                <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[450px_1fr] gap-20 items-end mb-20">
+                <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 items-end mb-20">
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -107,7 +107,7 @@ export const AlbumDetail = () => {
                                 viewport={{ once: true }}
                                 className="grid grid-cols-[40px_50px_1fr_80px] items-center px-6 py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-4"
                             >
-                                <span className="text-white/10 group-hover:text-[var(--green)] font-bold text-sm transition-colors">{song.track || idx + 1}</span>
+                                <span className="text-white/10 group-hover:text-[var(--green)] font-normal text-sm transition-colors">{song.track || idx + 1}</span>
                                 
                                 <picture className="relative w-10 h-10 flex-shrink-0 overflow-hidden block">
                                     <img 
@@ -118,7 +118,7 @@ export const AlbumDetail = () => {
                                 </picture>
 
                                 <div className="flex flex-col">
-                                    <span className="text-white/70 group-hover:text-white font-bold text-base transition-colors uppercase tracking-tight">{song.name}</span>
+                                    <span className="text-white/70 group-hover:text-white font-medium text-base transition-colors uppercase tracking-tight">{song.name}</span>
                                     <span className="text-white/20 text-[10px] uppercase font-medium group-hover:text-white/40">Myke Towers</span>
                                 </div>
 
