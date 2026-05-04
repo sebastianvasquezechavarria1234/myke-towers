@@ -121,6 +121,24 @@ export const Albums = () => {
                 hasBorder={false}
             />
 
+            <div className="pt-20 pb-16">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    className="flex items-center gap-4 md:gap-6 max-w-[1200px] mx-auto px-6"
+                >
+                    <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
+                    <h1 className="text-center w-full max-w-none md:max-w-[900px] mx-auto text-4xl md:text-6xl uppercase font-bold tracking-tighter">
+                        Legado
+                        <span className="md:px-[10px] font-secundary lowercase italic"> musical</span>
+                        {" "}& {" "}
+                        <span className="font-secundary lowercase italic">discografía</span>
+                        {" "}completa
+                    </h1>
+                    <div className="hidden sm:block flex-1 h-px bg-white/[0.06]" />
+                </motion.div>
+            </div>
+
             <section className="pb-[120px] max-w-[1200px] mx-auto px-[10px] md:px-6">
                 {/* GRID UNIFICADO CON LA SECCIÓN DE MÚSICA DE LA HOME */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px] md:gap-x-6 md:gap-y-16 p-0">

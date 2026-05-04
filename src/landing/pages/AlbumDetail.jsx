@@ -43,6 +43,24 @@ export const AlbumDetail = () => {
         );
     }
 
+    const renderTitle = (title) => {
+        if (!title) return "";
+        const words = title.split(" ");
+        if (words.length === 1) return <span className="font-secundary text-white lowercase">{title}</span>;
+        
+        const firstPart = words.slice(0, Math.ceil(words.length / 2)).join(" ");
+        const secondPart = words.slice(Math.ceil(words.length / 2)).join(" ");
+        
+        return (
+            <>
+                {firstPart}
+                <span className="pl-[20px] font-secundary text-white lowercase">
+                    {secondPart}
+                </span>
+            </>
+        );
+    };
+
     return (
         <Layout>
             <section className="min-h-screen pt-[120px] pb-[100px]">
@@ -71,8 +89,8 @@ export const AlbumDetail = () => {
                             <p className="text-[var(--green)] font-medium text-xs mb-4">
                                 {data.year} · Official Release
                             </p>
-                            <h1 className="text-6xl md:text-[120px] font-secundary lowercase tracking-tighter leading-[0.8] mb-6">
-                                {data.album}
+                            <h1 className="text-6xl md:text-[100px] font-bold tracking-tighter leading-[0.85] mb-6">
+                                {renderTitle(data.album)}
                             </h1>
                         </div>
 
