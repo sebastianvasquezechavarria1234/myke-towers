@@ -104,69 +104,99 @@ export const FullBio = () => {
                     </div>
 
                     {/* SEPARATOR */}
-                    <div className="flex items-center gap-6 mb-20">
+                    <div className="flex items-center gap-6 mb-32">
                         <div className="flex-1 h-px bg-white/[0.06]" />
-                        <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold">Carrera Musical</span>
+                        <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold">Cronología de Éxitos</span>
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </div>
 
-                    {/* ERAS — EDITORIAL STYLE */}
-                    <div className="space-y-0">
-                        {ERAS.map((era, idx) => (
-                            <motion.div
-                                key={era.index}
-                                initial={{ opacity: 0.05, x: -12 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: false, margin: "-80px" }}
-                                transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
-                                className="relative grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr_160px] gap-0 border-t border-white/[0.06] py-10 group"
-                            >
-                                {/* ACTIVE LEFT BORDER — aparece con el scroll */}
-                                <motion.div
-                                    initial={{ scaleY: 0, opacity: 0 }}
-                                    whileInView={{ scaleY: 1, opacity: 1 }}
-                                    viewport={{ once: false, margin: "-80px" }}
-                                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-                                    style={{ originY: 0 }}
-                                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-white/30"
-                                />
+                    {/* EDITORIAL TIMELINE EXPERIENCE */}
+                    <div className="relative pl-10 md:pl-20 border-l border-white/[0.05]">
+                        {/* PROGRESS LINE */}
+                        <motion.div 
+                            initial={{ height: 0 }}
+                            whileInView={{ height: "100%" }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                            className="absolute left-[-1px] top-0 w-[1px] bg-[var(--green)] shadow-[0_0_15px_var(--green)] origin-top"
+                        />
 
-                                {/* INDEX */}
-                                <div className="flex flex-col justify-start pt-1">
-                                    <span className="text-white/15 text-4xl font-black leading-none">
-                                        {era.index}
-                                    </span>
-                                </div>
-
-                                {/* MAIN CONTENT */}
-                                <div className="space-y-3 pr-6">
-                                    <div className="space-y-1">
-                                        <p className="text-white/30 text-[11px] font-bold uppercase tracking-widest">
+                        <div className="space-y-40">
+                            {ERAS.map((era, idx) => (
+                                <motion.div 
+                                    key={era.index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    transition={{ duration: 0.8, delay: idx * 0.1 }}
+                                    className="relative grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-16"
+                                >
+                                    {/* FLOATING YEAR INDICATOR */}
+                                    <div className="absolute left-[-40px] md:left-[-100px] top-0 flex flex-col items-center">
+                                        <div className="w-3 h-3 bg-white rounded-full mb-4 border-4 border-[#212429] z-10" />
+                                        <span className="text-white/20 text-xs font-black rotate-90 origin-left mt-8 tracking-[0.3em] whitespace-nowrap">
                                             {era.years}
-                                        </p>
-                                        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white leading-tight">
-                                            {era.title}
-                                        </h3>
-                                        <p className="text-white/30 text-sm font-light italic">
-                                            {era.subtitle}
-                                        </p>
+                                        </span>
                                     </div>
-                                    <p className="text-white/50 text-base leading-relaxed font-light max-w-[580px]">
-                                        {era.content}
-                                    </p>
-                                </div>
 
-                                {/* STAT — desktop only */}
-                                <div className="hidden md:flex flex-col items-end justify-start pt-1">
-                                    <span className="text-[10px] text-white/30 uppercase tracking-widest font-bold text-right">
-                                        {era.stat}
-                                    </span>
-                                </div>
-                            </motion.div>
-                        ))}
+                                    {/* CONTENT BLOCK */}
+                                    <div className="space-y-8">
+                                        <div className="space-y-2">
+                                            <span className="text-[var(--green)] font-secundary text-4xl lowercase">{era.subtitle}</span>
+                                            <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight max-w-[600px]">
+                                                {era.title}
+                                            </h3>
+                                        </div>
 
-                        {/* LAST BORDER */}
-                        <div className="border-t border-white/[0.06]" />
+                                        <p className="text-white/50 text-lg leading-relaxed font-light max-w-[650px]">
+                                            {era.content}
+                                        </p>
+
+                                        <div className="flex items-center gap-10 pt-4">
+                                            <div className="flex flex-col">
+                                                <span className="text-white/20 text-[10px] uppercase font-bold tracking-widest mb-1">Logro Destacado</span>
+                                                <span className="text-white/80 font-bold text-sm uppercase">{era.stat}</span>
+                                            </div>
+                                            <div className="h-10 w-px bg-white/10" />
+                                            <div className="flex flex-col">
+                                                <span className="text-white/20 text-[10px] uppercase font-bold tracking-widest mb-1">Era</span>
+                                                <span className="text-white/80 font-bold text-sm uppercase">#{era.index}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* VISUAL GALLERY FOR THE ERA */}
+                                    <div className="relative hidden lg:block">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {albums
+                                                .filter(a => {
+                                                    const startYear = parseInt(era.years.split(" — ")[0]);
+                                                    const endYear = era.years.includes(" — ") ? parseInt(era.years.split(" — ")[1]) : startYear;
+                                                    const albumYear = parseInt(a.year);
+                                                    return albumYear >= startYear && albumYear <= endYear;
+                                                })
+                                                .slice(0, 4)
+                                                .map((album, aIdx) => (
+                                                    <motion.div
+                                                        key={album.id}
+                                                        whileHover={{ scale: 1.05, y: -5 }}
+                                                        className={`aspect-square bg-white/5 overflow-hidden ${aIdx % 2 !== 0 ? 'mt-8' : ''}`}
+                                                    >
+                                                        <img 
+                                                            src={album.image} 
+                                                            alt="" 
+                                                            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                                        />
+                                                    </motion.div>
+                                                ))
+                                            }
+                                        </div>
+                                        {/* DECORATIVE ELEMENT */}
+                                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[var(--green)]/5 rounded-full blur-3xl" />
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* DISCOGRAFÍA DINÁMICA */}
