@@ -90,7 +90,7 @@ export const AlbumDetail = () => {
 
                 {/* LISTA DE CANCIONES */}
                 <div className="max-w-[1100px] mx-auto px-6">
-                    <div className="grid grid-cols-[50px_60px_1fr_80px] px-6 py-4 border-b border-white/10 text-white/20 text-[10px] font-bold uppercase tracking-widest">
+                    <div className="grid grid-cols-[40px_50px_1fr_80px] px-6 py-4 border-b border-white/10 text-white/20 text-[10px] font-bold uppercase tracking-widest gap-4">
                         <span>#</span>
                         <span className="opacity-0">Cover</span>
                         <span>Título</span>
@@ -105,23 +105,19 @@ export const AlbumDetail = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: idx * 0.05 }}
                                 viewport={{ once: true }}
-                                className="grid grid-cols-[50px_60px_1fr_80px] items-center px-6 py-6 group hover:bg-white/[0.02] transition-colors cursor-pointer"
+                                className="grid grid-cols-[40px_50px_1fr_80px] items-center px-6 py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-4"
                             >
                                 <span className="text-white/10 group-hover:text-[var(--green)] font-bold text-sm transition-colors">{song.track || idx + 1}</span>
                                 
-                                <div className="relative w-10 h-10 flex-shrink-0">
+                                <picture className="relative w-10 h-10 flex-shrink-0 overflow-hidden block">
                                     <img 
                                         src={data.image} 
                                         alt={data.album} 
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                        className="w-full h-full object-cover scale-[1.3] transition-transform duration-300 group-hover:scale-100"
                                     />
-                                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <Play size={12} className="text-white fill-white" />
-                                    </div>
-                                    <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 transition-colors" />
-                                </div>
+                                </picture>
 
-                                <div className="flex flex-col pl-6">
+                                <div className="flex flex-col">
                                     <span className="text-white/70 group-hover:text-white font-bold text-base transition-colors uppercase tracking-tight">{song.name}</span>
                                     <span className="text-white/20 text-[10px] uppercase font-medium group-hover:text-white/40">Myke Towers</span>
                                 </div>
