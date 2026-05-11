@@ -1,39 +1,57 @@
 # Myke Towers - Young King Experience
 
-This is a premium React frontend built to showcase the career and music of **Myke Towers**. It consumes a custom Node.js API to provide real-time data about his biography, statistics, and YouTube content.
+![Project Preview](./public/356shots_so.png)
 
-## 🚀 Technologies
+A high-end, premium web experience dedicated to the career, discography, and legacy of **Myke Towers**. This project features a state-of-the-art editorial design, smooth animations, and real-time data integration via a custom API.
 
-- **React 18** + **Vite**
-- **Tailwind CSS** (Premium UI Design)
-- **Framer Motion** (Smooth Animations)
-- **Axios** (API Consumption)
-- **Backend**: Custom Node.js/Express API
+## ✨ Key Features
 
-## 🛠️ Installation
+- **Editorial Biography**: A clean, minimalist timeline experience showcasing the artist's evolution with high-impact typography.
+- **Dynamic Discography**: Interactive album listing categorized by studio albums, mixtapes, and EPs, featuring mouse-follow preview cards.
+- **YouTube Integration**: Search and play Myke Towers' latest hits directly from the platform.
+- **Premium UI/UX**: Built with a "Black Panther" aesthetic, utilizing glassmorphism, smooth gradients, and sophisticated micro-animations.
+- **Full Responsive Design**: Seamlessly optimized for mobile, tablet, and desktop devices.
 
-1. Clone the repository:
+## 🛠️ Tech Stack
+
+- **Frontend**: [React 18](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Routing**: [React Router Dom](https://reactrouter.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Backend**: [Node.js API](https://github.com/sebastianvasquezechavarria1234/myke-towers-api)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- [Myke Towers API](https://github.com/sebastianvasquezechavarria1234/myke-towers-api) running locally or hosted.
+
+### Installation
+
+1. **Clone the repository**
    ```bash
    git clone https://github.com/sebastianvasquezechavarria1234/myke-towers.git
    ```
-2. Install dependencies:
+
+2. **Install dependencies**
    ```bash
+   cd myke-towers
    npm install
    ```
-3. Run the development server:
+
+3. **Environment Configuration**
+   The project is configured to connect to `http://localhost:3000` by default for the backend services.
+
+4. **Run Development Server**
    ```bash
    npm run dev
    ```
 
-*Note: Make sure the [backend API](https://github.com/sebastianvasquezechavarria1234/myke-towers-api) is running on port 3000.*
+## 📸 Screenshots
 
-## ✨ Features
-
-- **Dynamic Music Search**: Real-time YouTube search integration.
-- **Biographical Data**: Comprehensive history of the artist.
-- **Career Stats**: Key metrics and achievements.
-- **Premium Design**: Dark mode pantera aesthetics with gold accents.
-- **Fully Responsive**: Optimized for mobile and desktop.
+The design follows a premium editorial style, focusing on high-quality imagery and bold typography.
 
 ---
-Developed by **Antigravity** for the Young King.
+Developed with ❤️ by **Antigravity** for the Young King.
