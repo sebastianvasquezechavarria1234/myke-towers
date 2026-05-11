@@ -115,27 +115,27 @@ export const FullBio = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-100px" }}
                                     transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                    className="space-y-10"
+                                    className="flex flex-col pt-20"
                                 >
                                     {/* YEAR */}
-                                    <div className="flex items-baseline gap-4 pb-2">
+                                    <div className="flex items-baseline gap-4 pb-0">
                                         <span className="text-[11px] font-light tracking-[0.3em] text-white/30">
                                             {era.years}
                                         </span>
                                     </div>
 
                                     {/* HEADINGS */}
-                                    <div className="space-y-4">
-                                        <h3 className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight">
+                                    <div className="space-y-4 mt-3">
+                                        <h3 className="text-3xl md:text-5xl font-bold italic leading-[1.1] tracking-tight">
                                             {era.title}
                                         </h3>
-                                        <div className="text-white font-secundary text-4xl lowercase opacity-80 leading-none">
+                                        <div className="text-white font-secundary text-3xl lowercase opacity-50 leading-none">
                                             {era.subtitle}
                                         </div>
                                     </div>
 
                                     {/* CONTENT */}
-                                    <div className="max-w-[700px]">
+                                    <div className="max-w-[700px] mt-10">
                                         <p className="text-white/50 text-lg leading-[1.8] font-normal text-justify md:text-left">
                                             {era.content}
                                         </p>
