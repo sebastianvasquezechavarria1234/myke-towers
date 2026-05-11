@@ -49,7 +49,7 @@ p {
 
 @media (max-width: 650px) {
   a, p, li {
-    font-size: 12px !important;
+    font-size: 12px;
   }
   span {
     font-size: inherit;

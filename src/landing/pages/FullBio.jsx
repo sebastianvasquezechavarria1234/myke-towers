@@ -129,9 +129,9 @@ export const FullBio = () => {
                                         <h3 className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight">
                                             {era.title}
                                         </h3>
-                                        <p className="text-white font-secundary text-3xl lowercase opacity-100">
+                                        <div className="text-white font-secundary text-4xl lowercase opacity-80 leading-none">
                                             {era.subtitle}
-                                        </p>
+                                        </div>
                                     </div>
 
                                     {/* CONTENT */}
