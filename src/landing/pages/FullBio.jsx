@@ -110,8 +110,8 @@ export const FullBio = () => {
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </div>
 
-                    {/* EDITORIAL TIMELINE EXPERIENCE - LIGHT THEME */}
-                    <div className="bg-[#f2ebe5] -mx-6 md:-mx-20 px-6 md:px-20 py-32 text-[#1a1a1a]">
+                    {/* EDITORIAL TIMELINE EXPERIENCE */}
+                    <div className="py-32 text-white">
                         <div className="max-w-[800px] mx-auto space-y-32">
                             {ERAS.map((era, idx) => (
                                 <motion.div 
@@ -123,8 +123,8 @@ export const FullBio = () => {
                                     className="space-y-10"
                                 >
                                     {/* YEAR */}
-                                    <div className="flex items-baseline gap-4 border-b border-black/10 pb-4">
-                                        <span className="text-[11px] font-light tracking-[0.3em] text-black/30">
+                                    <div className="flex items-baseline gap-4 pb-2">
+                                        <span className="text-[11px] font-light tracking-[0.3em] text-white/30">
                                             {era.years}
                                         </span>
                                     </div>
@@ -141,7 +141,7 @@ export const FullBio = () => {
 
                                     {/* CONTENT */}
                                     <div className="max-w-[700px]">
-                                        <p className="text-[#333] text-lg leading-[1.8] font-normal text-justify md:text-left">
+                                        <p className="text-white/50 text-lg leading-[1.8] font-normal text-justify md:text-left">
                                             {era.content}
                                         </p>
                                     </div>
