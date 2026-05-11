@@ -1,7 +1,7 @@
 # Myke Towers - Young King Experience
 
 <p align="center">
-  <img src="https://github.com/sebastianvasquezechavarria1234/myke-towers/blob/main/public/356shots_so.png?raw=true" alt="Myke Towers Project Preview" width="100%">
+  <img src="https://github.com/sebastianvasquezechavarria1234/myke-towers/blob/main/public/preview.png?raw=true" alt="Myke Towers Project Preview" width="100%">
 </p>
 
 A high-end, premium web experience dedicated to the career, discography, and legacy of **Myke Towers**. This project features a state-of-the-art editorial design, smooth animations, and real-time data integration via a custom API.
