@@ -119,14 +119,14 @@ export const FullBio = () => {
                                 >
                                     {/* YEAR */}
                                     <div className="flex items-baseline gap-4 pb-0">
-                                        <span className="text-[11px] font-light tracking-[0.3em] text-white/30">
+                                        <span className="text-sm font-light italic tracking-[0.3em] text-white/30">
                                             {era.years}
                                         </span>
                                     </div>
 
                                     {/* HEADINGS */}
                                     <div className="space-y-4 mt-3">
-                                        <h3 className="text-3xl md:text-5xl font-bold italic leading-[1.1] tracking-tight">
+                                        <h3 className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight">
                                             {era.title}
                                         </h3>
                                         <div className="text-white font-secundary text-3xl lowercase opacity-50 leading-none">
