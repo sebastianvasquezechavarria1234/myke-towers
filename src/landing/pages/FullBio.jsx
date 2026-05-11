@@ -107,7 +107,7 @@ export const FullBio = () => {
 
                     {/* EDITORIAL TIMELINE EXPERIENCE */}
                     <div className="py-32 text-white">
-                        <div className="max-w-[800px] mx-auto space-y-32">
+                        <div className="max-w-[800px] mx-auto space-y-16">
                             {ERAS.map((era, idx) => (
                                 <motion.div 
                                     key={era.index}
@@ -115,7 +115,7 @@ export const FullBio = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-100px" }}
                                     transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                    className="flex flex-col pt-20"
+                                    className="flex flex-col"
                                 >
                                     {/* DATE & SUBTITLE */}
                                     <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 pb-0">
