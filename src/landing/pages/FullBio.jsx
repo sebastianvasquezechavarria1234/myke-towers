@@ -110,18 +110,9 @@ export const FullBio = () => {
                         <div className="flex-1 h-px bg-white/[0.06]" />
                     </div>
 
-                    {/* EDITORIAL TIMELINE EXPERIENCE */}
-                    <div className="relative pl-10 md:pl-20 border-l border-white/[0.05]">
-                        {/* PROGRESS LINE */}
-                        <motion.div 
-                            initial={{ height: 0 }}
-                            whileInView={{ height: "100%" }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1.5, ease: "easeInOut" }}
-                            className="absolute left-[-1px] top-0 w-[1px] bg-[var(--green)] shadow-[0_0_15px_var(--green)] origin-top"
-                        />
-
-                        <div className="space-y-40">
+                    {/* EDITORIAL TIMELINE EXPERIENCE - LIGHT THEME */}
+                    <div className="bg-[#f2ebe5] -mx-6 md:-mx-20 px-6 md:px-20 py-32 text-[#1a1a1a]">
+                        <div className="max-w-[800px] mx-auto space-y-32">
                             {ERAS.map((era, idx) => (
                                 <motion.div 
                                     key={era.index}
@@ -129,70 +120,63 @@ export const FullBio = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-100px" }}
                                     transition={{ duration: 0.8, delay: idx * 0.1 }}
-                                    className="relative grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-16"
+                                    className="space-y-10"
                                 >
-                                    {/* FLOATING YEAR INDICATOR */}
-                                    <div className="absolute left-[-40px] md:left-[-100px] top-0 flex flex-col items-center">
-                                        <div className="w-3 h-3 bg-white rounded-full mb-4 border-4 border-[#212429] z-10" />
-                                        <span className="text-white/20 text-xs font-black rotate-90 origin-left mt-8 tracking-[0.3em] whitespace-nowrap">
+                                    {/* YEAR & INDEX */}
+                                    <div className="flex items-baseline gap-4 border-b border-black/10 pb-4">
+                                        <span className="font-['Anton'] text-6xl opacity-10">{era.index}</span>
+                                        <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/40">
                                             {era.years}
                                         </span>
                                     </div>
 
-                                    {/* CONTENT BLOCK */}
-                                    <div className="space-y-8">
-                                        <div className="space-y-2">
-                                            <span className="text-[var(--green)] font-secundary text-4xl lowercase">{era.subtitle}</span>
-                                            <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight max-w-[600px]">
-                                                {era.title}
-                                            </h3>
-                                        </div>
+                                    {/* HEADINGS */}
+                                    <div className="space-y-4">
+                                        <h3 className="text-5xl md:text-8xl font-['Anton'] uppercase leading-[0.9] tracking-tight">
+                                            {era.title}
+                                        </h3>
+                                        <p className="text-[var(--blue)] font-secundary text-4xl lowercase opacity-100">
+                                            {era.subtitle}
+                                        </p>
+                                    </div>
 
-                                        <p className="text-white/50 text-lg leading-relaxed font-light max-w-[650px]">
+                                    {/* CONTENT */}
+                                    <div className="grid grid-cols-1 md:grid-cols-[1fr_250px] gap-12 items-start">
+                                        <p className="text-[#333] text-lg md:text-xl leading-[1.8] font-normal text-justify md:text-left">
                                             {era.content}
                                         </p>
 
-                                        <div className="flex items-center gap-10 pt-4">
-                                            <div className="flex flex-col">
-                                                <span className="text-white/20 text-[10px] uppercase font-bold tracking-widest mb-1">Logro Destacado</span>
-                                                <span className="text-white/80 font-bold text-sm uppercase">{era.stat}</span>
-                                            </div>
-                                            <div className="h-10 w-px bg-white/10" />
-                                            <div className="flex flex-col">
-                                                <span className="text-white/20 text-[10px] uppercase font-bold tracking-widest mb-1">Era</span>
-                                                <span className="text-white/80 font-bold text-sm uppercase">#{era.index}</span>
-                                            </div>
+                                        {/* STATS / HIGHLIGHTS */}
+                                        <div className="bg-black/5 p-8 border-l-4 border-[var(--blue)] space-y-4">
+                                            <span className="text-[10px] uppercase font-bold tracking-widest text-black/30 block">Logro Destacado</span>
+                                            <span className="text-xl font-['Anton'] uppercase leading-none block">{era.stat}</span>
                                         </div>
                                     </div>
 
-                                    {/* VISUAL GALLERY FOR THE ERA */}
-                                    <div className="relative hidden lg:block">
-                                        <div className="grid grid-cols-2 gap-4">
-                                            {albums
-                                                .filter(a => {
-                                                    const startYear = parseInt(era.years.split(" — ")[0]);
-                                                    const endYear = era.years.includes(" — ") ? parseInt(era.years.split(" — ")[1]) : startYear;
-                                                    const albumYear = parseInt(a.year);
-                                                    return albumYear >= startYear && albumYear <= endYear;
-                                                })
-                                                .slice(0, 4)
-                                                .map((album, aIdx) => (
-                                                    <motion.div
-                                                        key={album.id}
-                                                        whileHover={{ scale: 1.05, y: -5 }}
-                                                        className={`aspect-square bg-white/5 overflow-hidden ${aIdx % 2 !== 0 ? 'mt-8' : ''}`}
-                                                    >
-                                                        <img 
-                                                            src={album.image} 
-                                                            alt="" 
-                                                            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                                                        />
-                                                    </motion.div>
-                                                ))
-                                            }
-                                        </div>
-                                        {/* DECORATIVE ELEMENT */}
-                                        <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[var(--green)]/5 rounded-full blur-3xl" />
+                                    {/* GALLERY - SUBTLE AND CLEAN */}
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10">
+                                        {albums
+                                            .filter(a => {
+                                                const startYear = parseInt(era.years.split(" — ")[0]);
+                                                const endYear = era.years.includes(" — ") ? parseInt(era.years.split(" — ")[1]) : startYear;
+                                                const albumYear = parseInt(a.year);
+                                                return albumYear >= startYear && albumYear <= endYear;
+                                            })
+                                            .slice(0, 4)
+                                            .map((album) => (
+                                                <motion.div
+                                                    key={album.id}
+                                                    whileHover={{ scale: 1.02 }}
+                                                    className="aspect-square bg-black/5 overflow-hidden"
+                                                >
+                                                    <img 
+                                                        src={album.image} 
+                                                        alt="" 
+                                                        className="w-full h-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                                                    />
+                                                </motion.div>
+                                            ))
+                                        }
                                     </div>
                                 </motion.div>
                             ))}
