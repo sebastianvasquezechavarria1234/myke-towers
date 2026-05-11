@@ -97,7 +97,7 @@ export const FullBio = () => {
                     transition={{ duration: 0.8 }}
                 >
                     {/* INTRO TEXT */}
-                    <div className="max-w-[680px] mx-auto mb-28 text-center space-y-5">
+                    <div className="max-w-[680px] mx-auto mt-32 mb-28 text-center space-y-5">
                         <p className="text-white/50 text-xl leading-[1.9] font-light">
                             Nacido en Río Piedras, Puerto Rico, Myke Towers transformó el rap de los 90 en un movimiento global. Desde SoundCloud hasta los escenarios más grandes, su evolución como el <span className="text-white/70 font-medium">Young King</span> ha redefinido el género urbano.
                         </p>
