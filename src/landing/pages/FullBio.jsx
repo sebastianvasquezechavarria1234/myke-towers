@@ -147,12 +147,7 @@ export const FullBio = () => {
 
 
 
-                    {/* QUOTE FINAL */}
-                    <div className="mt-28 text-center">
-                        <p className="font-secundary text-5xl text-white/[0.07]">
-                            "Young Kingz Baby"
-                        </p>
-                    </div>
+
                 </motion.div>
             </section>
         </Layout>
