@@ -117,21 +117,18 @@ export const FullBio = () => {
                                     transition={{ duration: 0.8, delay: idx * 0.1 }}
                                     className="flex flex-col pt-20"
                                 >
-                                    {/* YEAR */}
-                                    <div className="flex items-baseline gap-4 pb-0">
-                                        <span className="text-sm font-light italic tracking-[0.3em] text-white/30">
-                                            {era.years}
-                                        </span>
+                                    {/* DATE & SUBTITLE */}
+                                    <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 pb-0">
+                                        <div className="text-white font-secundary text-3xl lowercase opacity-50 leading-none">
+                                            {era.years} — {era.subtitle}
+                                        </div>
                                     </div>
 
                                     {/* HEADINGS */}
-                                    <div className="space-y-4 mt-3">
+                                    <div className="mt-3">
                                         <h3 className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight">
                                             {era.title}
                                         </h3>
-                                        <div className="text-white font-secundary text-3xl lowercase opacity-50 leading-none">
-                                            {era.subtitle}
-                                        </div>
                                     </div>
 
                                     {/* CONTENT */}
