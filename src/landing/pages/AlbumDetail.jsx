@@ -142,7 +142,7 @@ export const AlbumDetail = () => {
 
                                 <div className="flex justify-end items-center gap-4">
                                     <span className="text-white/30 text-sm font-light">{song.duration}</span>
-                                    <Play size={16} className="text-[var(--green)] opacity-0 group-hover:opacity-100 transition-opacity fill-[var(--green)]" />
+                                    <Play size={16} className="text-white opacity-0 group-hover:opacity-100 transition-opacity fill-white" />
                                 </div>
                             </motion.div>
                         ))}
