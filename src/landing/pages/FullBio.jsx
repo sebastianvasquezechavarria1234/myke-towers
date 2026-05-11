@@ -103,12 +103,7 @@ export const FullBio = () => {
                         </p>
                     </div>
 
-                    {/* SEPARATOR */}
-                    <div className="flex items-center gap-6 mb-32">
-                        <div className="flex-1 h-px bg-white/[0.06]" />
-                        <span className="text-white/20 text-[10px] uppercase tracking-[0.4em] font-bold">Cronología de Éxitos</span>
-                        <div className="flex-1 h-px bg-white/[0.06]" />
-                    </div>
+
 
                     {/* EDITORIAL TIMELINE EXPERIENCE */}
                     <div className="py-32 text-white">
