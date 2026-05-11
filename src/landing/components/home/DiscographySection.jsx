@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useSpring, useMotionValue, useVelocity, useTransform } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { ListSkeleton } from "./Skeleton";
 
 /* Componente de la Card de Previsualización Reutilizable */
@@ -77,10 +78,13 @@ const PreviewCard = ({ album, style, dynamicScaleX, dynamicScaleY }) => {
 };
 
 const AlbumItem = ({ album, onHover }) => {
+    const navigate = useNavigate();
+
     return (
         <div
             onMouseEnter={() => onHover(album)}
             onMouseLeave={() => onHover(null)}
+            onClick={() => navigate(`/album/${album.id}`)}
             className="flex gap-4 items-center group cursor-pointer py-3 border-b border-white/[0.03] last:border-0"
         >
             <div className="w-9 h-9 overflow-hidden rounded-none opacity-20 group-hover:opacity-100 transition-all duration-300 shrink-0">
