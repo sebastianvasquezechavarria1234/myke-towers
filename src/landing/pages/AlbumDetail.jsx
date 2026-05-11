@@ -125,7 +125,7 @@ export const AlbumDetail = () => {
                                 viewport={{ once: true }}
                                 className="grid grid-cols-[40px_50px_1fr_80px] items-center px-6 py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-4"
                             >
-                                <span className="text-white/10 group-hover:text-[var(--green)] font-normal text-sm transition-colors">{song.track || idx + 1}</span>
+                                <span className="text-white/10 group-hover:text-white font-normal text-sm transition-colors">{song.track || idx + 1}</span>
                                 
                                 <picture className="relative w-10 h-10 flex-shrink-0 overflow-hidden block">
                                     <img 
