@@ -122,61 +122,28 @@ export const FullBio = () => {
                                     transition={{ duration: 0.8, delay: idx * 0.1 }}
                                     className="space-y-10"
                                 >
-                                    {/* YEAR & INDEX */}
+                                    {/* YEAR */}
                                     <div className="flex items-baseline gap-4 border-b border-black/10 pb-4">
-                                        <span className="font-['Anton'] text-6xl opacity-10">{era.index}</span>
-                                        <span className="text-sm font-bold tracking-[0.2em] uppercase text-black/40">
+                                        <span className="text-[11px] font-light tracking-[0.3em] text-black/30">
                                             {era.years}
                                         </span>
                                     </div>
 
                                     {/* HEADINGS */}
                                     <div className="space-y-4">
-                                        <h3 className="text-5xl md:text-8xl font-['Anton'] uppercase leading-[0.9] tracking-tight">
+                                        <h3 className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight">
                                             {era.title}
                                         </h3>
-                                        <p className="text-[var(--blue)] font-secundary text-4xl lowercase opacity-100">
+                                        <p className="text-[var(--blue)] font-secundary text-3xl lowercase opacity-100">
                                             {era.subtitle}
                                         </p>
                                     </div>
 
                                     {/* CONTENT */}
-                                    <div className="grid grid-cols-1 md:grid-cols-[1fr_250px] gap-12 items-start">
-                                        <p className="text-[#333] text-lg md:text-xl leading-[1.8] font-normal text-justify md:text-left">
+                                    <div className="max-w-[700px]">
+                                        <p className="text-[#333] text-lg leading-[1.8] font-normal text-justify md:text-left">
                                             {era.content}
                                         </p>
-
-                                        {/* STATS / HIGHLIGHTS */}
-                                        <div className="bg-black/5 p-8 border-l-4 border-[var(--blue)] space-y-4">
-                                            <span className="text-[10px] uppercase font-bold tracking-widest text-black/30 block">Logro Destacado</span>
-                                            <span className="text-xl font-['Anton'] uppercase leading-none block">{era.stat}</span>
-                                        </div>
-                                    </div>
-
-                                    {/* GALLERY - SUBTLE AND CLEAN */}
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10">
-                                        {albums
-                                            .filter(a => {
-                                                const startYear = parseInt(era.years.split(" — ")[0]);
-                                                const endYear = era.years.includes(" — ") ? parseInt(era.years.split(" — ")[1]) : startYear;
-                                                const albumYear = parseInt(a.year);
-                                                return albumYear >= startYear && albumYear <= endYear;
-                                            })
-                                            .slice(0, 4)
-                                            .map((album) => (
-                                                <motion.div
-                                                    key={album.id}
-                                                    whileHover={{ scale: 1.02 }}
-                                                    className="aspect-square bg-black/5 overflow-hidden"
-                                                >
-                                                    <img 
-                                                        src={album.image} 
-                                                        alt="" 
-                                                        className="w-full h-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
-                                                    />
-                                                </motion.div>
-                                            ))
-                                        }
                                     </div>
                                 </motion.div>
                             ))}
