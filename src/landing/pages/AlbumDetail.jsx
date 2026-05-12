@@ -107,8 +107,8 @@ export const AlbumDetail = () => {
                 </div>
 
                 {/* LISTA DE CANCIONES */}
-                <div className="max-w-[1100px] mx-auto px-6">
-                    <div className="grid grid-cols-[40px_50px_1fr_80px] px-6 py-4 border-b border-white/10 text-white/20 text-[10px] font-bold uppercase tracking-widest gap-4">
+                <div className="max-w-[900px] mx-auto px-6">
+                    <div className="grid grid-cols-[24px_50px_1fr_80px] px-6 py-4 border-b border-white/10 text-white/20 text-[10px] font-bold uppercase tracking-widest gap-4">
                         <span>#</span>
                         <span className="opacity-0">Cover</span>
                         <span>Título</span>
@@ -123,9 +123,9 @@ export const AlbumDetail = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: idx * 0.05 }}
                                 viewport={{ once: true }}
-                                className="grid grid-cols-[40px_50px_1fr_80px] items-center px-6 py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-4"
+                                className="grid grid-cols-[24px_50px_1fr_80px] items-center px-6 py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-4"
                             >
-                                <span className="text-white/10 group-hover:text-white font-normal text-sm transition-colors">{song.track || idx + 1}</span>
+                                <span className="text-white font-normal text-sm transition-colors">{song.track || idx + 1}</span>
                                 
                                 <picture className="relative w-10 h-10 flex-shrink-0 overflow-hidden block">
                                     <img 
@@ -136,8 +136,8 @@ export const AlbumDetail = () => {
                                 </picture>
 
                                 <div className="flex flex-col">
-                                    <span className="text-white/80 group-hover:text-[var(--green)] font-semibold text-base transition-colors uppercase tracking-tight leading-tight">{song.name}</span>
-                                    <span className="text-white/20 text-[9px] uppercase font-bold tracking-widest group-hover:text-white/40 transition-colors">Myke Towers</span>
+                                    <span className="text-white/80 group-hover:text-white font-normal text-base transition-colors uppercase tracking-tight leading-tight">{song.name}</span>
+                                    <span className="text-white/20 text-[9px] uppercase font-medium tracking-widest group-hover:text-white/40 transition-colors">Myke Towers</span>
                                 </div>
 
                                 <div className="flex justify-end items-center gap-4">
