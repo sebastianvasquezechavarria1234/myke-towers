@@ -80,16 +80,16 @@ export const AlbumDetail = () => {
                         <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 transition-colors pointer-events-none" />
                     </motion.div>
 
-                    <div className="space-y-8">
-                        <Link to="/albums" className="flex items-center gap-2 text-white hover:text-[var(--green)] transition-colors text-[7px] font-medium italic underline underline-offset-4 decoration-white/20">
-                            <ArrowLeft size={8} /> Regresar a los álbumes
+                    <div className="space-y-4">
+                        <Link to="/albums" className="flex items-center gap-2 text-white hover:text-[var(--green)] transition-colors font-medium italic underline underline-offset-4 decoration-white/20" style={{ fontSize: '12px' }}>
+                            <ArrowLeft size={14} /> Regresar a los álbumes
                         </Link>
                         
                         <div>
-                            <p className="text-[var(--green)] font-medium text-[10px] mb-4 italic">
+                            <p className="text-[var(--green)] font-medium text-[10px] mb-2 italic">
                                 {data.year} · Official Release
                             </p>
-                            <h1 className="text-4xl md:text-[60px] font-bold tracking-tighter leading-[0.85] mb-6">
+                            <h1 className="text-4xl md:text-[60px] font-bold tracking-tighter leading-[0.85] mb-4">
                                 {renderTitle(data.album)}
                             </h1>
                         </div>
