@@ -81,8 +81,8 @@ export const AlbumDetail = () => {
                     </motion.div>
 
                     <div className="space-y-8">
-                        <Link to="/albums" className="flex items-center gap-2 text-white/30 hover:text-[var(--green)] transition-colors text-[9px] font-medium">
-                            <ArrowLeft size={12} /> Regresar a los álbumes
+                        <Link to="/albums" className="flex items-center gap-2 text-white hover:text-[var(--green)] transition-colors text-[7px] font-medium italic underline underline-offset-4 decoration-white/20">
+                            <ArrowLeft size={8} /> Regresar a los álbumes
                         </Link>
                         
                         <div>
