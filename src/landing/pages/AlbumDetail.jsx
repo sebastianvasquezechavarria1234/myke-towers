@@ -65,7 +65,7 @@ export const AlbumDetail = () => {
         <Layout>
             <section className="min-h-screen pt-[120px] pb-[100px]">
                 {/* HERO DEL ÁLBUM */}
-                <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-16 items-end mb-20">
+                <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-16 lg:gap-24 items-end mb-20">
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -81,15 +81,15 @@ export const AlbumDetail = () => {
                     </motion.div>
 
                     <div className="space-y-8">
-                        <Link to="/albums" className="flex items-center gap-2 text-white/40 hover:text-[var(--green)] transition-colors text-[10px] font-medium">
-                            <ArrowLeft size={14} /> Regresar a los álbumes
+                        <Link to="/albums" className="flex items-center gap-2 text-white/30 hover:text-[var(--green)] transition-colors text-[9px] font-medium">
+                            <ArrowLeft size={12} /> Regresar a los álbumes
                         </Link>
                         
                         <div>
                             <p className="text-[var(--green)] font-medium text-xs mb-4">
                                 {data.year} · Official Release
                             </p>
-                            <h1 className="text-6xl md:text-[100px] font-bold tracking-tighter leading-[0.85] mb-6">
+                            <h1 className="text-5xl md:text-[80px] font-bold tracking-tighter leading-[0.85] mb-6">
                                 {renderTitle(data.album)}
                             </h1>
                         </div>
@@ -99,7 +99,7 @@ export const AlbumDetail = () => {
                                 <Disc className="text-white/20" size={20} />
                                 <span className="text-white/40 text-sm font-light uppercase tracking-widest">{data.songs?.length || 0} Canciones</span>
                             </div>
-                            <button className="bg-white text-black px-10 py-4 font-black uppercase text-xs tracking-widest hover:bg-[var(--green)] transition-all duration-300 transform hover:scale-105">
+                            <button className="bg-white text-black px-8 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-[var(--green)] transition-all duration-300 transform hover:scale-105">
                                 Escuchar Ahora
                             </button>
                         </div>
@@ -136,8 +136,8 @@ export const AlbumDetail = () => {
                                 </picture>
 
                                 <div className="flex flex-col">
-                                    <span className="text-white/70 group-hover:text-white font-medium text-base transition-colors uppercase tracking-tight">{song.name}</span>
-                                    <span className="text-white/20 text-[10px] uppercase font-medium group-hover:text-white/40">Myke Towers</span>
+                                    <span className="text-white/80 group-hover:text-[var(--green)] font-semibold text-base transition-colors uppercase tracking-tight leading-tight">{song.name}</span>
+                                    <span className="text-white/20 text-[9px] uppercase font-bold tracking-widest group-hover:text-white/40 transition-colors">Myke Towers</span>
                                 </div>
 
                                 <div className="flex justify-end items-center gap-4">

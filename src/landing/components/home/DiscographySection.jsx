@@ -130,8 +130,7 @@ export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
         fetch("http://localhost:3000/albums")
             .then(res => res.json())
             .then(data => {
-                const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
-                setAlbums(sorted);
+                setAlbums(data);
                 setLoading(false);
             })
             .catch(err => {
