@@ -90,19 +90,6 @@ export const Header = () => {
 
     return (
         <>
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-xl z-40 lg:hidden pointer-events-auto"
-                        onClick={() => setIsMenuOpen(false)}
-                        style={{ WebkitBackdropFilter: "blur(24px)", backdropFilter: "blur(24px)" }}
-                    />
-                )}
-            </AnimatePresence>
-
             <div 
                 className="fixed top-5 left-0 right-0 flex justify-center z-50 pointer-events-none"
                 onMouseEnter={() => setIsHovered(true)}
@@ -345,52 +332,6 @@ export const Header = () => {
                 </motion.div>
                 </motion.div>
 
-                {/* MOBILE MENU OVERLAY */}
-                <AnimatePresence>
-                    {isMenuOpen && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="absolute top-[calc(100%+10px)] left-0 right-0 bg-white/10 backdrop-blur-[30px] border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden rounded-[30px] lg:hidden"
-                            style={{ WebkitBackdropFilter: "blur(30px)", backdropFilter: "blur(30px)" }}
-                        >
-                            <nav className="p-8">
-                                <ul className="flex flex-col gap-6">
-                                    {NAV_ITEMS.map((item, idx) => (
-                                        <motion.li 
-                                            key={item.label}
-                                            initial={{ x: -20, opacity: 0 }}
-                                            animate={{ x: 0, opacity: 1 }}
-                                            transition={{ delay: idx * 0.05 }}
-                                        >
-                                            {item.external ? (
-                                                <a 
-                                                    href={item.to} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer"
-                                                    onClick={() => setIsMenuOpen(false)}
-                                                    className="text-white/60 hover:text-white !text-2xl font-secundary transition-colors"
-                                                >
-                                                    {item.label.toLowerCase()}
-                                                </a>
-                                            ) : (
-                                                <Link 
-                                                    to={item.to}
-                                                    onClick={() => setIsMenuOpen(false)}
-                                                    className="text-white/60 hover:text-white !text-2xl font-secundary transition-colors"
-                                                >
-                                                    {item.label.toLowerCase()}
-                                                </Link>
-                                            )}
-                                        </motion.li>
-                                    ))}
-                                </ul>
-                            </nav>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
                 {/* PROGRESS BAR AS BOTTOM BORDER (1PX) */}
                 <div className="absolute inset-0 overflow-hidden rounded-[40px] pointer-events-none z-20">
                     <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/10">
@@ -404,6 +345,61 @@ export const Header = () => {
                 </div>
             </motion.header>
         </div>
+
+            {/* MOBILE FULL-SCREEN MENU */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.nav
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-50 lg:hidden flex items-center bg-black/70 backdrop-blur-2xl"
+                    >
+                        {/* X close button - top right */}
+                        <div className="absolute top-6 right-6 z-10">
+                            <button 
+                                onClick={() => setIsMenuOpen(false)}
+                                className="p-2 text-white/60 hover:text-white transition-colors"
+                            >
+                                <X size={28} />
+                            </button>
+                        </div>
+
+                        {/* Nav items aligned left */}
+                        <ul className="flex flex-col gap-8 pl-10">
+                            {NAV_ITEMS.map((item, idx) => (
+                                <motion.li 
+                                    key={item.label}
+                                    initial={{ x: -20, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: idx * 0.08 }}
+                                >
+                                    {item.external ? (
+                                        <a 
+                                            href={item.to} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            onClick={() => setIsMenuOpen(false)}
+                                            className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
+                                        >
+                                            {item.label.toLowerCase()}
+                                        </a>
+                                    ) : (
+                                        <Link 
+                                            to={item.to}
+                                            onClick={() => setIsMenuOpen(false)}
+                                            className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
+                                        >
+                                            {item.label.toLowerCase()}
+                                        </Link>
+                                    )}
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </motion.nav>
+                )}
+            </AnimatePresence>
         </>
     );
 };
