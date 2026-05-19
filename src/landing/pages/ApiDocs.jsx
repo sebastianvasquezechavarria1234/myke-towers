@@ -198,74 +198,96 @@ export const ApiDocs = () => {
 
     return (
         <Layout>
-            <div className="pt-[100px] md:pt-[150px] pb-24 max-w-[1300px] mx-auto px-6">
+            <div className="pt-[100px] md:pt-[150px] pb-24 max-w-[1100px] mx-auto px-6">
                 
                 {/* Cabecera */}
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="mb-16 text-center lg:text-left border-b border-white/5 pb-12"
+                    className="mb-20 text-center relative"
                 >
-                    <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-                        <Terminal className="text-[var(--blue)] w-8 h-8" />
-                        <span className="text-white/40 uppercase tracking-[0.3em] text-xs font-semibold">Desarrolladores</span>
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--blue)]/5 blur-[120px] rounded-full" />
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-none mb-6">
-                        Documentación de 
-                        <span className="font-secundary italic lowercase ml-2 text-[var(--blue)]">API</span>
-                    </h1>
-                    <p className="text-white/50 text-lg max-w-[800px] font-light leading-relaxed">
-                        Accede a todos los endpoints disponibles de la API oficial de Myke Towers. Integra la discografía, muro social, biografía y estadísticas directamente en tus propios proyectos de desarrollo.
-                    </p>
-                    
-                    {/* Botones de Links */}
-                    <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a 
-                            href="https://github.com/sebastianvasquezechavarria1234/myke-towers-api"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white rounded-full transition-all duration-300 text-[13px] font-medium"
-                        >
-                            <span>Repositorio del Backend API</span>
-                            <ExternalLink size={14} />
-                        </a>
-                        <div className="flex items-center gap-3 px-6 py-3 bg-zinc-900 border border-white/5 rounded-full text-white/50 text-[13px]">
-                            <Server size={14} className="text-green-400" />
-                            <span>Servidor API local activo en:</span>
-                            <code className="text-white font-mono bg-white/5 px-2 py-0.5 rounded">http://localhost:3000</code>
+                    <div className="relative">
+                        <div className="flex items-center justify-center gap-3 mb-5">
+                            <div className="w-10 h-10 rounded-xl bg-[var(--blue)]/10 border border-[var(--blue)]/20 flex items-center justify-center">
+                                <Terminal className="text-[var(--blue)] w-5 h-5" />
+                            </div>
+                            <span className="text-white/30 text-xs font-mono tracking-[0.15em]">DESARROLLADORES</span>
+                        </div>
+                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-6">
+                            Documentación de&nbsp;
+                            <span className="font-secundary italic lowercase text-[var(--blue)] relative">
+                                API
+                                <span className="absolute -bottom-2 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--blue)]/50 to-transparent" />
+                            </span>
+                        </h1>
+                        <p className="text-white/40 text-base md:text-lg max-w-[700px] mx-auto font-light leading-relaxed">
+                            Accede a todos los endpoints disponibles de la API oficial de Myke Towers. Integra la discografía, muro social, biografía y estadísticas directamente en tus propios proyectos de desarrollo.
+                        </p>
+                        
+                        <div className="mt-10 flex flex-wrap justify-center gap-3">
+                            <a 
+                                href="https://github.com/sebastianvasquezechavarria1234/myke-towers-api"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:border-white/20 text-white/70 hover:text-white rounded-lg transition-all duration-300 text-[12px] font-mono tracking-wide"
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <span>Repositorio</span>
+                                <ExternalLink size={12} className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                            </a>
+                            <a
+                                href="https://myke-towers-api.onrender.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex items-center gap-2.5 px-5 py-3 bg-[var(--blue)]/10 border border-[var(--blue)]/20 hover:bg-[var(--blue)]/20 hover:border-[var(--blue)]/40 text-white/70 hover:text-white rounded-lg transition-all duration-300 text-[12px] font-mono tracking-wide"
+                            >
+                                <Server size={14} className="text-[var(--blue)]" />
+                                <span>API <span className="text-white/40">—</span> <span className="text-white/50 group-hover:text-white transition-colors">myke-towers-api.onrender.com</span></span>
+                                <ExternalLink size={12} className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                            </a>
                         </div>
                     </div>
                 </motion.div>
 
                 {/* Dashboard Principal */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-10 relative">
                     
-                    {/* Sidebar de navegación */}
-                    <div className="lg:col-span-3 flex flex-col gap-2">
-                        <h4 className="text-white/30 text-[11px] uppercase tracking-widest font-semibold px-4 mb-2">Navegación</h4>
-                        {ENDPOINTS_DATA.map((endpoint) => {
-                            const IconComp = endpoint.icon;
-                            const isSelected = selectedTab === endpoint.id;
-                            return (
-                                <button
-                                    key={endpoint.id}
-                                    onClick={() => setSelectedTab(endpoint.id)}
-                                    className={`flex items-center gap-3 px-4 py-3.5 rounded-none text-left transition-all duration-300 border-l-[3px] ${
-                                        isSelected 
-                                            ? "bg-white/5 border-[var(--blue)] text-white font-medium" 
-                                            : "border-transparent text-white/40 hover:text-white hover:bg-white/[0.02]"
-                                    }`}
-                                >
-                                    <IconComp size={16} className={isSelected ? "text-[var(--blue)]" : ""} />
-                                    <span className="text-[13px] tracking-wide truncate">{endpoint.title.replace(/\(.*?\)/g, "")}</span>
-                                </button>
-                            );
-                        })}
+                    <div className="relative lg:col-span-3">
+                        <div className="lg:sticky lg:top-[120px] flex flex-col gap-1 bg-black/60 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none border-y lg:border-none border-white/5 py-4 lg:py-0 mb-8 lg:mb-0">
+                            <div className="hidden lg:flex items-center gap-2 px-4 mb-5">
+                                <div className="w-1 h-1 rounded-full bg-[var(--blue)]" />
+                                <h4 className="text-white/20 text-[9px] font-mono tracking-[0.2em]">NAVEGACIÓN</h4>
+                            </div>
+                            <div className="flex lg:flex-col gap-0.5 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
+                                {ENDPOINTS_DATA.map((endpoint) => {
+                                    const IconComp = endpoint.icon;
+                                    const isSelected = selectedTab === endpoint.id;
+                                    return (
+                                        <button
+                                            key={endpoint.id}
+                                            onClick={() => setSelectedTab(endpoint.id)}
+                                            className={`flex items-center gap-3 px-3.5 py-3 rounded-lg text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
+                                                isSelected 
+                                                    ? "bg-[var(--blue)]/10 text-white font-medium shadow-[inset_0_0_0_1px_rgba(var(--blue-rgb),0.2)]" 
+                                                    : "text-white/30 hover:text-white/60 hover:bg-white/[0.02]"
+                                            }`}
+                                        >
+                                            <IconComp size={14} className={isSelected ? "text-[var(--blue)]" : ""} />
+                                            <span className="text-[12px] tracking-wide truncate">{endpoint.title.replace(/\(.*?\)/g, "")}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
                     </div>
 
                     {/* Contenido del Endpoint */}
-                    <div className="lg:col-span-9 space-y-8">
+                    <div className="lg:col-span-9 space-y-8 lg:pl-2">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={selectedTab}
@@ -276,49 +298,54 @@ export const ApiDocs = () => {
                                 className="space-y-8"
                             >
                                 {/* Info Principal */}
-                                <div className="bg-zinc-900/40 border border-white/5 p-8 md:p-10 rounded-none space-y-6">
+                                <div className="relative bg-zinc-900/30 border border-white/[0.06] p-6 md:p-10 space-y-6 group hover:border-white/[0.1] transition-colors duration-500">
+                                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--blue)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                     <div className="flex flex-col gap-2">
-                                        <h2 className="text-3xl font-bold tracking-tight text-white">{activeData.title}</h2>
-                                        {activeData.method && (
-                                            <div className="flex items-center gap-3 mt-3">
-                                                <span className="px-3 py-1 bg-green-500/10 text-green-400 text-xs font-bold font-mono tracking-wider rounded">
+                                        <div className="flex items-center gap-3">
+                                            {activeData.method && (
+                                                <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono font-bold tracking-wider rounded">
                                                     {activeData.method}
                                                 </span>
-                                                <span className="text-white/60 font-mono text-sm">
-                                                    {activeData.path}
+                                            )}
+                                            {activeData.path && (
+                                                <span className="text-white/30 font-mono text-xs">
+                                                    <span className="text-white/10">{activeData.path.split('/').slice(0, -1).join('/')}/</span>{activeData.path.split('/').pop()}
                                                 </span>
-                                            </div>
-                                        )}
+                                            )}
+                                        </div>
+                                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">{activeData.title.replace(/^[\d]+\.\s*/, '')}</h2>
                                     </div>
-                                    <p className="text-white/50 text-base leading-relaxed font-light">
+                                    <p className="text-white/40 text-sm md:text-base leading-relaxed font-light border-l-2 border-white/5 pl-4">
                                         {activeData.description}
                                     </p>
 
                                     {/* Parámetros de Ruta/Query */}
                                     {activeData.params && activeData.params.length > 0 && (
-                                        <div className="pt-4 border-t border-white/5 space-y-4">
-                                            <h3 className="text-white font-semibold text-sm uppercase tracking-wider">Parámetros</h3>
-                                            <div className="overflow-x-auto">
-                                                <table className="w-full text-left text-xs font-light text-white/50">
+                                        <div className="pt-5 border-t border-white/[0.04] space-y-4">
+                                            <h3 className="text-white/50 text-[10px] font-mono tracking-[0.15em]">PARÁMETROS</h3>
+                                            <div className="overflow-x-auto -mx-6 md:-mx-10">
+                                                <table className="w-full text-left text-xs">
                                                     <thead>
-                                                        <tr className="border-b border-white/5 text-white/30 uppercase tracking-widest font-semibold">
-                                                            <th className="py-2.5">Parámetro</th>
-                                                            <th className="py-2.5">Tipo</th>
-                                                            <th className="py-2.5">Requerido</th>
-                                                            <th className="py-2.5">Descripción</th>
+                                                        <tr className="border-b border-white/[0.04]">
+                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Nombre</th>
+                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Tipo</th>
+                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Requerido</th>
+                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Descripción</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody className="divide-y divide-white/5 font-mono">
+                                                    <tbody>
                                                         {activeData.params.map((p, idx) => (
-                                                            <tr key={idx} className="hover:bg-white/[0.01]">
-                                                                <td className="py-3 text-white font-bold">{p.name}</td>
-                                                                <td className="py-3 text-[var(--blue)]">{p.type}</td>
-                                                                <td className="py-3">
-                                                                    <span className={p.required ? "text-red-400 font-bold" : "text-white/30"}>
-                                                                        {p.required ? "Sí" : "No"}
+                                                            <tr key={idx} className="border-b border-white/[0.02] hover:bg-white/[0.01] transition-colors">
+                                                                <td className="py-3.5 px-6 text-white/80 font-mono text-[12px]">{p.name}</td>
+                                                                <td className="py-3.5 px-6">
+                                                                    <span className="text-[var(--blue)] font-mono text-[11px] bg-[var(--blue)]/5 px-2 py-0.5 rounded">{p.type}</span>
+                                                                </td>
+                                                                <td className="py-3.5 px-6">
+                                                                    <span className={`text-[10px] font-mono tracking-wider ${p.required ? "text-red-400/80" : "text-white/20"}`}>
+                                                                        {p.required ? "REQUERIDO" : "OPCIONAL"}
                                                                     </span>
                                                                 </td>
-                                                                <td className="py-3 text-white/60 font-sans">{p.description}</td>
+                                                                <td className="py-3.5 px-6 text-white/40 text-[12px]">{p.description}</td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -330,17 +357,29 @@ export const ApiDocs = () => {
 
                                 {/* Pestaña del Overview General */}
                                 {selectedTab === "overview" && (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="bg-zinc-900/20 border border-white/5 p-6 space-y-4">
-                                            <h3 className="text-white font-bold text-lg">Consumo Directo</h3>
-                                            <p className="text-white/40 text-[13px] leading-relaxed">
-                                                La API no requiere tokens ni llaves de autenticación (CORS habilitado públicamente). Puedes realizar peticiones de forma ilimitada desde cualquier cliente REST o aplicación.
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                        <div className="relative bg-zinc-900/20 border border-white/[0.06] p-7 space-y-4 hover:border-white/[0.1] transition-colors duration-500 group">
+                                            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
+                                                    <Globe size={13} className="text-white/40" />
+                                                </div>
+                                                <h3 className="text-white font-semibold text-sm">Consumo Directo</h3>
+                                            </div>
+                                            <p className="text-white/35 text-[13px] leading-relaxed font-light">
+                                                La API no requiere tokens ni llaves de autenticación. CORS habilitado públicamente. Puedes realizar peticiones de forma ilimitada desde cualquier cliente REST o aplicación.
                                             </p>
                                         </div>
-                                        <div className="bg-zinc-900/20 border border-white/5 p-6 space-y-4">
-                                            <h3 className="text-white font-bold text-lg">Formatos de Respuesta</h3>
-                                            <p className="text-white/40 text-[13px] leading-relaxed">
-                                                Todas las respuestas son devueltas en formato estándar **JSON** con codificación de caracteres en UTF-8 y respuestas HTTP rápidas optimizadas mediante caché interna.
+                                        <div className="relative bg-zinc-900/20 border border-white/[0.06] p-7 space-y-4 hover:border-white/[0.1] transition-colors duration-500 group">
+                                            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
+                                                    <Code size={13} className="text-white/40" />
+                                                </div>
+                                                <h3 className="text-white font-semibold text-sm">Formatos de Respuesta</h3>
+                                            </div>
+                                            <p className="text-white/35 text-[13px] leading-relaxed font-light">
+                                                Todas las respuestas son devueltas en formato estándar <span className="text-white/60 font-mono text-[11px]">JSON</span> con codificación UTF-8 y respuestas HTTP rápidas optimizadas mediante caché interna.
                                             </p>
                                         </div>
                                     </div>
@@ -348,54 +387,52 @@ export const ApiDocs = () => {
 
                                 {/* Pestaña de Consumo y Respuesta JSON (solo para Endpoints) */}
                                 {selectedTab !== "overview" && (
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                                         
                                         {/* Bloque de código */}
-                                        <div className="bg-zinc-950 border border-white/5 rounded-none flex flex-col overflow-hidden">
-                                            {/* Selector de lenguajes */}
-                                            <div className="flex justify-between items-center border-b border-white/5 bg-zinc-900/50 px-4 py-2">
-                                                <div className="flex gap-2">
+                                        <div className="bg-zinc-950/80 border border-white/[0.06] flex flex-col overflow-hidden group hover:border-white/[0.1] transition-colors duration-500">
+                                            <div className="flex justify-between items-center border-b border-white/[0.04] bg-black/30 px-5 py-2.5">
+                                                <div className="flex gap-1.5">
                                                     {["javascript", "python", "curl"].map((lang) => (
                                                         <button
                                                             key={lang}
                                                             onClick={() => setCodeLanguage(lang)}
-                                                            className={`px-3 py-1 rounded text-xs font-mono uppercase tracking-wider transition-colors ${
+                                                            className={`px-3 py-1 text-[10px] font-mono tracking-wider transition-all duration-300 rounded ${
                                                                 codeLanguage === lang 
-                                                                    ? "bg-white/10 text-white font-bold" 
-                                                                    : "text-white/30 hover:text-white/60"
+                                                                    ? "bg-white/10 text-white font-semibold" 
+                                                                    : "text-white/20 hover:text-white/50"
                                                             }`}
                                                         >
-                                                            {lang === "javascript" ? "JS" : lang}
+                                                            {lang === "javascript" ? "js" : lang}
                                                         </button>
                                                     ))}
                                                 </div>
                                                 <button
                                                     onClick={() => copyToClipboard(activeData.code[codeLanguage], "code")}
-                                                    className="p-2 text-white/40 hover:text-white transition-colors"
+                                                    className="p-1.5 text-white/20 hover:text-white/60 transition-colors"
                                                     title="Copiar código"
                                                 >
-                                                    {copiedText === "code" ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                                                    {copiedText === "code" ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                                                 </button>
                                             </div>
-                                            {/* Código */}
-                                            <pre className="flex-1 p-6 text-xs text-green-400/90 font-mono overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
+                                            <pre className="flex-1 p-5 text-[11px] text-emerald-300/80 font-mono overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
                                                 <code>{activeData.code[codeLanguage]}</code>
                                             </pre>
                                         </div>
 
                                         {/* Bloque de respuesta JSON */}
-                                        <div className="bg-zinc-950 border border-white/5 rounded-none flex flex-col overflow-hidden">
-                                            <div className="flex justify-between items-center border-b border-white/5 bg-zinc-900/50 px-4 py-2">
-                                                <span className="text-xs text-white/30 font-semibold uppercase tracking-wider">Ejemplo de Respuesta (200 OK)</span>
+                                        <div className="bg-zinc-950/80 border border-white/[0.06] flex flex-col overflow-hidden group hover:border-white/[0.1] transition-colors duration-500">
+                                            <div className="flex justify-between items-center border-b border-white/[0.04] bg-black/30 px-5 py-2.5">
+                                                <span className="text-[9px] text-white/20 font-mono tracking-wider">RESPUESTA &nbsp;·&nbsp; <span className="text-emerald-400/60">200 OK</span></span>
                                                 <button
                                                     onClick={() => copyToClipboard(JSON.stringify(activeData.response, null, 2), "response")}
-                                                    className="p-2 text-white/40 hover:text-white transition-colors"
+                                                    className="p-1.5 text-white/20 hover:text-white/60 transition-colors"
                                                     title="Copiar respuesta JSON"
                                                 >
-                                                    {copiedText === "response" ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                                                    {copiedText === "response" ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                                                 </button>
                                             </div>
-                                            <pre className="flex-1 p-6 text-xs text-white/50 font-mono overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
+                                            <pre className="flex-1 p-5 text-[11px] text-white/40 font-mono overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
                                                 <code>{JSON.stringify(activeData.response, null, 2)}</code>
                                             </pre>
                                         </div>
@@ -412,8 +449,8 @@ export const ApiDocs = () => {
             <style jsx>{`
                 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
                 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-                .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 0px; }
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.1); }
+                .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 0px; }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
             `}</style>
         </Layout>
     );
