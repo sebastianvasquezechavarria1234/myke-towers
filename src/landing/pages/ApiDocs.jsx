@@ -258,7 +258,7 @@ export const ApiDocs = () => {
                     
                     <div className="relative lg:col-span-3">
                         <div className="lg:sticky lg:top-[120px] flex flex-col gap-1 bg-black/60 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none border-y lg:border-none border-white/5 py-3 lg:py-0 -mx-6 lg:mx-0 px-6 lg:px-0 mb-6 lg:mb-0">
-                            <div className="relative flex lg:flex-col gap-0 overflow-x-auto overflow-y-hidden lg:overflow-visible scrollbar-none pb-1 lg:pb-0 -mx-6 lg:mx-0 px-6 lg:px-0">
+                            <div className="relative grid grid-cols-2 lg:grid-cols-1 gap-0 pb-1 lg:pb-0 -mx-6 lg:mx-0 px-6 lg:px-0">
                                 {ENDPOINTS_DATA.map((endpoint) => {
                                     const IconComp = endpoint.icon;
                                     const isSelected = selectedTab === endpoint.id;
@@ -268,7 +268,7 @@ export const ApiDocs = () => {
                                             onClick={() => setSelectedTab(endpoint.id)}
                                             onMouseEnter={() => setHoveredTab(endpoint.id)}
                                             onMouseLeave={() => setHoveredTab(null)}
-                                            className={`flex items-center gap-3 pl-4 pr-3 h-10 text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
+                                            className={`flex items-center gap-3 pl-4 pr-3 h-10 text-left transition-all duration-300 ${
                                                 isSelected 
                                                     ? "text-white font-medium" 
                                                     : "text-white/30 hover:text-white/60"
