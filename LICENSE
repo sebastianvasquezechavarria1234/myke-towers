@@ -1,0 +1,19 @@
+PROPRIETARY LICENSE
+
+Copyright (c) 2026 Sebastian Vasquez. All Rights Reserved.
+
+This software codebase (the "Frontend Project") is the sole and exclusive property of Sebastian Vasquez. The author is the sole creator of this project.
+
+TERMS AND CONDITIONS
+
+1. RESTRICTIONS
+No person or entity is granted permission to copy, modify, merge, publish, distribute, sublicense, sell, or host copies of this Frontend Project codebase, in whole or in part, without the prior written consent of Sebastian Vasquez. Access to the underlying frontend source code and intellectual property is strictly restricted.
+
+2. API EXCEPTION & USAGE
+Notwithstanding the restrictions above, the public backend API associated with this project is open for developer consumption. Developers are permitted to query, consume, and integrate the API endpoints into their own projects, tools, and applications.
+
+The official repository for the API is hosted at:
+https://github.com/sebastianvasquezechavarria1234/myke-towers-api
+
+3. DISCLAIMER
+THE FRONTEND SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
