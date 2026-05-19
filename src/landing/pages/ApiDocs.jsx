@@ -258,11 +258,10 @@ export const ApiDocs = () => {
                     
                     <div className="relative lg:col-span-3">
                         <div className="lg:sticky lg:top-[120px] flex flex-col gap-1 bg-black/60 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none border-y lg:border-none border-white/5 py-4 lg:py-0 mb-8 lg:mb-0">
-                            <div className="hidden lg:flex items-center gap-2 px-4 mb-5">
-                                <div className="w-1 h-1 rounded-full bg-[var(--blue)]" />
-                                <h4 className="text-white/20 text-[9px] font-mono tracking-[0.2em]">NAVEGACIÓN</h4>
+                            <div className="hidden lg:flex items-center px-4 mb-5">
+                                <h4 className="text-white/15 text-[7px] font-light">navegación</h4>
                             </div>
-                            <div className="flex lg:flex-col gap-0.5 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
+                            <div className="relative flex lg:flex-col gap-0 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
                                 {ENDPOINTS_DATA.map((endpoint) => {
                                     const IconComp = endpoint.icon;
                                     const isSelected = selectedTab === endpoint.id;
@@ -270,17 +269,24 @@ export const ApiDocs = () => {
                                         <button
                                             key={endpoint.id}
                                             onClick={() => setSelectedTab(endpoint.id)}
-                                            className={`flex items-center gap-3 px-3.5 py-3 rounded-lg text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
+                                            className={`flex items-center gap-3 pl-4 pr-3 h-10 text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
                                                 isSelected 
-                                                    ? "bg-[var(--blue)]/10 text-white font-medium shadow-[inset_0_0_0_1px_rgba(var(--blue-rgb),0.2)]" 
-                                                    : "text-white/30 hover:text-white/60 hover:bg-white/[0.02]"
+                                                    ? "text-white font-medium" 
+                                                    : "text-white/30 hover:text-white/60"
                                             }`}
                                         >
-                                            <IconComp size={14} className={isSelected ? "text-[var(--blue)]" : ""} />
-                                            <span className="text-[12px] tracking-wide truncate">{endpoint.title.replace(/\(.*?\)/g, "")}</span>
+                                            <IconComp size={14} className="text-white/60" />
+                                            <span className="text-[12px] truncate">{endpoint.title.replace(/\(.*?\)/g, "")}</span>
                                         </button>
                                     );
                                 })}
+                                <motion.div
+                                    className="hidden lg:block absolute left-0 top-0 w-0.5 bg-[var(--blue)]"
+                                    initial={false}
+                                    style={{ height: 40 }}
+                                    animate={{ y: ENDPOINTS_DATA.findIndex(d => d.id === selectedTab) * 40 }}
+                                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                                />
                             </div>
                         </div>
                         <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
@@ -303,12 +309,12 @@ export const ApiDocs = () => {
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center gap-3">
                                             {activeData.method && (
-                                                <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono font-bold tracking-wider rounded">
+                                                <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] google-sans-code-api font-bold tracking-wider rounded">
                                                     {activeData.method}
                                                 </span>
                                             )}
                                             {activeData.path && (
-                                                <span className="text-white/30 font-mono text-xs">
+                                                <span className="text-white/30 google-sans-code-api text-xs">
                                                     <span className="text-white/10">{activeData.path.split('/').slice(0, -1).join('/')}/</span>{activeData.path.split('/').pop()}
                                                 </span>
                                             )}
@@ -322,26 +328,26 @@ export const ApiDocs = () => {
                                     {/* Parámetros de Ruta/Query */}
                                     {activeData.params && activeData.params.length > 0 && (
                                         <div className="pt-5 border-t border-white/[0.04] space-y-4">
-                                            <h3 className="text-white/50 text-[10px] font-mono tracking-[0.15em]">PARÁMETROS</h3>
+                                            <h3 className="text-white/50 text-[10px] google-sans-code-api tracking-[0.15em]">PARÁMETROS</h3>
                                             <div className="overflow-x-auto -mx-6 md:-mx-10">
                                                 <table className="w-full text-left text-xs">
                                                     <thead>
                                                         <tr className="border-b border-white/[0.04]">
-                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Nombre</th>
-                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Tipo</th>
-                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Requerido</th>
-                                                            <th className="py-3 px-6 text-white/20 font-mono text-[10px] tracking-wider font-medium">Descripción</th>
+                                                            <th className="py-3 px-6 text-white/20 google-sans-code-api text-[10px] tracking-wider font-medium">Nombre</th>
+                                                            <th className="py-3 px-6 text-white/20 google-sans-code-api text-[10px] tracking-wider font-medium">Tipo</th>
+                                                            <th className="py-3 px-6 text-white/20 google-sans-code-api text-[10px] tracking-wider font-medium">Requerido</th>
+                                                            <th className="py-3 px-6 text-white/20 google-sans-code-api text-[10px] tracking-wider font-medium">Descripción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         {activeData.params.map((p, idx) => (
                                                             <tr key={idx} className="border-b border-white/[0.02] hover:bg-white/[0.01] transition-colors">
-                                                                <td className="py-3.5 px-6 text-white/80 font-mono text-[12px]">{p.name}</td>
+                                                                <td className="py-3.5 px-6 text-white/80 google-sans-code-api text-[12px]">{p.name}</td>
                                                                 <td className="py-3.5 px-6">
-                                                                    <span className="text-[var(--blue)] font-mono text-[11px] bg-[var(--blue)]/5 px-2 py-0.5 rounded">{p.type}</span>
+                                                                    <span className="text-[var(--blue)] google-sans-code-api text-[11px] bg-[var(--blue)]/5 px-2 py-0.5 rounded">{p.type}</span>
                                                                 </td>
                                                                 <td className="py-3.5 px-6">
-                                                                    <span className={`text-[10px] font-mono tracking-wider ${p.required ? "text-red-400/80" : "text-white/20"}`}>
+                                                                    <span className={`text-[10px] google-sans-code-api tracking-wider ${p.required ? "text-red-400/80" : "text-white/20"}`}>
                                                                         {p.required ? "REQUERIDO" : "OPCIONAL"}
                                                                     </span>
                                                                 </td>
@@ -379,7 +385,7 @@ export const ApiDocs = () => {
                                                 <h3 className="text-white font-semibold text-sm">Formatos de Respuesta</h3>
                                             </div>
                                             <p className="text-white/35 text-[13px] leading-relaxed font-light">
-                                                Todas las respuestas son devueltas en formato estándar <span className="text-white/60 font-mono text-[11px]">JSON</span> con codificación UTF-8 y respuestas HTTP rápidas optimizadas mediante caché interna.
+                                                Todas las respuestas son devueltas en formato estándar <span className="text-white/60 google-sans-code-api text-[11px]">JSON</span> con codificación UTF-8 y respuestas HTTP rápidas optimizadas mediante caché interna.
                                             </p>
                                         </div>
                                     </div>
@@ -397,7 +403,7 @@ export const ApiDocs = () => {
                                                         <button
                                                             key={lang}
                                                             onClick={() => setCodeLanguage(lang)}
-                                                            className={`px-3 py-1 text-[10px] font-mono tracking-wider transition-all duration-300 rounded ${
+                                                            className={`px-3 py-1 text-[10px] google-sans-code-api tracking-wider transition-all duration-300 rounded ${
                                                                 codeLanguage === lang 
                                                                     ? "bg-white/10 text-white font-semibold" 
                                                                     : "text-white/20 hover:text-white/50"
@@ -415,7 +421,7 @@ export const ApiDocs = () => {
                                                     {copiedText === "code" ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                                                 </button>
                                             </div>
-                                            <pre className="flex-1 p-5 text-[11px] text-emerald-300/80 font-mono overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
+                                            <pre className="flex-1 p-5 text-[11px] text-emerald-300/80 google-sans-code-api overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
                                                 <code>{activeData.code[codeLanguage]}</code>
                                             </pre>
                                         </div>
@@ -423,7 +429,7 @@ export const ApiDocs = () => {
                                         {/* Bloque de respuesta JSON */}
                                         <div className="bg-zinc-950/80 border border-white/[0.06] flex flex-col overflow-hidden group hover:border-white/[0.1] transition-colors duration-500">
                                             <div className="flex justify-between items-center border-b border-white/[0.04] bg-black/30 px-5 py-2.5">
-                                                <span className="text-[9px] text-white/20 font-mono tracking-wider">RESPUESTA &nbsp;·&nbsp; <span className="text-emerald-400/60">200 OK</span></span>
+                                                <span className="text-[9px] text-white/20 google-sans-code-api tracking-wider">RESPUESTA &nbsp;·&nbsp; <span className="text-emerald-400/60">200 OK</span></span>
                                                 <button
                                                     onClick={() => copyToClipboard(JSON.stringify(activeData.response, null, 2), "response")}
                                                     className="p-1.5 text-white/20 hover:text-white/60 transition-colors"
@@ -432,12 +438,13 @@ export const ApiDocs = () => {
                                                     {copiedText === "response" ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                                                 </button>
                                             </div>
-                                            <pre className="flex-1 p-5 text-[11px] text-white/40 font-mono overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
+                                            <pre className="flex-1 p-5 text-[11px] text-white/40 google-sans-code-api overflow-auto max-h-[350px] whitespace-pre leading-relaxed custom-scrollbar">
                                                 <code>{JSON.stringify(activeData.response, null, 2)}</code>
                                             </pre>
                                         </div>
                                     </div>
                                 )}
+
                             </motion.div>
                         </AnimatePresence>
                     </div>
