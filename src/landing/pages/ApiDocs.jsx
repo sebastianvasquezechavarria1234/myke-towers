@@ -259,7 +259,7 @@ export const ApiDocs = () => {
                     <div className="relative lg:col-span-3">
                         <div className="lg:sticky lg:top-[120px] flex flex-col gap-1 bg-black/60 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none border-y lg:border-none border-white/5 py-4 lg:py-0 mb-8 lg:mb-0">
                             <div className="hidden lg:flex items-center px-4 mb-5">
-                                <span className="text-white/15 text-[7px] font-light">navegación</span>
+                                <span className="text-white/20 text-[9px] font-light">navegación</span>
                             </div>
                             <div className="relative flex lg:flex-col gap-0 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
                                 {ENDPOINTS_DATA.map((endpoint) => {
@@ -283,9 +283,9 @@ export const ApiDocs = () => {
                                     );
                                 })}
                                 <motion.div
-                                    className="hidden lg:block absolute left-0 top-0 w-0.5 bg-[var(--blue)]"
+                                    className="hidden lg:block absolute left-0 w-0.5 bg-white/80"
                                     initial={false}
-                                    style={{ height: 40 }}
+                                    style={{ height: 28, top: 6 }}
                                     animate={{ y: ENDPOINTS_DATA.findIndex(d => d.id === (hoveredTab || selectedTab)) * 40 }}
                                     transition={{ type: "spring", stiffness: 420, damping: 20 }}
                                 />
