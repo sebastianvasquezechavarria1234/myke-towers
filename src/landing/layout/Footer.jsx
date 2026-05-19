@@ -116,7 +116,7 @@ export const Footer = () => {
                 transition={{ duration: 0.6 }}
                 className="max-w-[1240px] mx-auto overflow-hidden relative border-t border-white/[0.06]"
             >
-                <div className="flex flex-col md:flex-row items-start md:items-center p-10 md:p-14 gap-12 md:gap-0">
+                <div className="flex flex-col md:flex-row items-start md:items-center p-2.5 md:p-14 gap-12 md:gap-0">
 
                     {/* ── COLUMNA IZQUIERDA ── */}
                     <div className="flex-1 flex flex-col gap-8 pr-0 md:pr-12">
