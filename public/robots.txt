@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://myke-towers.vercel.app/sitemap.xml
