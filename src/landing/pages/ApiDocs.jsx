@@ -257,11 +257,8 @@ export const ApiDocs = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-10 relative">
                     
                     <div className="relative lg:col-span-3">
-                        <div className="lg:sticky lg:top-[120px] flex flex-col gap-1 bg-black/60 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none border-y lg:border-none border-white/5 py-4 lg:py-0 mb-8 lg:mb-0">
-                            <div className="hidden lg:flex items-center px-4 mb-5">
-                                <span className="text-white/20 text-[9px] font-light">navegación</span>
-                            </div>
-                            <div className="relative flex lg:flex-col gap-0 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
+                        <div className="lg:sticky lg:top-[120px] flex flex-col gap-1 bg-black/60 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none border-y lg:border-none border-white/5 py-3 lg:py-0 -mx-6 lg:mx-0 px-6 lg:px-0 mb-6 lg:mb-0">
+                            <div className="relative flex lg:flex-col gap-0 overflow-x-auto overflow-y-hidden lg:overflow-visible scrollbar-none pb-1 lg:pb-0 -mx-6 lg:mx-0 px-6 lg:px-0">
                                 {ENDPOINTS_DATA.map((endpoint) => {
                                     const IconComp = endpoint.icon;
                                     const isSelected = selectedTab === endpoint.id;
@@ -322,7 +319,7 @@ export const ApiDocs = () => {
                                         </div>
                                         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">{activeData.title.replace(/^[\d]+\.\s*/, '')}</h2>
                                     </div>
-                                    <p className="text-white/40 text-sm md:text-base leading-relaxed font-light border-l-2 border-white/5 pl-4">
+                                    <p className="text-white/40 text-sm md:text-base leading-relaxed font-light">
                                         {activeData.description}
                                     </p>
 
@@ -471,18 +468,9 @@ export const ApiDocs = () => {
                                                     <div className="w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
                                                         <Globe size={13} className="text-white/40" />
                                                     </div>
-                                                    <h3 className="text-white font-semibold text-sm">Consumo Directo</h3>
-                                                </div>
-                                                <p className="text-white/35 text-[13px] leading-relaxed font-light">
-                                                    La API no requiere tokens ni llaves de autenticación. CORS habilitado públicamente. Puedes realizar peticiones de forma ilimitada desde cualquier cliente REST o aplicación.
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-3 mb-3">
-                                                    <div className="w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
-                                                        <Code size={13} className="text-white/40" />
-                                                    </div>
-                                                    <h3 className="text-white font-semibold text-sm">Formatos de Respuesta</h3>
+                                                <h3 className="text-white font-semibold text-sm">Consumo Directo</h3>
+
+                                                <h3 className="text-white font-semibold text-sm">Formatos de Respuesta</h3>
                                                 </div>
                                                 <p className="text-white/35 text-[13px] leading-relaxed font-light">
                                                     Todas las respuestas son devueltas en formato estándar <span className="text-white/60 google-sans-code-api text-[11px]">JSON</span> con codificación UTF-8 y respuestas HTTP rápidas optimizadas mediante caché interna.
@@ -560,6 +548,8 @@ export const ApiDocs = () => {
                 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
                 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 0px; }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+                .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+                .scrollbar-none::-webkit-scrollbar { display: none; }
             `}</style>
         </Layout>
     );
