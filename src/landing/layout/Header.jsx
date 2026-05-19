@@ -10,8 +10,6 @@ const NAV_ITEMS = [
     { label: "Biografía", to: "/biografia" },
     { label: "API Docs", to: "/api-docs" },
     { label: "Sitio Oficial", to: "https://www.myketowerspr.com/", external: true },
-    { label: "Tour", to: "https://www.myketowerspr.com/tour", external: true },
-    { label: "Tienda", to: "https://store.myketowerspr.com/", external: true },
 ];
 
 export const Header = () => {
