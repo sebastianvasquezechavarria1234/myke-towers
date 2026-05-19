@@ -185,6 +185,7 @@ const ENDPOINTS_DATA = [
 
 export const ApiDocs = () => {
     const [selectedTab, setSelectedTab] = useState("overview");
+    const [hoveredTab, setHoveredTab] = useState(null);
     const [codeLanguage, setCodeLanguage] = useState("javascript");
     const [copiedText, setCopiedText] = useState(null);
 
@@ -269,6 +270,8 @@ export const ApiDocs = () => {
                                         <button
                                             key={endpoint.id}
                                             onClick={() => setSelectedTab(endpoint.id)}
+                                            onMouseEnter={() => setHoveredTab(endpoint.id)}
+                                            onMouseLeave={() => setHoveredTab(null)}
                                             className={`flex items-center gap-3 pl-4 pr-3 h-10 text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
                                                 isSelected 
                                                     ? "text-white font-medium" 
@@ -284,8 +287,8 @@ export const ApiDocs = () => {
                                     className="hidden lg:block absolute left-0 top-0 w-0.5 bg-[var(--blue)]"
                                     initial={false}
                                     style={{ height: 40 }}
-                                    animate={{ y: ENDPOINTS_DATA.findIndex(d => d.id === selectedTab) * 40 }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                                    animate={{ y: ENDPOINTS_DATA.findIndex(d => d.id === (hoveredTab || selectedTab)) * 40 }}
+                                    transition={{ type: "spring", stiffness: 420, damping: 20 }}
                                 />
                             </div>
                         </div>
