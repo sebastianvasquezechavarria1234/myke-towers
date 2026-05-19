@@ -5,6 +5,7 @@ import { Home } from "../landing/pages/Home";
 import { FullBio } from "../landing/pages/FullBio";
 import { Albums } from "../landing/pages/Albums";
 import { AlbumDetail } from "../landing/pages/AlbumDetail";
+import { ApiDocs } from "../landing/pages/ApiDocs";
 import { Header } from "../landing/layout/Header";
 import { Bg } from "../landing/layout/Bg";
 import { Cursor } from "../landing/components/common/Cursor";
@@ -28,6 +29,7 @@ export const Routers = () => {
                     <Route path="/biografia" element={<FullBio />}/>
                     <Route path="/albums" element={<Albums />}/>
                     <Route path="/album/:id" element={<AlbumDetail />}/>
+                    <Route path="/api-docs" element={<ApiDocs />}/>
                 </Routes>
             </AnimatePresence>
         </>
