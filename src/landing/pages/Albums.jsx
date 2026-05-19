@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Hero } from "../components/home/Hero";
 import { CardSkeleton } from "../components/home/Skeleton";
+import { discography, socialWall } from "../../data/staticData";
 
 const AlbumCard = ({ album, index }) => {
     const [hovered, setHovered] = useState(false);
@@ -81,27 +82,13 @@ export const Albums = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch albums for the grid
-        fetch("http://localhost:3000/albums")
-            .then(res => res.json())
-            .then(data => {
-                setAlbums(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Error fetching albums:", err);
-                setLoading(false);
-            });
+        // Use local staticData instead of fetch
+        setAlbums(discography);
+        setLoading(false);
 
-        // Fetch social images for the Hero
-        fetch("http://localhost:3000/social")
-            .then(res => res.json())
-            .then(data => {
-                // Seleccionamos un set diferente (índices 7, 8, 9) para Álbumes
-                const selected = [data[7], data[8], data[9]].map(p => p?.url);
-                setSocialImages(selected);
-            })
-            .catch(err => console.error("Error fetching social:", err));
+        // Seleccionamos un set diferente (índices 7, 8, 9) para Álbumes
+        const selected = [socialWall[7], socialWall[8], socialWall[9]].map(p => p?.url);
+        setSocialImages(selected);
     }, []);
 
     return (

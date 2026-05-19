@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { discography } from '../../../data/staticData';
 
 const LOCAL_IMGS = ['/mal-de-amores.avif', '/sport.avif'];
 
@@ -52,16 +53,11 @@ export const Discography = () => {
     const [dragOffset, setDragOffset] = useState(0);
 
     useEffect(() => {
-        fetch('http://localhost:3000/albums')
-            .then(r => r.json())
-            .then(data => {
-                const patched = data.map((a, i) => ({ 
-                    ...a, 
-                    image: LOCAL_IMGS[i % LOCAL_IMGS.length] 
-                }));
-                setAlbums(patched);
-            })
-            .catch(() => setAlbums(STATIC_ALBUMS));
+        const patched = discography.map((a, i) => ({ 
+            ...a, 
+            image: LOCAL_IMGS[i % LOCAL_IMGS.length] 
+        }));
+        setAlbums(patched);
     }, []);
 
     const n = albums.length || 1;

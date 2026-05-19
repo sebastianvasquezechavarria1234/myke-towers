@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Layout } from "../layout/Layout";
 import { motion } from "framer-motion";
 import { Play, ArrowLeft, Clock, Disc } from "lucide-react";
+import { discography } from "../../data/staticData";
 
 export const AlbumDetail = () => {
     const { id } = useParams();
@@ -10,16 +11,18 @@ export const AlbumDetail = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/albums/${id}/songs`)
-            .then(res => res.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Error fetching album detail:", err);
-                setLoading(false);
+        const album = discography.find(a => String(a.id) === id);
+        if (album) {
+            setData({
+                album: album.title,
+                year: album.year,
+                image: album.image,
+                songs: album.tracklist || []
             });
+        } else {
+            setData({ error: "Álbum no encontrado" });
+        }
+        setLoading(false);
     }, [id]);
 
     if (loading) {

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { videos as staticVideos } from '../data/staticData';
 
 const VideoContext = createContext();
 
@@ -8,20 +9,11 @@ export const VideoProvider = ({ children }) => {
     const [isPlaying, setIsPlaying] = useState(true);
 
     useEffect(() => {
-        const fetchVideos = async () => {
-            try {
-                const res = await fetch("http://localhost:3000/videos");
-                const data = await res.json();
-                if (Array.isArray(data) && data.length > 0) {
-                    setVideos(data);
-                    const randomIndex = Math.floor(Math.random() * data.length);
-                    setCurrentVideo(data[randomIndex]);
-                }
-            } catch (error) {
-                console.error("Error fetching videos:", error);
-            }
-        };
-        fetchVideos();
+        if (Array.isArray(staticVideos) && staticVideos.length > 0) {
+            setVideos(staticVideos);
+            const randomIndex = Math.floor(Math.random() * staticVideos.length);
+            setCurrentVideo(staticVideos[randomIndex]);
+        }
     }, []);
 
     const nextVideo = () => {

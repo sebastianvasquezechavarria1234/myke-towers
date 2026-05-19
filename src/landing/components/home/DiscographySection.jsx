@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useSpring, useMotionValue, useVelocity, useTransform } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ListSkeleton } from "./Skeleton";
+import { discography } from "../../../data/staticData";
 
 /* Componente de la Card de Previsualización Reutilizable */
 const PreviewCard = ({ album, style, dynamicScaleX, dynamicScaleY }) => {
@@ -127,16 +128,8 @@ export const DiscographySection = ({ padding = "pt-12 pb-0" }) => {
     const springY = useSpring(y, springConfig);
 
     useEffect(() => {
-        fetch("http://localhost:3000/albums")
-            .then(res => res.json())
-            .then(data => {
-                setAlbums(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Error loading albums:", err);
-                setLoading(false);
-            });
+        setAlbums(discography);
+        setLoading(false);
     }, []);
 
     const handleMouseMove = (e) => {

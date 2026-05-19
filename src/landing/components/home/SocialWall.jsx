@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, ArrowUpRight } from "lucide-react";
+import { CardSkeleton } from "./Skeleton";
+import { socialWall } from "../../../data/staticData";
 
 const SocialCard = ({ post, idx }) => {
     const [hovered, setHovered] = useState(false);
@@ -68,25 +70,14 @@ const SocialCard = ({ post, idx }) => {
     );
 };
 
-import { CardSkeleton } from "./Skeleton";
-
-// ... (SocialCard component remains same)
-
 export const SocialWall = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3000/social")
-            .then(res => res.json())
-            .then(data => {
-                setPosts(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error("Error loading social posts:", err);
-                setLoading(false);
-            });
+        // Use local staticData instead of fetch
+        setPosts(socialWall);
+        setLoading(false);
     }, []);
 
     return (

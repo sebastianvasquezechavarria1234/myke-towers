@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./Card";
 import { motion, AnimatePresence } from "framer-motion";
-
 import { CardSkeleton } from "./Skeleton";
+import { videos as staticVideos } from "../../../data/staticData";
 
 export const Musica = () => {
     const [videos, setVideos] = useState([]);
@@ -11,19 +11,8 @@ export const Musica = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchVideos = async () => {
-            try {
-                const res = await fetch("http://localhost:3000/videos");
-                if (!res.ok) throw new Error("Error al obtener los videos");
-                const data = await res.json();
-                setVideos(Array.isArray(data) ? data : []);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchVideos();
+        setVideos(staticVideos);
+        setLoading(false);
     }, []);
 
     const showMore = () => {

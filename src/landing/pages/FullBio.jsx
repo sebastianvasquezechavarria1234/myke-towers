@@ -3,6 +3,7 @@ import { Layout } from "../layout/Layout";
 import { motion } from "framer-motion";
 import { DiscographySection } from "../components/home/DiscographySection";
 import { Hero } from "../components/home/Hero";
+import { discography, socialWall } from "../../data/staticData";
 
 const ERAS = [
     {
@@ -54,22 +55,12 @@ export const FullBio = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        fetch("http://localhost:3000/albums")
-            .then(res => res.json())
-            .then(data => {
-                const sorted = data.sort((a, b) => parseInt(b.year) - parseInt(a.year));
-                setAlbums(sorted);
-            })
-            .catch(err => console.error("Error fetching albums:", err));
+        const sorted = [...discography].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+        setAlbums(sorted);
 
-        fetch("http://localhost:3000/social")
-            .then(res => res.json())
-            .then(data => {
-                // Seleccionamos específicamente los índices 3, 6 y 5 para Biografía
-                const selected = [data[3], data[6], data[5]].map(p => p?.url);
-                setSocialImages(selected);
-            })
-            .catch(err => console.error("Error fetching social:", err));
+        // Seleccionamos específicamente los índices 3, 6 y 5 para Biografía
+        const selected = [socialWall[3], socialWall[6], socialWall[5]].map(p => p?.url);
+        setSocialImages(selected);
     }, []);
 
     return (
