@@ -69,4 +69,4 @@ Designed not only as an immersive fan experience with editorial typography and a
 
 ---
 
-Developed with ❤️ by **Sebastian Vasquez** & **Antigravity** for the Young King.
+Developed with ❤️ by **Sebastian Vasquez** for the Young King.
