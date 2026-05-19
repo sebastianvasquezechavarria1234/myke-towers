@@ -261,7 +261,7 @@ export const ApiDocs = () => {
                             <div className="hidden lg:flex items-center px-4 mb-5">
                                 <span className="text-white/20 text-[9px] font-light">navegación</span>
                             </div>
-                            <div className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
+                            <div className="relative flex lg:flex-col gap-0 overflow-x-auto lg:overflow-visible px-1 lg:px-0">
                                 {ENDPOINTS_DATA.map((endpoint) => {
                                     const IconComp = endpoint.icon;
                                     const isSelected = selectedTab === endpoint.id;
@@ -269,10 +269,12 @@ export const ApiDocs = () => {
                                         <button
                                             key={endpoint.id}
                                             onClick={() => setSelectedTab(endpoint.id)}
-                                            className={`flex items-center gap-3 px-4 h-10 text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 border-b-2 pb-0 ${
+                                            onMouseEnter={() => setHoveredTab(endpoint.id)}
+                                            onMouseLeave={() => setHoveredTab(null)}
+                                            className={`flex items-center gap-3 pl-4 pr-3 h-10 text-left transition-all duration-300 whitespace-nowrap lg:whitespace-normal flex-shrink-0 ${
                                                 isSelected 
-                                                    ? "text-white font-medium border-white/80" 
-                                                    : "text-white/30 hover:text-white/60 border-transparent hover:border-white/30"
+                                                    ? "text-white font-medium" 
+                                                    : "text-white/30 hover:text-white/60"
                                             }`}
                                         >
                                             <IconComp size={14} className="text-white/60" />
@@ -280,6 +282,13 @@ export const ApiDocs = () => {
                                         </button>
                                     );
                                 })}
+                                <motion.div
+                                    className="hidden lg:block absolute left-0 w-0.5 bg-white/80"
+                                    initial={false}
+                                    style={{ height: 28, top: 6 }}
+                                    animate={{ y: ENDPOINTS_DATA.findIndex(d => d.id === (hoveredTab || selectedTab)) * 40 }}
+                                    transition={{ type: "spring", stiffness: 420, damping: 20 }}
+                                />
                             </div>
                         </div>
                         <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
