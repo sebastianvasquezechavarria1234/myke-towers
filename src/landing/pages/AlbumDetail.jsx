@@ -123,6 +123,7 @@ export const AlbumDetail = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: idx * 0.05 }}
                                 viewport={{ once: true }}
+                                onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(`Myke Towers ${data.album} ${song.name}`)}`, '_blank')}
                                 className="grid grid-cols-[24px_1fr_60px] sm:grid-cols-[24px_50px_1fr_80px] items-center px-3 sm:px-6 py-3 sm:py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-2 sm:gap-4"
                             >
                                 <span className="text-white/50 group-hover:text-white font-normal text-sm transition-colors">{song.track || idx + 1}</span>
