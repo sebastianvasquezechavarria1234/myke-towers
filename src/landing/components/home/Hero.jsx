@@ -78,32 +78,37 @@ export const Hero = ({
 
 
             {/* PICTURE CONTAINER */}
+            {(showVideo || images[0] || images[1] || images[2]) && (
             <div className="mt-[40px] md:mt-[60px] relative flex justify-center items-center h-[350px] md:h-[450px] overflow-x-hidden md:overflow-visible">
                 
                 {/* DECORATIVE IMAGES WITH PARALLAX */}
-                <motion.div 
-                    style={{ y: y1, rotate: rotate1 }}
-                    className="absolute top-[20px] md:top-[35px] left-[-10%] md:left-[0%] lg:left-[5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
-                >
-                    <img
-                        className="w-full h-full object-cover opacity-30 md:opacity-100"
-                        src={images[0]}
-                        alt="Myke Towers" 
-                        loading="lazy"
-                    />
-                </motion.div>
+                {images[0] && (
+                    <motion.div 
+                        style={{ y: y1, rotate: rotate1 }}
+                        className="absolute top-[20px] md:top-[35px] left-[-10%] md:left-[0%] lg:left-[5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
+                    >
+                        <img
+                            className="w-full h-full object-cover opacity-30 md:opacity-100"
+                            src={images[0]}
+                            alt="Myke Towers" 
+                            loading="lazy"
+                        />
+                    </motion.div>
+                )}
 
-                <motion.div 
-                    style={{ y: y2, rotate: rotate2 }}
-                    className="absolute top-[20px] md:top-[35px] right-[-10%] md:right-[0%] lg:right-[5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
-                >
-                    <img
-                        className="w-full h-full object-cover opacity-30 md:opacity-100"
-                        src={images[2]}
-                        alt="Myke Towers" 
-                        loading="lazy"
-                    />
-                </motion.div>
+                {images[2] && (
+                    <motion.div 
+                        style={{ y: y2, rotate: rotate2 }}
+                        className="absolute top-[20px] md:top-[35px] right-[-10%] md:right-[0%] lg:right-[5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
+                    >
+                        <img
+                            className="w-full h-full object-cover opacity-30 md:opacity-100"
+                            src={images[2]}
+                            alt="Myke Towers" 
+                            loading="lazy"
+                        />
+                    </motion.div>
+                )}
 
                 {/* MAIN PLAYER/IMAGE CONTAINER */}
                 <div className="relative z-30 group">
@@ -129,13 +134,13 @@ export const Hero = ({
                                 )}
                                 <div className="absolute inset-0 z-40 bg-transparent"></div>
                             </>
-                        ) : (
+                        ) : images[1] ? (
                             <img 
                                 src={images[1]} 
                                 className="w-full h-full object-cover" 
                                 alt="Myke Towers" 
                             />
-                        )}
+                        ) : null}
                     </div>
 
                     {/* TITULO FUERA DE LA CARD CON ANIMACIÓN (Solo para video) */}
@@ -157,6 +162,7 @@ export const Hero = ({
                     )}
                 </div>
             </div>
+            )}
         </section>
     )
 

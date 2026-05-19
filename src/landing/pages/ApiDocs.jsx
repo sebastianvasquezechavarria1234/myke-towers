@@ -211,7 +211,7 @@ export const ApiDocs = () => {
                         <span className="px-[10px] font-secundary text-[var(--blue)]">desarrolladores</span>.
                     </>
                 }
-                images={[socialWall[1]?.url, socialWall[2]?.url, socialWall[4]?.url].filter(Boolean)}
+                images={[]}
                 showVideo={false}
                 hasBorder={false}
             />
@@ -306,8 +306,7 @@ export const ApiDocs = () => {
                                 className="space-y-8"
                             >
                                 {/* Info Principal */}
-                                <div className="relative bg-zinc-900/30 border border-white/[0.06] p-6 md:p-10 space-y-6 group hover:border-white/[0.1] transition-colors duration-500">
-                                    <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--blue)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="space-y-6">
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center gap-3">
                                             {activeData.method && (
@@ -366,8 +365,7 @@ export const ApiDocs = () => {
                                 {/* Pestaña del Overview General */}
                                 {selectedTab === "overview" && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                        <div className="relative bg-zinc-900/20 border border-white/[0.06] p-7 space-y-4 hover:border-white/[0.1] transition-colors duration-500 group">
-                                            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                                        <div>
                                             <div className="flex items-center gap-3 mb-3">
                                                 <div className="w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
                                                     <Globe size={13} className="text-white/40" />
@@ -378,8 +376,7 @@ export const ApiDocs = () => {
                                                 La API no requiere tokens ni llaves de autenticación. CORS habilitado públicamente. Puedes realizar peticiones de forma ilimitada desde cualquier cliente REST o aplicación.
                                             </p>
                                         </div>
-                                        <div className="relative bg-zinc-900/20 border border-white/[0.06] p-7 space-y-4 hover:border-white/[0.1] transition-colors duration-500 group">
-                                            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                                        <div>
                                             <div className="flex items-center gap-3 mb-3">
                                                 <div className="w-7 h-7 rounded-md bg-white/5 border border-white/10 flex items-center justify-center">
                                                     <Code size={13} className="text-white/40" />
