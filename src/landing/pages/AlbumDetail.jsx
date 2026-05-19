@@ -107,10 +107,10 @@ export const AlbumDetail = () => {
                 </div>
 
                 {/* LISTA DE CANCIONES */}
-                <div className="max-w-[900px] mx-auto px-6">
-                    <div className="grid grid-cols-[24px_50px_1fr_80px] px-6 py-4 border-b border-white/10 text-white/20 text-[10px] font-bold uppercase tracking-widest gap-4">
+                <div className="max-w-[900px] mx-auto px-2 sm:px-6">
+                    <div className="grid grid-cols-[24px_1fr_60px] sm:grid-cols-[24px_50px_1fr_80px] px-3 sm:px-6 py-4 border-b border-white/10 text-white/20 text-[10px] font-bold uppercase tracking-widest gap-2 sm:gap-4">
                         <span>#</span>
-                        <span className="opacity-0">Cover</span>
+                        <span className="hidden sm:block opacity-0">Cover</span>
                         <span>Título</span>
                         <span className="text-right flex justify-end"><Clock size={14} /></span>
                     </div>
@@ -123,11 +123,11 @@ export const AlbumDetail = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 transition={{ delay: idx * 0.05 }}
                                 viewport={{ once: true }}
-                                className="grid grid-cols-[24px_50px_1fr_80px] items-center px-6 py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-4"
+                                className="grid grid-cols-[24px_1fr_60px] sm:grid-cols-[24px_50px_1fr_80px] items-center px-3 sm:px-6 py-3 sm:py-4 group hover:bg-white/[0.02] transition-colors cursor-pointer gap-2 sm:gap-4"
                             >
                                 <span className="text-white/50 group-hover:text-white font-normal text-sm transition-colors">{song.track || idx + 1}</span>
                                 
-                                <picture className="relative w-10 h-10 flex-shrink-0 overflow-hidden block">
+                                <picture className="hidden sm:block relative w-10 h-10 flex-shrink-0 overflow-hidden">
                                     <img 
                                         src={data.image} 
                                         alt={data.album} 
@@ -135,14 +135,14 @@ export const AlbumDetail = () => {
                                     />
                                 </picture>
 
-                                <div className="flex flex-col">
-                                    <span className="text-white/80 group-hover:text-white font-normal text-base transition-colors uppercase tracking-tight leading-tight">{song.name}</span>
+                                <div className="flex flex-col min-w-0">
+                                    <span className="text-white/80 group-hover:text-white font-normal text-sm sm:text-base transition-colors uppercase tracking-tight leading-tight truncate">{song.name}</span>
                                     <span className="text-white/20 text-[9px] font-medium group-hover:text-white/40 transition-colors">Myke Towers</span>
                                 </div>
 
-                                <div className="flex justify-end items-center gap-4">
-                                    <span className="text-white/30 text-sm font-light">{song.duration}</span>
-                                    <Play size={16} className="text-white opacity-0 group-hover:opacity-100 transition-opacity fill-white" />
+                                <div className="flex justify-end items-center gap-2 sm:gap-4">
+                                    <span className="text-white/30 text-xs sm:text-sm font-light">{song.duration}</span>
+                                    <Play size={14} className="text-white opacity-0 group-hover:opacity-100 transition-opacity fill-white shrink-0" />
                                 </div>
                             </motion.div>
                         ))}
