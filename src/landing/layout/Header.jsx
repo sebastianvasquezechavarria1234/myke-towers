@@ -276,9 +276,9 @@ export const Header = () => {
                 <div className="lg:hidden flex items-center pr-2">
                     <button 
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="p-2 text-white/60 hover:text-white transition-colors"
+                        className="p-3 text-white/60 hover:text-white transition-colors"
                     >
-                        {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
 
@@ -380,7 +380,7 @@ export const Header = () => {
                                             target="_blank" 
                                             rel="noopener noreferrer"
                                             onClick={() => setIsMenuOpen(false)}
-                                            className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
+                                            className="text-white/60 hover:text-white !text-4xl font-secundary transition-colors"
                                         >
                                             {item.label.toLowerCase()}
                                         </a>
@@ -388,7 +388,7 @@ export const Header = () => {
                                         <Link 
                                             to={item.to}
                                             onClick={() => setIsMenuOpen(false)}
-                                            className="text-white/60 hover:text-white !text-3xl font-secundary transition-colors"
+                                            className="text-white/60 hover:text-white !text-4xl font-secundary transition-colors"
                                         >
                                             {item.label.toLowerCase()}
                                         </Link>
