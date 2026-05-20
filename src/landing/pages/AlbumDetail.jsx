@@ -70,10 +70,7 @@ export const AlbumDetail = () => {
             <section className="min-h-screen pt-[120px] pb-[100px]">
                 {/* HERO DEL ÁLBUM */}
                 <div className="max-w-[900px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-10 lg:gap-12 items-end mb-20">
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
+                    <div 
                         className="relative group shadow-[0_50px_100px_rgba(0,0,0,0.5)]"
                     >
                         <img 
@@ -82,7 +79,7 @@ export const AlbumDetail = () => {
                             className="w-full aspect-square object-cover"
                         />
                         <div className="absolute inset-0 border border-white/10 group-hover:border-white/30 transition-colors pointer-events-none" />
-                    </motion.div>
+                    </div>
 
                     <div className="space-y-4">
                         <Link to="/albums" className="flex items-center gap-2 text-white hover:text-[var(--green)] transition-colors font-medium italic underline underline-offset-4 decoration-white/20" style={{ fontSize: '12px' }}>
@@ -103,8 +100,8 @@ export const AlbumDetail = () => {
                                 <Disc className="text-white/20" size={20} />
                                 <span className="text-white/40 text-xs font-light uppercase tracking-widest">{data.songs?.length || 0} Canciones</span>
                             </div>
-                            <button className="bg-white text-black px-8 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-[var(--green)] transition-all duration-300 transform hover:scale-105">
-                                Escuchar Ahora
+                            <button className="text-white/60 hover:text-white font-light text-[10px] tracking-widest underline italic transition-colors duration-300">
+                                Escuchar ahora
                             </button>
                         </div>
                     </div>
