@@ -96,9 +96,9 @@ export const AlbumDetail = () => {
                         </div>
 
                         <div className="flex flex-wrap gap-10 items-center">
-                            <div className="flex items-center gap-3">
-                                <Disc className="text-white/20" size={20} />
-                                <span className="text-white/40 text-xs font-light uppercase tracking-widest">{data.songs?.length || 0} Canciones</span>
+                            <div className="flex items-center gap-1.5">
+                                <Disc className="text-white/60" size={12} />
+                                <span className="text-white/60 hover:text-white font-thin text-xs underline italic transition-colors duration-300">{data.songs?.length || 0} canciones</span>
                             </div>
                             <button
                                 onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(`Myke Towers ${data.album} album completo`)}`, '_blank')}
