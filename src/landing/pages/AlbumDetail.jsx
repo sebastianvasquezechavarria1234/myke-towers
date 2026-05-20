@@ -11,6 +11,7 @@ export const AlbumDetail = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const album = discography.find(a => String(a.id) === id);
         if (album) {
             setData({
