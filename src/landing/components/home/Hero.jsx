@@ -88,7 +88,7 @@ export const Hero = ({
                         className="absolute top-[20px] md:top-[35px] left-[-10%] md:left-[0%] lg:left-[5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
                     >
                         <img
-                            className="w-full h-full object-cover opacity-30 md:opacity-100"
+                            className="w-full h-full object-cover opacity-100"
                             src={images[0]}
                             alt="Myke Towers" 
                             loading="lazy"
@@ -102,7 +102,7 @@ export const Hero = ({
                         className="absolute top-[20px] md:top-[35px] right-[-10%] md:right-[0%] lg:right-[5%] z-10 w-[180px] h-[180px] md:w-[400px] md:h-[400px] block"
                     >
                         <img
-                            className="w-full h-full object-cover opacity-30 md:opacity-100"
+                            className="w-full h-full object-cover opacity-100"
                             src={images[2]}
                             alt="Myke Towers" 
                             loading="lazy"
