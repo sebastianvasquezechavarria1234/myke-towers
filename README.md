@@ -428,14 +428,10 @@ Consulta el archivo [LICENSE](./LICENSE) para más detalles.
 
 <br/>
 
+
+
 <div align="center">
 
-### Desarrollado con dedicación
-
-*Un proyecto que busca reflejar la misma energía que Myke Towers pone en cada canción.*
-
-<br/>
-
-[![Vercel](https://img.shields.io/badge/Hecho_con-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com)
+Made with ❤️ by <a href="https://sebas-dev.vercel.app/" target="_blank" rel="noopener noreferrer">Sebastián V</a>
 
 </div>
