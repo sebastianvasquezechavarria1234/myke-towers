@@ -322,34 +322,34 @@ export const Header = () => {
                     <button onClick={prevVideo} className="hidden md:block text-white/60 hover:text-white transition-colors p-1">
                         <SkipBack size={14} fill="currentColor" />
                     </button>
-                    <div className="relative">
-                        {/* Anillo pulsante para llamar la atención cuando está muteado */}
-                        {(!isPlaying || isMuted) && (
-                            <>
-                                <motion.div
-                                    className="absolute inset-[-4px] rounded-full border-2 border-[#0fa]"
-                                    animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0, 0.8] }}
-                                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                                <motion.div
-                                    className="absolute inset-[-2px] rounded-full border border-[#0fa]/50"
-                                    animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
-                                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-                                />
-                            </>
-                        )}
-                        <motion.button 
+                    <div className="relative flex items-center gap-2">
+                        {/* Etiqueta sutil "Escuchar" cuando está muteado */}
+                        <AnimatePresence>
+                            {(!isPlaying || isMuted) && (
+                                <motion.span
+                                    initial={{ opacity: 0, x: 10 }}
+                                    animate={{ opacity: [0.4, 0.8, 0.4] }}
+                                    exit={{ opacity: 0, x: 10 }}
+                                    transition={{ 
+                                        opacity: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
+                                        x: { duration: 0.3 }
+                                    }}
+                                    className="hidden md:block text-white/60 text-[11px] tracking-widest uppercase font-medium select-none"
+                                >
+                                    Escuchar
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
+                        <button 
                             onClick={togglePlay} 
-                            className={`relative z-10 w-9 h-9 md:w-11 md:h-11 flex items-center justify-center rounded-full transition-colors ${
+                            className={`w-9 h-9 md:w-11 md:h-11 flex items-center justify-center rounded-full transition-all duration-300 ${
                                 (!isPlaying || isMuted)
-                                    ? 'bg-[#0fa] text-black hover:bg-[#0fa]/80 shadow-[0_0_20px_#0fa66]'
+                                    ? 'bg-white/20 hover:bg-white/30 shadow-[0_0_15px_rgba(255,255,255,0.15)]'
                                     : 'bg-white/10 hover:bg-white/20'
                             }`}
-                            animate={(!isPlaying || isMuted) ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-                            transition={{ duration: 1.5, repeat: (!isPlaying || isMuted) ? Infinity : 0, ease: "easeInOut" }}
                         >
                             {isPlaying && !isMuted ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="ml-0.5" />}
-                        </motion.button>
+                        </button>
                     </div>
                     <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors p-1">
                         <SkipForward size={14} fill="currentColor" />
