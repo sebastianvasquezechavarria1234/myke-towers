@@ -14,8 +14,9 @@ Discografía completa, biografía editorial, videos musicales y documentación d
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
 
-[Ver Demo en Vivo](https://myke-towers.vercel.app/)
 <img src="public/preview.jpg" alt="Myke Towers Preview" width="100%" />
+
+[Ver Demo en Vivo](https://myke-towers.vercel.app/)
 
 
 </div>
