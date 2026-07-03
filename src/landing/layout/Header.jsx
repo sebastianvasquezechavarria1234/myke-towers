@@ -322,35 +322,9 @@ export const Header = () => {
                     <button onClick={prevVideo} className="hidden md:block text-white/60 hover:text-white transition-colors p-1">
                         <SkipBack size={14} fill="currentColor" />
                     </button>
-                    <div className="relative flex items-center gap-2">
-                        {/* Etiqueta sutil "Escuchar" cuando está muteado */}
-                        <AnimatePresence>
-                            {(!isPlaying || isMuted) && (
-                                <motion.span
-                                    initial={{ opacity: 0, x: 10 }}
-                                    animate={{ opacity: [0.4, 0.8, 0.4] }}
-                                    exit={{ opacity: 0, x: 10 }}
-                                    transition={{ 
-                                        opacity: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
-                                        x: { duration: 0.3 }
-                                    }}
-                                    className="hidden md:block text-white/60 text-[11px] tracking-widest uppercase font-medium select-none"
-                                >
-                                    Escuchar
-                                </motion.span>
-                            )}
-                        </AnimatePresence>
-                        <button 
-                            onClick={togglePlay} 
-                            className={`w-9 h-9 md:w-11 md:h-11 flex items-center justify-center rounded-full transition-all duration-300 ${
-                                (!isPlaying || isMuted)
-                                    ? 'bg-white/20 hover:bg-white/30 shadow-[0_0_15px_rgba(255,255,255,0.15)]'
-                                    : 'bg-white/10 hover:bg-white/20'
-                            }`}
-                        >
-                            {isPlaying && !isMuted ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="ml-0.5" />}
-                        </button>
-                    </div>
+                    <button onClick={togglePlay} className="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                        {isPlaying && !isMuted ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="ml-0.5" />}
+                    </button>
                     <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors p-1">
                         <SkipForward size={14} fill="currentColor" />
                     </button>
