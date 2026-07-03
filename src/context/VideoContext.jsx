@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import ReactPlayer from 'react-player';
 import { videos as staticVideos } from '../data/staticData';
 
 const VideoContext = createContext();
@@ -41,6 +42,24 @@ export const VideoProvider = ({ children }) => {
             togglePlay 
         }}>
             {children}
+            {/* Reproductor global oculto para la música en toda la web */}
+            {currentVideo && (
+                <div style={{ display: 'none' }}>
+                    <ReactPlayer 
+                        url={currentVideo.url} 
+                        playing={isPlaying} 
+                        loop={true}
+                        volume={1}
+                        width="0"
+                        height="0"
+                        config={{
+                            youtube: {
+                                playerVars: { autoplay: 1, controls: 0 }
+                            }
+                        }}
+                    />
+                </div>
+            )}
         </VideoContext.Provider>
     );
 };
