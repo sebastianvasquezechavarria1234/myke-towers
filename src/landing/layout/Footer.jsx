@@ -147,7 +147,7 @@ export const Footer = () => {
                         {/* Copyright */}
                         <div>
                             <p className="font-thin tracking-[0.05em] opacity-80" style={{ fontSize: "10px" }}>
-                                © 2027 Young King Entertainment. Todos los derechos reservados.
+                                © 2026
                             </p>
                         </div>
                     </div>
