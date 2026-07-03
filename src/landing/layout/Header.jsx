@@ -13,7 +13,7 @@ const NAV_ITEMS = [
 ];
 
 export const Header = () => {
-    const { currentVideo, isPlaying, togglePlay, nextVideo, prevVideo } = useVideo();
+    const { currentVideo, isPlaying, togglePlay, nextVideo, prevVideo, isMuted } = useVideo();
     const [scrolled, setScrolled] = useState(false);
     const [scrollingUp, setScrollingUp] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -322,9 +322,35 @@ export const Header = () => {
                     <button onClick={prevVideo} className="hidden md:block text-white/60 hover:text-white transition-colors p-1">
                         <SkipBack size={14} fill="currentColor" />
                     </button>
-                    <button onClick={togglePlay} className="w-9 h-9 md:w-11 md:h-11 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-colors">
-                        {isPlaying ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="ml-0.5" />}
-                    </button>
+                    <div className="relative">
+                        {/* Anillo pulsante para llamar la atención cuando está muteado */}
+                        {(!isPlaying || isMuted) && (
+                            <>
+                                <motion.div
+                                    className="absolute inset-[-4px] rounded-full border-2 border-[#0fa]"
+                                    animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0, 0.8] }}
+                                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                                />
+                                <motion.div
+                                    className="absolute inset-[-2px] rounded-full border border-[#0fa]/50"
+                                    animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
+                                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                                />
+                            </>
+                        )}
+                        <motion.button 
+                            onClick={togglePlay} 
+                            className={`relative z-10 w-9 h-9 md:w-11 md:h-11 flex items-center justify-center rounded-full transition-colors ${
+                                (!isPlaying || isMuted)
+                                    ? 'bg-[#0fa] text-black hover:bg-[#0fa]/80 shadow-[0_0_20px_#0fa66]'
+                                    : 'bg-white/10 hover:bg-white/20'
+                            }`}
+                            animate={(!isPlaying || isMuted) ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+                            transition={{ duration: 1.5, repeat: (!isPlaying || isMuted) ? Infinity : 0, ease: "easeInOut" }}
+                        >
+                            {isPlaying && !isMuted ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="ml-0.5" />}
+                        </motion.button>
+                    </div>
                     <button onClick={nextVideo} className="text-white/60 hover:text-white transition-colors p-1">
                         <SkipForward size={14} fill="currentColor" />
                     </button>
