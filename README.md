@@ -1,6 +1,7 @@
-<div align="center">
+<img src="public/preview.jpg" alt="Myke Towers Preview" width="100%" />
+<div>
 
-# 👑🎶 Myke Towers
+#  Myke Towers
 
 ### *El Young King* — Experiencia Digital Interactiva
 
@@ -9,12 +10,6 @@ Discografía completa, biografía editorial, videos musicales y documentación d
 
 <br/>
 
-[![Vercel](https://img.shields.io/badge/Desplegado_en-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://myke-towers.vercel.app/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
-
-<img src="public/preview.jpg" alt="Myke Towers Preview" width="100%" />
 
 [Ver Demo en Vivo](https://myke-towers.vercel.app/)
 
